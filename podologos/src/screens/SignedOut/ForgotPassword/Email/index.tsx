@@ -5,10 +5,10 @@ import { Button } from "../../../../components/Button";
 
 function Email() {
   return (
-    <View className="flex-col items-center justify-between ">
+    <View className="h-screen w-screen flex flex-col items-center justify-between">
       <View></View>
 
-      <View className="flex h-screen w-screen justify-center items-center ">
+      <View className="flex w-full justify-center items-center ">
         <Text className="text-[#4F5450] font-bold text-[24px] mb-4">
           Insira seu e-mail
         </Text>
@@ -19,9 +19,7 @@ function Email() {
         <Input placeholder="Email"></Input>
       </View>
 
-      <View className="flex">
-        <Button></Button>
-      </View>
+      <Button  placeholder="Enviar"></Button>
     </View>
   );
 }
