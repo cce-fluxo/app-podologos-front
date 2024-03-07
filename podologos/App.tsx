@@ -9,7 +9,7 @@ import PageTitle from "./src/components/PageTitle";
 export default function App() {
   return (
     <SafeAreaView className="flex-1">
-      <PageTitle text="Esqueci minha senha"></PageTitle>
+     <Email></Email>
     </SafeAreaView>
   );
 }
