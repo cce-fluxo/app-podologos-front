@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       colors: {
         azul: "#2087ED",
+        azul_escuro: "#0A284D",
         branco: "#FBFBFB",
         cinza: "#C3C5C7",
         botao_desabilitado: "#BBBBBB",
