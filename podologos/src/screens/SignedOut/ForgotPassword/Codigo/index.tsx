@@ -4,20 +4,19 @@ import Input from "../../../../components/Inputs";
 import { Button } from "../../../../components/Button";
 import PageTitle from "../../../../components/PageTitle";
 
-function Email() {
+function Codigo() {
   return (
     <View className="h-full w-full flex flex-col items-center justify-between">
-      <PageTitle text="Esqueci minha senha"></PageTitle>
+      <PageTitle text="Recuperar senha"></PageTitle>
 
       <View className="flex w-full justify-center items-center ">
         <Text className="text-[#4F5450] font-bold text-[24px] mb-4">
-          Insira seu e-mail
+          Verifique seu e-mail
         </Text>
         <Text className="text-[14px] m-4">
-          Informe o email cadastrado e um email com as instruções de recuperação
-          será enviado.{" "}
+          Digite o código enviado para o e-mail loremipsum@gmail.com
         </Text>
-        <Input placeholder="Email"></Input>
+        <Input placeholder="Código"></Input>
       </View>
 
       <Button placeholder="Enviar"></Button>
@@ -25,4 +24,4 @@ function Email() {
   );
 }
 
-export default Email;
+export default Codigo;
