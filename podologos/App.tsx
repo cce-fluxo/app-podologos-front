@@ -5,11 +5,12 @@ import { Button } from "./src/components/Button";
 import Login from "./src/screens/SignedOut/Login";
 import Email from "./src/screens/SignedOut/ForgotPassword/Email";
 import PageTitle from "./src/components/PageTitle";
+import CadastroPaciente from "./src/screens/SignedOut/CadastroPaciente";
 
 export default function App() {
   return (
     <SafeAreaView className="flex-1">
-      <Login></Login>
+      <CadastroPaciente></CadastroPaciente>
     </SafeAreaView>
   );
 }

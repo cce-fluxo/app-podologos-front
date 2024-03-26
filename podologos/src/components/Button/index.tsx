@@ -6,11 +6,11 @@ function ButtonStyled({ disabled, onClick, placeholder, text, ...rest }) {
     <TouchableOpacity
       disabled={disabled}
       onPress={onClick}
-      className={`flex items-center justify-center w-[87%] h-14 ${disabled ? "bg-botao_desabilitado" : "bg-azul"} rounded-[12px]`}
+      className={`flex items-center justify-center w-[87%] h-[10%] ${disabled ? "bg-botao_desabilitado" : "bg-azul"} rounded-[12px]`}
       {...rest}
     >
       <Text
-        className={`${text === undefined ? "text-branco text-[16px]" : text}`}
+        className={`${text === undefined ? "text-branco" : text} text-[16px]`}
       >
         {placeholder}
       </Text>
