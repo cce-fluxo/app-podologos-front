@@ -3,12 +3,14 @@ import React, { SafeAreaView, Text, View } from "react-native";
 import Login from "./src/screens/SignedOut/Login";
 import PreLogin from "./src/screens/SignedOut/PreLogin";
 import Home from "./src/screens/Home";
+import Email from "./src/screens/SignedOut/ForgotPassword/Email";
+import Routes from "./src/routes/main.routes"
 
 export default function App() {
   return (
     <>
       <StatusBar backgroundColor=''></StatusBar>
-      <Home/>
+      <Routes/>
     </>
   );
 }

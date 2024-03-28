@@ -12,7 +12,7 @@ import { Button } from "../../../components/Button";
 import { Link, useNavigation } from "@react-navigation/native";
 import Login from "../Login";
 
-function PreLogin() {
+function PreLogin({navigation}) {
   return (
     <SafeAreaView className="flex  w-screen h-screen mt-14 ">
       <ImageBackground
@@ -36,6 +36,8 @@ function PreLogin() {
               className=" "
               text="text-branco text-[16px]"
               placeholder="Paciente"
+              onPress={() => {
+                navigation.navigate("Login");}}
             ></Button>
             <TouchableOpacity>
               <Text className="text-branco text-[15px]">
