@@ -11,12 +11,12 @@
   "dependencies": {
     "@react-navigation/native": "^6.1.17",
     "@types/react": "~18.2.45",
-    "expo": "^50.0.11",
+    "expo": "^50.0.14",
     "expo-status-bar": "~1.11.1",
     "lucide-react-native": "^0.350.0",
     "nativewind": "^2.0.11",
     "react": "18.2.0",
-    "react-native": "0.73.4",
+    "react-native": "^0.73.6",
     "typescript": "^5.3.0"
   },
   "devDependencies": {

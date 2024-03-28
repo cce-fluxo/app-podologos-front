@@ -14,7 +14,7 @@ import Login from "../Login";
 
 function PreLogin() {
   return (
-    <SafeAreaView className="flex  w-screen h-screen  ">
+    <SafeAreaView className="flex  w-screen h-screen mt-14 ">
       <ImageBackground
         className="flex  h-screen w-screen"
         source={PreLoginImage}

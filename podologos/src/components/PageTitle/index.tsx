@@ -1,18 +1,23 @@
 import React, { View, TouchableOpacity, Text, Image } from "react-native";
-import Seta from "../../assets/Seta.png";
+import { Feather } from "@expo/vector-icons";
 
 interface Props {
   text?: string;
 }
 
-export default function PageTitle({ text }: Props) {
+export default function PageTitle({ text }: Props, { navigation }) {
   return (
     <View className="flex flex-row items-center justify-between w-full px-4">
-      <TouchableOpacity className="w-[10px]">
-        <Image source={Seta}></Image>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.goBack();
+        }}
+        className="w-[20px]"
+      >
+        <Feather name="arrow-left" color={"#0A284D"} size={25} />
       </TouchableOpacity>
       <Text className="text-azul_escuro text-[24px]">{text}</Text>
-      <View className="w-[10px]"></View>
+      <View className="w-[20px]"></View>
     </View>
   );
 }
