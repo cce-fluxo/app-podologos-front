@@ -3,6 +3,10 @@ module.exports = {
   content: ["./App.{js,jsx,ts,tsx}", "./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      backgroundColor: {
+        "black-transparent": "rgba(0, 0, 0, 0.4)",
+      },
+
       colors: {
         azul: "#2087ED",
         azul_escuro: "#0A284D",

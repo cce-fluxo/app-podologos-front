@@ -2,7 +2,7 @@ import { ArrowLeft } from "lucide-react-native";
 import { SafeAreaView, Text, View } from "react-native";
 import Input from "../../../../components/Inputs";
 import { Button } from "../../../../components/Button";
-import PageTitle from "../../../../components/PageTitle";
+import PageTitle from "../../../../components/Header";
 
 function Codigo() {
   return (

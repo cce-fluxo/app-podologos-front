@@ -1,8 +1,8 @@
 import React from "react";
 import { SafeAreaView, ScrollView, Text, View } from "react-native";
-import Navbar from "../../components/Navbar";
-import Solicitacoes from "../../components/Solicitacoes";
-import PageTitle from "../../components/PageTitle";
+import Navbar from "../../../../components/Navbar";
+import Solicitacoes from "../../../../components/Solicitacoes";
+import PageTitle from "../../../../components/Header";
 
 function Home() {
   return (

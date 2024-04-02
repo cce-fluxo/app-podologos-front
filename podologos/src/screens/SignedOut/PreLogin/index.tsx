@@ -1,7 +1,6 @@
 import React from "react";
 import {
   ImageBackground,
-  Linking,
   SafeAreaView,
   Text,
   TouchableOpacity,
@@ -9,10 +8,21 @@ import {
 } from "react-native";
 import PreLoginImage from "../../../assets/PreLoginImage.png";
 import { Button } from "../../../components/Button";
-import { Link, useNavigation } from "@react-navigation/native";
-import Login from "../Login";
+import ModalSimNao from "../../../components/ModalSimNao";
+import ModalOk from "../../../components/ModalOk";
+import ModalDenuncia from "../../../components/ModalDenuncia";
+import ModalAdicionarFoto from "../../../components/ModalAdicionarFoto";
 
-function PreLogin({navigation}) {
+function PreLogin({ navigation }: any) {
+  const [modalVisible, setModalVisible] = React.useState(false);
+
+  function closeModal() {
+    setModalVisible(false);
+  }
+  function openModal() {
+    setModalVisible(true);
+  }
+
   return (
     <SafeAreaView className="flex  w-screen h-screen mt-14 ">
       <ImageBackground
@@ -28,6 +38,7 @@ function PreLogin({navigation}) {
 
           <View className="mb-10 flex w-full max-w-[87%] items-center space-y-2">
             <Button
+              onClick={openModal}
               className="flex mt-10"
               text="text-branco text-[16px]"
               placeholder="Podólogo"
@@ -37,7 +48,8 @@ function PreLogin({navigation}) {
               text="text-branco text-[16px]"
               placeholder="Paciente"
               onPress={() => {
-                navigation.navigate("Login");}}
+                navigation.navigate("Login");
+              }}
             ></Button>
             <TouchableOpacity>
               <Text className="text-branco text-[15px]">
@@ -47,6 +59,12 @@ function PreLogin({navigation}) {
           </View>
         </View>
       </ImageBackground>
+      <ModalAdicionarFoto
+        retornavel={true}
+        modalVisible={modalVisible}
+        mensagem="Adicionar foto de perfil"
+        onNoClick={closeModal}
+      ></ModalAdicionarFoto>
     </SafeAreaView>
   );
 }
