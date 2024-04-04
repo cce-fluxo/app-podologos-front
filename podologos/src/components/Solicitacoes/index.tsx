@@ -1,14 +1,20 @@
-import { View } from "lucide-react-native";
 import React from "react";
-import { Image, Text } from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
+import { EvilIcons } from "@expo/vector-icons";
 
 function Solicitacoes() {
   return (
-    <View className="flex w-full items-center bg-zinc-300">
-      <Text className=" w-screen flex">
-        João da Silva fez uma solicitação perto de você
-      </Text>
-    </View>
+    <TouchableOpacity className="flex justify-center bg-white rounded-2xl h-24 space-y-4 p-4 shadow-md mt-6">
+      <Text>João da Silva fez uma solicitação perto de você</Text>
+
+      <View className="flex flex-row justify-between">
+        <View className="flex flex-row">
+          <EvilIcons name="location" size={24} color="black" />
+          <Text>Tijuca</Text>
+        </View>
+        <Text>01/01/2024</Text>
+      </View>
+    </TouchableOpacity>
   );
 }
 

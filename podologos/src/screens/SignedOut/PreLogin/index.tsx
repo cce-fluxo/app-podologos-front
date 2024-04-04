@@ -12,8 +12,14 @@ import ModalSimNao from "../../../components/ModalSimNao";
 import ModalOk from "../../../components/ModalOk";
 import ModalDenuncia from "../../../components/ModalDenuncia";
 import ModalAdicionarFoto from "../../../components/ModalAdicionarFoto";
+import { useNavigation } from "@react-navigation/native";
 
-function PreLogin({ navigation }: any) {
+function PreLogin({ navigation }) {
+  // const navigation = useNavigation();
+  // function openScreen() {
+  //   navigation.navigate("Login");
+  // }
+
   const [modalVisible, setModalVisible] = React.useState(false);
 
   function closeModal() {
@@ -59,12 +65,11 @@ function PreLogin({ navigation }: any) {
           </View>
         </View>
       </ImageBackground>
-      <ModalAdicionarFoto
-        retornavel={true}
+      <ModalSimNao
         modalVisible={modalVisible}
         mensagem="Adicionar foto de perfil"
         onNoClick={closeModal}
-      ></ModalAdicionarFoto>
+      ></ModalSimNao>
     </SafeAreaView>
   );
 }

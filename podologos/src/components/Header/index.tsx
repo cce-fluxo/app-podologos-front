@@ -7,7 +7,7 @@ interface Props {
 
 export default function PageTitle({ text }: Props, { navigation }) {
   return (
-    <View className="flex flex-row items-center justify-between w-full px-4">
+    <View className="flex flex-row items-center justify-between w-full px-4 mt-2 mb-4">
       <TouchableOpacity
         onPress={() => {
           navigation.goBack();
