@@ -4,7 +4,7 @@ import { EvilIcons } from "@expo/vector-icons";
 
 function Solicitacoes() {
   return (
-    <TouchableOpacity className="flex justify-center bg-white rounded-2xl h-24 space-y-4 p-4 shadow-md mt-6">
+    <TouchableOpacity className="flex justify-center bg-white rounded-2xl h-24 space-y-4 p-4 shadow-md mt-4">
       <Text>João da Silva fez uma solicitação perto de você</Text>
 
       <View className="flex flex-row justify-between">
