@@ -6,7 +6,7 @@ import { StatusBar } from "expo-status-bar";
 
 function Login() {
   return (
-    <View className="flex-1 justify-center items-center gap-4 bg-branco">
+    <View className="flex-1 justify-center items-center gap-4 bg-white">
       <Input placeholder="Entrar"></Input>
       <Input placeholder="Senha"></Input>
 
