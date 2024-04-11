@@ -1,6 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import Login from "../screens/SignedOut/Login";
-import PreLogin from "../screens/SignedOut/PreLogin";
+import Login from "../../screens/SignedOut/Login";
+import PreLogin from "../../screens/SignedOut/PreLogin";
 
 const Stack = createStackNavigator();
 // onPress={() => {

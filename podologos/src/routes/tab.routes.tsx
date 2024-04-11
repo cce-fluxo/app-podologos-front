@@ -5,6 +5,7 @@ import PreLogin from "../screens/SignedOut/PreLogin";
 import HomePodologo from "../screens/Private/Podologo/HomePodologo";
 import ConsultasAceitas from "../screens/Private/Podologo/ConsultasAceitas";
 import PerfilPodologo from "../screens/Private/Podologo/PerfilPodologo";
+import Home from "../routes/stack.routes";
 
 const Tab = createBottomTabNavigator();
 
@@ -26,7 +27,6 @@ export default function TabRoutes() {
         },
         tabBarLabelStyle: {
           fontSize: 16,
-          
         },
         tabBarStyle: {
           height: 80,

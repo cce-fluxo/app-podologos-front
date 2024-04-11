@@ -3,6 +3,9 @@ export declare global {
     interface RootParamList {
       Login: undefined;
       PreLogin: undefined;
+      HomePodologo: undefined;
+      ConsultasAceitas: undefined;
+      PerfilPodologo: undefined;
     }
   }
 }
