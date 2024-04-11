@@ -1,6 +1,5 @@
 import { Formik } from "formik";
 import React from "react";
-import { twMerge } from "tailwind-merge";
 import { View } from "react-native";
 
 interface FormDataProps {
@@ -20,11 +19,11 @@ function FormDataRoot({
 }: FormDataProps) {
   const childrenArray = Array.isArray(children) ? children : [children];
   return (
-    <div id="select" className={twMerge("w-full h-full", className)}>
+    <View id="select" className="flex gap-8 h-auto w-[84%]">
       <Formik
         enableReinitialize
         initialValues={initialValues}
-        onSubmit={(data) => {
+        onSubmit={(data: any) => {
           console.log(data);
           onSubmit(data);
         }}
@@ -43,7 +42,7 @@ function FormDataRoot({
           </React.Fragment>
         )}
       </Formik>
-    </div>
+    </View>
   );
 }
 

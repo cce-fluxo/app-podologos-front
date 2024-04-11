@@ -5,22 +5,21 @@ import PageTitle from "../../../../components/Header";
 
 function Email() {
   return (
-    <View className="h-full w-full flex flex-col items-center justify-between">
+    <SafeAreaView className="flex-1 flex items-center justify-between">
       <PageTitle text="Esqueci minha senha"></PageTitle>
-
       <View className="flex w-full justify-center items-center ">
         <Text className="text-[#4F5450] font-bold text-[24px] mb-4">
           Insira seu e-mail
         </Text>
         <Text className="text-[14px] m-4">
           Informe o email cadastrado e um email com as instruções de recuperação
-          será enviado.{" "}
+          será enviado. +
         </Text>
         <Input placeholder="Email"></Input>
       </View>
 
       <Button placeholder="Enviar"></Button>
-    </View>
+    </SafeAreaView>
   );
 }
 

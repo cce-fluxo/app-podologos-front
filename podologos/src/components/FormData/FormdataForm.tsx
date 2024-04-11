@@ -1,7 +1,6 @@
 import React from "react";
 import { Form, Field } from "formik";
-import { twMerge } from "tailwind-merge";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 
 interface FromDataProps {
   columns: Col[];
@@ -28,8 +27,8 @@ function FormdataForm({
   touched,
 }: FromDataProps) {
   return (
-    <Form className="w-full" id={id}>
-      <View className={twMerge("flex flex-col", className)}>
+    <form className="w-full" id={id}>
+      <View className="flex gap-4 w-full flex-1 ">
         {columns.map((col: Col, index) => (
           <View key={index} className="mt-2 mb-2">
             <View>
@@ -40,14 +39,14 @@ function FormdataForm({
                 {...col}
               />
               {touched[col.name] && errors[col.name] && (
-                <p className="text-red-600">{errors[col.name]}</p>
+                <Text className="text-red-600">{errors[col.name]}</Text>
               )}
             </View>
           </View>
         ))}
         {children}
       </View>
-    </Form>
+    </form>
   );
 }
 
