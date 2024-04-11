@@ -7,7 +7,7 @@ import { Button } from "../../../../components/Button";
 import FotoPe from "../../../../assets/FotoPe.png";
 import UserIcon from "../../../../assets/UserIcon.png";
 
-function SolicitacaoAceita() {
+function ConsultaRealizada() {
   return (
     <SafeAreaView className="flex w-full h-full bg-branco">
       <Header text="Consultas"></Header>
@@ -44,7 +44,7 @@ function SolicitacaoAceita() {
         <Text className="text-texto_cinza text-[18px] font-semibold">
           Observações
         </Text>
-        <Text className="text-texto_cinza_claro">
+        <Text className="text-texto_cinza_claro mb-8">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis
           officia expedita quisquam unde nihil placeat repellendus. Recusandae
           fuga inventore blanditiis maxime explicabo excepturi corporis, natus
@@ -55,4 +55,4 @@ function SolicitacaoAceita() {
   );
 }
 
-export default SolicitacaoAceita;
+export default ConsultaRealizada;
