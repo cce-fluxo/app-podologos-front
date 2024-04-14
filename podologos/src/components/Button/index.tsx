@@ -1,9 +1,6 @@
 import React, { Text, TouchableOpacity } from "react-native";
 import { styled } from "nativewind";
 
-
-
-
 function ButtonStyled({ disabled, onClick, placeholder, text, ...rest }) {
   return (
     <TouchableOpacity

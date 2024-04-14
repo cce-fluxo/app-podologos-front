@@ -31,7 +31,10 @@ function PerfilPodologo() {
           <ProfileInfo label="Formação" text="Podologia - UFRJ"></ProfileInfo>
         </View>
         <View className="w-full flex items-center space-y-4 mt-10">
-          <Button text="text-branco text-[16px]" placeholder="Editar perfil"></Button>
+          <Button
+            text="text-branco text-[16px]"
+            placeholder="Editar perfil"
+          ></Button>
           <Button
             className=" bg-white border-2 border-azul"
             text="text-azul text-[16px]"

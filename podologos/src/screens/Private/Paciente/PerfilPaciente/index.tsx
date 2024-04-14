@@ -13,12 +13,14 @@ function PerfilPaciente() {
       <ScrollView className="flex">
         <View className="flex items-center justify-center">
           <Image className="" source={PerfilImage}></Image>
-          <View className="flex flex-row items-center justify-center bg-zinc-200 mt-3 rounded-md p-1">
+          <View className="flex flex-row items-center justify-center bg-cinza mt-3 rounded-md p-1 space-x-2">
             <Entypo name="star" size={20} color="black" />
             <Text className="font-semibold">4.75</Text>
           </View>
         </View>
-
+        <Text className="self-center text-azul underline mt-8 text-[14px] font-semibold">
+          Ver anamnese
+        </Text>
         <View className="ml-6 mt-10">
           <ProfileInfo label="Nome" text="Giovanni"></ProfileInfo>
           <ProfileInfo label="Sobrenome" text="Souza"></ProfileInfo>
