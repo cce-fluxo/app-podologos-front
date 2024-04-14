@@ -1,14 +1,41 @@
-import React from "react";
-import { Image, SafeAreaView, ScrollView, Text, View } from "react-native";
-import { Entypo, Feather } from "@expo/vector-icons";
+import React, { useState } from "react";
+import {
+  Image,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { Entypo } from "@expo/vector-icons";
 import PerfilImage from "../../../../assets/PerfilImage.png";
 import Header from "../../../../components/Header";
 import ProfileInfo from "../../../../components/ProfileInfo";
 import { Button } from "../../../../components/Button";
 import Avaliacao from "../../../../components/Avaliacao";
-import { Input } from "../../../../components/Inputs";
+import Input from "../../../../components/Inputs";
 
 function PerfilDoPaciente() {
+  const [notas, setNotas] = useState([
+    "star-outlined",
+    "star-outlined",
+    "star-outlined",
+    "star-outlined",
+    "star-outlined",
+  ]);
+
+  function novaNota(valor: number) {
+    const novasNotas = notas.map((nota, index) => {
+      if (index < valor) {
+        return "star";
+      } else {
+        return "star-outlined";
+      }
+    });
+
+    setNotas(novasNotas);
+  }
+
   return (
     <SafeAreaView className="flex w-full bg-branco">
       <Header text="Perfil do paciente"></Header>
@@ -32,11 +59,21 @@ function PerfilDoPaciente() {
         </View>
         <View className="self-center w-[80%] border-b-[1px] opacity-10"></View>
         <View className="flex flex-row justify-between w-[75%] self-center">
-          <Feather name="star" size={24} color="black" />
-          <Feather name="star" size={24} color="black" />
-          <Feather name="star" size={24} color="black" />
-          <Feather name="star" size={24} color="black" />
-          <Feather name="star" size={24} color="black" />
+          <TouchableOpacity onPress={() => novaNota(1)}>
+            <Entypo name={notas[0]} size={30} color="black" />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => novaNota(2)}>
+            <Entypo name={notas[1]} size={30} color="black" />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => novaNota(3)}>
+            <Entypo name={notas[2]} size={30} color="black" />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => novaNota(4)}>
+            <Entypo name={notas[3]} size={30} color="black" />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => novaNota(5)}>
+            <Entypo name={notas[4]} size={30} color="black" />
+          </TouchableOpacity>
         </View>
         <Input className="w-[100%]" placeholder="Avaliação"></Input>
         <View className="w-full flex items-center space-y-4">

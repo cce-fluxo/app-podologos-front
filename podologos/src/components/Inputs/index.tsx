@@ -12,4 +12,4 @@ function InputStyled({ placeholder, ...rest }) {
 }
 
 const Input = styled(InputStyled);
-export { Input };
+export default Input;
