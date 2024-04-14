@@ -7,6 +7,7 @@ import ConsultasAceitas from "../screens/Private/Podologo/ConsultasAceitas";
 import PerfilPodologo from "../screens/Private/Podologo/PerfilPodologo";
 import PerfilPaciente from "../screens/Private/Paciente/PerfilPaciente";
 import PerfilDoPaciente from "../screens/Private/Podologo/PerfilDoPaciente";
+import InfoConsultaSolicitada from "../screens/Private/Paciente/InfoConsultaSolicitada";
 
 const Tab = createBottomTabNavigator();
 
@@ -44,7 +45,7 @@ export default function TabRoutes() {
     >
       <Tab.Screen
         name="HomePodologo"
-        component={HomePodologo}
+        component={InfoConsultaSolicitada}
         options={{
           tabBarLabel: "Home",
           tabBarIcon: ({ color, size }) => (
