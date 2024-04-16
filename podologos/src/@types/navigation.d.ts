@@ -4,7 +4,9 @@ export declare global {
       Login: undefined;
       PreLogin: undefined;
       HomePodologo: undefined;
+      InfoSolicitacaoConsulta: undefined;
       ConsultasAceitas: undefined;
+      ConsultasRealizadas: undefined;
       PerfilPodologo: undefined;
     }
   }

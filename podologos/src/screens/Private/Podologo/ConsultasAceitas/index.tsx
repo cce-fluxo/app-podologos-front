@@ -8,8 +8,11 @@ import {
 } from "react-native";
 import Solicitacoes from "../../../../components/Solicitacoes";
 import Header from "../../../../components/Header";
+import { useNavigation } from "@react-navigation/native";
 
-function ConsultasAceitas() {
+function ConsultasAceitas({}) {
+  const navigation = useNavigation();
+
   return (
     <SafeAreaView className="flex items-center w-screen flex-1 space-y-6 bg-white">
       <Header text="Consultas"></Header>
@@ -18,8 +21,12 @@ function ConsultasAceitas() {
         <TouchableOpacity className="border-b-4 border-azul">
           <Text className="text-[22px] text-azul vont-semibold">Aceitas</Text>
         </TouchableOpacity>
-        <TouchableOpacity>
-          <Text className="text-[22px] text-azul/40 vont-semibold">
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("ConsultasRealizadas");
+          }}
+        >
+          <Text className="text-[22px] text-azul/40 ">
             Realizadas
           </Text>
         </TouchableOpacity>

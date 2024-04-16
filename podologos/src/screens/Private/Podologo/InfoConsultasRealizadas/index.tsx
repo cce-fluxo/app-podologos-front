@@ -7,7 +7,7 @@ import { Button } from "../../../../components/Button";
 import FotoPe from "../../../../assets/FotoPe.png";
 import UserIcon from "../../../../assets/UserIcon.png";
 
-function SolicitacaoAceita() {
+function InfoConsultasRealizadas() {
   return (
     <SafeAreaView className="flex w-full h-full bg-branco">
       <Header text="Consultas"></Header>
@@ -30,7 +30,7 @@ function SolicitacaoAceita() {
           </View>
         </View>
         <View className="self-center w-[80%] border-b-[1px] opacity-10"></View>
-        <Text className="self-center text-azul">Aceita em 01/02/2024</Text>
+        <Text className="self-center text-azul">Realizada em 01/02/2024</Text>
         <View className="self-center w-[80%] border-b-[1px] opacity-10"></View>
         <Text className="text-texto_cinza text-[18px] font-semibold">
           Informações médicas
@@ -64,4 +64,4 @@ function SolicitacaoAceita() {
   );
 }
 
-export default SolicitacaoAceita;
+export default InfoConsultasRealizadas;

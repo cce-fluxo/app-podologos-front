@@ -7,7 +7,7 @@ import { Button } from "../../../../components/Button";
 import FotoPe from "../../../../assets/FotoPe.png";
 import UserIcon from "../../../../assets/UserIcon.png";
 
-function ConsultaRealizada() {
+function InfoConsultasAceitas() {
   return (
     <SafeAreaView className="flex w-full h-full bg-branco">
       <Header text="Consultas"></Header>
@@ -55,4 +55,4 @@ function ConsultaRealizada() {
   );
 }
 
-export default ConsultaRealizada;
+export default InfoConsultasAceitas;

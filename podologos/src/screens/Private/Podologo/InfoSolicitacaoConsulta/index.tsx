@@ -7,7 +7,7 @@ import { Button } from "../../../../components/Button";
 import FotoPe from "../../../../assets/FotoPe.png";
 import UserIcon from "../../../../assets/UserIcon.png";
 
-function Solicitacao() {
+function InfoSolicitacaoConsulta() {
   return (
     <SafeAreaView className="flex w-full h-full bg-branco">
       <Header text="Soliciatação"></Header>
@@ -62,4 +62,4 @@ function Solicitacao() {
   );
 }
 
-export default Solicitacao;
+export default InfoSolicitacaoConsulta;

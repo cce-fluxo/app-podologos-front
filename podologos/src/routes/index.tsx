@@ -1,12 +1,12 @@
 import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
+import PodologosRoutes from "./podologo.routes/index";
 import StackRoutes from "./stack.routes";
-import TabRoutes from "./tab.routes";
 
 export default function Routes() {
   return (
     <NavigationContainer>
-      <TabRoutes />
+      <PodologosRoutes />
     </NavigationContainer>
   );
 }
