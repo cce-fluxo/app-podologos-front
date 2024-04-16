@@ -7,8 +7,21 @@ import { Button } from "../../../../components/Button";
 import FotoPe from "../../../../assets/FotoPe.png";
 import UserIcon from "../../../../assets/UserIcon.png";
 import InformacaoUsuario from "../../../../components/InformacaoUsuario";
+import { useNavigation } from "@react-navigation/native";
+import ModalOk from "../../../../components/ModalOk";
 
-function InfoSolicitacaoConsulta() {
+function InfoSolicitacaoConsulta({}) {
+  const navigation = useNavigation();
+
+  const [modalVisible, setModalVisible] = React.useState(false);
+
+  function closeModal() {
+    setModalVisible(false);
+  }
+  function openModal() {
+    setModalVisible(true);
+  }
+
   return (
     <SafeAreaView className="flex w-full h-full bg-branco">
       <Header text="Soliciatação"></Header>
@@ -42,15 +55,22 @@ function InfoSolicitacaoConsulta() {
           repellat, eveniet perspiciatis dicta similique?
         </Text>
         <Button
+        onPress ={openModal}
           placeholder="Aceitar e enviar contato"
           className="self-center w-full"
         ></Button>
         <Button
+          onPress={() => navigation.navigate("HomePodologo")}
           placeholder="Voltar"
           className="self-center w-full bg-branco border-azul border-[1px] mb-8"
           text="text-azul"
         ></Button>
       </ScrollView>
+      <ModalOk
+        modalVisible={modalVisible}
+        mensagem="Você aceitou essa consulta!"
+        onNoClick={closeModal}
+      ></ModalOk>
     </SafeAreaView>
   );
 }

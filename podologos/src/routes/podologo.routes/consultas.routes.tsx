@@ -16,6 +16,7 @@ function ConsultasStack() {
       <Stack.Screen
         name="ConsultasAceitas"
         component={ConsultasAceitas}
+      
       ></Stack.Screen>
       <Stack.Screen
         name="ConsultasRealizadas"

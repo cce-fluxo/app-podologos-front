@@ -44,7 +44,7 @@ function PreLogin({ navigation }) {
 
           <View className="mb-10 flex w-full max-w-[87%] items-center space-y-2">
             <Button
-              onClick={openModal}
+              onPress={openModal}
               className="flex mt-10"
               text="text-branco text-[16px]"
               placeholder="Podólogo"

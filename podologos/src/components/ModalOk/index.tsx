@@ -12,7 +12,7 @@ function ModalOk({ modalVisible, mensagem, onNoClick }: PopupProps) {
   return (
     <Modal transparent={true} visible={modalVisible}>
       <View className="w-screen h-screen z-50 flex items-center justify-center fixed inset-0  bg-black-transparent">
-        <View className="bg-white w-[80vw] rounded-2xl shadow-md shadow-black ">
+        <View className="bg-white w-[80vw] rounded-2xl shadow-sm shadow-black ">
           <Text className="text-base text-center p-6 font-semibold">
             {mensagem}
           </Text>
