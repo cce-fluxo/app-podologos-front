@@ -35,7 +35,9 @@ function ConsultasRealizadas() {
       </View>
 
       <ScrollView className="">
-        <Solicitacoes />
+        <Solicitacoes
+          onPress={() => navigation.navigate("InfoConsultasRealizadas")}
+        />
         <Solicitacoes />
         <Solicitacoes />
         <Solicitacoes />

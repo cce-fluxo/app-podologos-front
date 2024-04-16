@@ -7,6 +7,8 @@ export declare global {
       InfoSolicitacaoConsulta: undefined;
       ConsultasAceitas: undefined;
       ConsultasRealizadas: undefined;
+      InfoConsultasAceitas: undefined;
+      InfoConsultasRealizadas: undefined;
       PerfilPodologo: undefined;
     }
   }

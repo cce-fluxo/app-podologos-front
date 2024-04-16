@@ -1,10 +1,8 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Entypo, FontAwesome } from "@expo/vector-icons";
-import HomePodologo from "../../screens/Private/Podologo/HomePodologo";
-import ConsultasAceitas from "../../screens/Private/Podologo/ConsultasAceitas";
-import PerfilPodologo from "../../screens/Private/Podologo/PerfilPodologo";
 import ConsultasStack from "./consultas.routes";
 import HomeStack from "./home.routes";
+import ProfileStack from "./profile.routes";
 
 const Tab = createBottomTabNavigator();
 
@@ -63,8 +61,8 @@ export default function TabRoutes() {
         }}
       />
       <Tab.Screen
-        name="PerfilPodologo"
-        component={PerfilPodologo}
+        name="ProfileStack"
+        component={ProfileStack}
         options={{
           headerTitleAlign: "center",
           tabBarLabel: "Perfil",

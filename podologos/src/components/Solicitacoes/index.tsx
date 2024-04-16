@@ -3,11 +3,13 @@ import { Image, Text, TouchableOpacity, View } from "react-native";
 import { EvilIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
-function Solicitacoes() {
-  const navigation = useNavigation();
+type socilitacoesProps = {
+  onPress?: any;
+};
+function Solicitacoes({ onPress }: socilitacoesProps) {
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate("InfoSolicitacaoConsulta")}
+      onPress={onPress}
       className="flex justify-center bg-white rounded-2xl h-24 space-y-4 p-4 shadow-md mt-4"
     >
       <Text>João da Silva fez uma solicitação perto de você</Text>

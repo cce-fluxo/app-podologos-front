@@ -3,9 +3,6 @@ import Login from "../screens/SignedOut/Login";
 import PreLogin from "../screens/SignedOut/PreLogin";
 
 const Stack = createStackNavigator();
-// onPress={() => {
-//   navigation.navigate("Perfil");
-// }}
 
 export default function StackRoutes() {
   return (

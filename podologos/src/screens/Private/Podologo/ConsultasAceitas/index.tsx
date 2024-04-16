@@ -26,14 +26,14 @@ function ConsultasAceitas({}) {
             navigation.navigate("ConsultasRealizadas");
           }}
         >
-          <Text className="text-[22px] text-azul/40 ">
-            Realizadas
-          </Text>
+          <Text className="text-[22px] text-azul/40 ">Realizadas</Text>
         </TouchableOpacity>
       </View>
 
       <ScrollView className="">
-        <Solicitacoes />
+        <Solicitacoes
+          onPress={() => navigation.navigate("InfoConsultasAceitas")}
+        />
         <Solicitacoes />
         <Solicitacoes />
         <Solicitacoes />

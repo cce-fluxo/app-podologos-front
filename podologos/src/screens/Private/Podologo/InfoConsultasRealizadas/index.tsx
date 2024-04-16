@@ -24,7 +24,7 @@ function InfoConsultasRealizadas() {
         <InformacaoUsuario></InformacaoUsuario>
         <View className="self-center w-[80%] border-b-[1px] opacity-10"></View>
         <Text className="self-center text-azul text-[16px]">
-          Aceita em 01/02/2024
+          Realizada em 01/02/2024
         </Text>
         <View className="self-center w-[80%] border-b-[1px] opacity-10"></View>
         <Text className="text-texto_cinza text-[18px] font-semibold">
