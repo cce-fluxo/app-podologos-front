@@ -5,8 +5,18 @@ import PerfilImage from "../../../../assets/PerfilImage.png";
 import Header from "../../../../components/Header";
 import ProfileInfo from "../../../../components/ProfileInfo";
 import { Button } from "../../../../components/Button";
+import ModalSimNao from "../../../../components/ModalSimNao";
 
 function PerfilPodologo() {
+  const [modalVisible, setModalVisible] = React.useState(false);
+
+  function closeModal() {
+    setModalVisible(false);
+  }
+  function openModal() {
+    setModalVisible(true);
+  }
+
   return (
     <SafeAreaView className="flex  w-full">
       <Header text="Perfil"></Header>
@@ -40,8 +50,24 @@ function PerfilPodologo() {
             text="text-azul text-[16px]"
             placeholder="Sair"
           ></Button>
+          <Button
+            onPress={openModal}
+            className=" bg-white border-2 border-azul"
+            text="text-azul text-[16px]"
+            placeholder="Excluir conta"
+          ></Button>
+        </View>
+        <View className="w-full flex items-center space-y-4 mt-10">
+          <Text className=" text-[25px] font-semibold  text-[#46555A] ">
+            Avaliações:
+          </Text>
         </View>
       </ScrollView>
+      <ModalSimNao
+        modalVisible={modalVisible}
+        mensagem="Tem certeza que deseja excluir sua conta?"
+        onNoClick={closeModal}
+      ></ModalSimNao>
     </SafeAreaView>
   );
 }

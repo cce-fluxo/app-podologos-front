@@ -7,8 +7,18 @@ import { Button } from "../../../../components/Button";
 import FotoPe from "../../../../assets/FotoPe.png";
 import UserIcon from "../../../../assets/UserIcon.png";
 import InformacaoUsuario from "../../../../components/InformacaoUsuario";
+import ModalSimNao from "../../../../components/ModalSimNao";
 
 function InfoConsultasAceitas() {
+  const [modalVisible, setModalVisible] = React.useState(false);
+
+  function closeModal() {
+    setModalVisible(false);
+  }
+  function openModal() {
+    setModalVisible(true);
+  }
+
   return (
     <SafeAreaView className="flex w-full h-full bg-branco">
       <Header text="Consultas"></Header>
@@ -45,7 +55,22 @@ function InfoConsultasAceitas() {
           fuga inventore blanditiis maxime explicabo excepturi corporis, natus
           repellat, eveniet perspiciatis dicta similique?
         </Text>
+        <Button
+          onPress={openModal}
+          placeholder="Marcar como realizada"
+          className="self-center w-full"
+        ></Button>
+        <Button
+          placeholder="Voltar"
+          className="self-center w-full bg-branco border-azul border-[1px] mb-8"
+          text="text-azul"
+        ></Button>
       </ScrollView>
+      <ModalSimNao
+        modalVisible={modalVisible}
+        mensagem="Marcar essa consula como realizada?"
+        onNoClick={closeModal}
+      ></ModalSimNao>
     </SafeAreaView>
   );
 }

@@ -21,7 +21,7 @@ function InfoConsultasRealizadas() {
         <Text className="text-texto_cinza text-[18px] font-semibold">
           Informações do paciente
         </Text>
-        <InformacaoUsuario></InformacaoUsuario>
+        <InformacaoUsuario/>
         <View className="self-center w-[80%] border-b-[1px] opacity-10"></View>
         <Text className="self-center text-azul text-[16px]">
           Realizada em 01/02/2024
@@ -45,15 +45,7 @@ function InfoConsultasRealizadas() {
           fuga inventore blanditiis maxime explicabo excepturi corporis, natus
           repellat, eveniet perspiciatis dicta similique?
         </Text>
-        <Button
-          placeholder="Aceitar e enviar contato"
-          className="self-center w-full"
-        ></Button>
-        <Button
-          placeholder="Voltar"
-          className="self-center w-full bg-branco border-azul border-[1px] mb-8"
-          text="text-azul"
-        ></Button>
+      
       </ScrollView>
     </SafeAreaView>
   );
