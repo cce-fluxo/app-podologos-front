@@ -8,33 +8,28 @@ import FotoPe from "../../../../assets/FotoPe.png";
 import UserIcon from "../../../../assets/UserIcon.png";
 import InformacaoUsuario from "../../../../components/InformacaoUsuario";
 
-function InfoConsultasRealizadas() {
+function InfoConsultaAceita() {
   return (
     <SafeAreaView className="flex w-full h-full bg-branco">
-      <Header text="Consultas"></Header>
+      <Header text="Informações"></Header>
       <ScrollView className="flex px-5 space-y-4">
-        <Image
-          source={FotoPe}
-          alt=""
-          className="self-center rounded-2xl"
-        ></Image>
         <Text className="text-texto_cinza text-[18px] font-semibold">
-          Informações do paciente
+          Aceito por
         </Text>
-        <InformacaoUsuario></InformacaoUsuario>
+        <View className="flex flex-row space-x-2">
+          <Image source={UserIcon}></Image>
+          <View className="flex justify-center space-y-1">
+            <Text className="text-texto_cinza text-[18px] font-semibold">
+              João de Oliveira
+            </Text>
+            <Text className="text-texto_cinza_claro">(21) 12345-6789</Text>
+            <Text className="text-azul underline">Ver mais</Text>
+          </View>
+        </View>
         <View className="self-center w-[80%] border-b-[1px] opacity-10"></View>
         <Text className="self-center text-azul text-[16px]">
-          Aceita em 01/02/2024
+          Aceita em 08/01/2024
         </Text>
-        <View className="self-center w-[80%] border-b-[1px] opacity-10"></View>
-        <Text className="text-texto_cinza text-[18px] font-semibold">
-          Informações médicas
-        </Text>
-        <Button
-          placeholder="Ver ficha de anamnese"
-          className="self-center w-full bg-branco border-azul border-[1px]"
-          text="text-azul"
-        ></Button>
         <View className="self-center w-[80%] border-b-[1px] opacity-10"></View>
         <Text className="text-texto_cinza text-[18px] font-semibold">
           Observações
@@ -45,18 +40,13 @@ function InfoConsultasRealizadas() {
           fuga inventore blanditiis maxime explicabo excepturi corporis, natus
           repellat, eveniet perspiciatis dicta similique?
         </Text>
-        <Button
-          placeholder="Aceitar e enviar contato"
-          className="self-center w-full"
-        ></Button>
-        <Button
-          placeholder="Voltar"
-          className="self-center w-full bg-branco border-azul border-[1px] mb-8"
-          text="text-azul"
-        ></Button>
+        <Text className="text-texto_cinza text-[18px] font-semibold">
+          Informações médicas
+        </Text>
+        <Button placeholder="Ver ficha de anamnese" className="w-full"></Button>
       </ScrollView>
     </SafeAreaView>
   );
 }
 
-export default InfoConsultasRealizadas;
+export default InfoConsultaAceita;
