@@ -7,10 +7,10 @@ import {
   View,
 } from "react-native";
 import Solicitacoes from "../../../../components/Solicitacoes";
-import Header from "../../../../components/Header";
 import { useNavigation } from "@react-navigation/native";
+import Header from "../../../../components/Header";
 
-function ConsultasAceitas({}) {
+function ConsultasAceitas() {
   const navigation = useNavigation();
 
   return (
