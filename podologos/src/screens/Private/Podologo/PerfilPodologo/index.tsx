@@ -6,6 +6,7 @@ import Header from "../../../../components/Header";
 import ProfileInfo from "../../../../components/ProfileInfo";
 import { Button } from "../../../../components/Button";
 import ModalSimNao from "../../../../components/ModalSimNao";
+import Avaliacao from "../../../../components/Avaliacao";
 
 function PerfilPodologo() {
   const [modalVisible, setModalVisible] = React.useState(false);
@@ -57,11 +58,19 @@ function PerfilPodologo() {
             placeholder="Excluir conta"
           ></Button>
         </View>
-        <View className="w-full flex items-center space-y-4 mt-10">
-          <Text className=" text-[25px] font-semibold  text-[#46555A] ">
+        <View className="mb-10 w-full flex space-y-4 mt-10">
+          <Text className="ml-6 text-[25px] font-semibold  text-[#46555A] ">
             Avaliações:
           </Text>
         </View>
+        <View className="flex mb-14">
+          <Avaliacao/>
+<Avaliacao/>
+<Avaliacao/>
+        </View>
+
+
+
       </ScrollView>
       <ModalSimNao
         modalVisible={modalVisible}

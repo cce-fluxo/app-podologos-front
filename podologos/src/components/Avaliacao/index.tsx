@@ -3,7 +3,8 @@ import { Entypo } from "@expo/vector-icons";
 
 export default function Avaliacao() {
   return (
-    <View className="flex space-y-3 w-full bg-branco p-4 rounded-2xl shadow-black shadow-md">
+    <View className="flex w-full  items-center justify-center ">
+    <View className="flex mb-4 space-y-3 w-[90%] bg-branco p-4 rounded-2xl shadow-black shadow-md">
       <View className="flex flex-row items-center justify-between">
         <Text className="text-texto_cinza font-semibold text-[18px]">
           Larissa Oliveira
@@ -19,6 +20,7 @@ export default function Avaliacao() {
         nisi quia. Cum, veritatis. Ea praesentium nulla distinctio quos ullam
         illum.
       </Text>
+    </View> 
     </View>
   );
 }

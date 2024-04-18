@@ -1,14 +1,15 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import Login from "../screens/SignedOut/Login";
 import PreLogin from "../screens/SignedOut/PreLogin";
+import DenunciaPaciente from "../screens/Private/Podologo/DenunciaPaciente";
 
 const Stack = createStackNavigator();
 
 export default function StackRoutes() {
   return (
     <Stack.Navigator
-      initialRouteName="PreLogin"
-      screenOptions={{ headerShown: true }}
+      initialRouteName="DenunciaPaciente"
+      screenOptions={{ headerShown: false }}
     >
       <Stack.Screen
         name="PreLogin"
@@ -29,6 +30,16 @@ export default function StackRoutes() {
           },
         }}
         component={Login}
+      />
+      <Stack.Screen
+        name="DenunciaPaciente"
+        component ={DenunciaPaciente}
+        options={{
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: "white",
+          },
+        }}
       />
     </Stack.Navigator>
   );

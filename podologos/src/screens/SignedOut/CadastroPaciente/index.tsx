@@ -1,5 +1,5 @@
 import { SafeAreaView, Text, View } from "react-native";
-import PageTitle from "../../../components/PageTitle";
+import Header from "../../../components/Header";
 import { FormData } from "../../../components/FormData";
 import { useState } from "react";
 import Input from "../../../components/Inputs";
