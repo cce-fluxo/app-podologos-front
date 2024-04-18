@@ -59,13 +59,13 @@ export default function CadastroPaciente() {
         </Button>
         <FormData.Root onSubmit={onSubmit}>
           <FormData.Form columns={column2} id="formQuestion">
+            <View className="flex flex-row items-center w-[90%] self-center">
+              <Text>Declaro que li e concordo com os Termos e Condições</Text>
+            </View>
             <Button
               className="self-center mt-2"
               placeholder="Continuar"
             ></Button>
-            <View className="flex flex-row items-center w-[90%] self-center">
-              <Text>Declaro que li e concordo com os Termos e Condições</Text>
-            </View>
           </FormData.Form>
         </FormData.Root>
       </ScrollView>
