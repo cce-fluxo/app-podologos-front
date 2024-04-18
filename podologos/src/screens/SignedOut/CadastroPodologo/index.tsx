@@ -26,8 +26,6 @@ export default function CadastroPodologo() {
 
   const onSubmit = (data: any) => {};
 
-  const column1 = [{ name: "nome", placeholder: "Nome*", component: Input }];
-
   const column2 = [
     {
       name: "nome",
