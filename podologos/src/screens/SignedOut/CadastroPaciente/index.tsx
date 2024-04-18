@@ -47,7 +47,7 @@ export default function CadastroPaciente() {
   ];
 
   return (
-    <SafeAreaView className="h-full w-full flex flex-col items-center">
+    <SafeAreaView className="h-full w-full flex flex-col items-center bg-branco">
       <Header text="Nova conta"></Header>
       <ScrollView className="w-full">
         <Button
