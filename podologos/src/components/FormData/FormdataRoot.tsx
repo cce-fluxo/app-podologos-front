@@ -19,7 +19,7 @@ function FormDataRoot({
 }: FormDataProps) {
   const childrenArray = Array.isArray(children) ? children : [children];
   return (
-    <View id="select" className="flex gap-8 h-auto w-[84%]">
+    <View id="select" className="flex h-full w-full">
       <Formik
         enableReinitialize
         initialValues={initialValues}

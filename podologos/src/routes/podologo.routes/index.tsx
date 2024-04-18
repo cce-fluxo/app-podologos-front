@@ -3,6 +3,7 @@ import { Entypo, FontAwesome } from "@expo/vector-icons";
 import ConsultasStack from "./consultas.routes";
 import HomeStack from "./home.routes";
 import ProfileStack from "./profile.routes";
+import CadastroPaciente from "../../screens/SignedOut/CadastroPaciente";
 
 const Tab = createBottomTabNavigator();
 
@@ -40,7 +41,7 @@ export default function TabRoutes() {
     >
       <Tab.Screen
         name="HomeStack"
-        component={HomeStack}
+        component={CadastroPaciente}
         options={{
           tabBarLabel: "Home",
           tabBarIcon: ({ color, size }) => (
