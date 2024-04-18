@@ -54,6 +54,9 @@ export default function FormacaoPodologo() {
             </Button>
           </FormData.Form>
         </FormData.Root>
+        <View className="h-full justify-end">
+          <Button className="self-center" placeholder="Continuar"></Button>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
