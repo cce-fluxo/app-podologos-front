@@ -4,6 +4,7 @@ import ConsultasStack from "./consultas.routes";
 import HomeStack from "./home.routes";
 import ProfileStack from "./profile.routes";
 import CadastroPaciente from "../../screens/SignedOut/CadastroPaciente";
+import CadastroPodologo from "../../screens/SignedOut/CadastroPodologo";
 
 const Tab = createBottomTabNavigator();
 
@@ -41,7 +42,7 @@ export default function TabRoutes() {
     >
       <Tab.Screen
         name="HomeStack"
-        component={CadastroPaciente}
+        component={CadastroPodologo}
         options={{
           tabBarLabel: "Home",
           tabBarIcon: ({ color, size }) => (
