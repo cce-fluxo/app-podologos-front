@@ -7,6 +7,7 @@ import ProfileInfo from "../../../../components/ProfileInfo";
 import { Button } from "../../../../components/Button";
 import ModalSimNao from "../../../../components/ModalSimNao";
 import Avaliacao from "../../../../components/Avaliacao";
+import { useNavigation } from "@react-navigation/native";
 
 function PerfilPodologo() {
   const [modalVisible, setModalVisible] = React.useState(false);
@@ -17,6 +18,8 @@ function PerfilPodologo() {
   function openModal() {
     setModalVisible(true);
   }
+
+  const navigation = useNavigation();
 
   return (
     <SafeAreaView className="flex  w-full">
@@ -43,6 +46,7 @@ function PerfilPodologo() {
         </View>
         <View className="w-full flex items-center space-y-4 mt-10">
           <Button
+            onPress={() => navigation.navigate("PerfilDoPaciente")}
             text="text-branco text-[16px]"
             placeholder="Editar perfil"
           ></Button>
@@ -64,13 +68,10 @@ function PerfilPodologo() {
           </Text>
         </View>
         <View className="flex mb-14">
-          <Avaliacao/>
-<Avaliacao/>
-<Avaliacao/>
+          <Avaliacao />
+          <Avaliacao />
+          <Avaliacao />
         </View>
-
-
-
       </ScrollView>
       <ModalSimNao
         modalVisible={modalVisible}

@@ -14,8 +14,10 @@ import ProfileInfo from "../../../../components/ProfileInfo";
 import { Button } from "../../../../components/Button";
 import Avaliacao from "../../../../components/Avaliacao";
 import Input from "../../../../components/Inputs";
+import { useNavigation } from "@react-navigation/native";
 
 function PerfilDoPaciente() {
+  const navigation = useNavigation();
   const [notas, setNotas] = useState([
     "star-outlined",
     "star-outlined",
@@ -78,7 +80,11 @@ function PerfilDoPaciente() {
         <Input className="w-[100%]" placeholder="Avaliação"></Input>
         <View className="w-full flex items-center space-y-4">
           <Button className="w-full" placeholder="Avaliar"></Button>
-          <Button className="w-full" placeholder="Denunciar"></Button>
+          <Button
+            onPress={() => navigation.navigate("DenunciaPaciente")}
+            className="w-full"
+            placeholder="Denunciar"
+          ></Button>
         </View>
         <View className="flex space-y-4 w-full mb-24">
           {Array.from({ length: 10 }).map((_, i) => (

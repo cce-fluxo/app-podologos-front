@@ -16,7 +16,9 @@ function ConsultasStack() {
       <Stack.Screen
         name="ConsultasAceitas"
         component={ConsultasAceitas}
-      
+        options={{ headerTitle: "Consultas" ,
+          headerTitleAlign:"center",
+        }}
       ></Stack.Screen>
       <Stack.Screen
         name="ConsultasRealizadas"

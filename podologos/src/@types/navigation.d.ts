@@ -10,6 +10,8 @@ export declare global {
       InfoConsultasAceitas: undefined;
       InfoConsultasRealizadas: undefined;
       PerfilPodologo: undefined;
+      PerfilDoPaciente: undefined;
+      DenunciaPaciente:undefined;
     }
   }
 }

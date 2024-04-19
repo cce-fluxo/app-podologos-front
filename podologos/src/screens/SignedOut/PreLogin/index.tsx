@@ -8,11 +8,8 @@ import {
 } from "react-native";
 import PreLoginImage from "../../../assets/PreLoginImage.png";
 import { Button } from "../../../components/Button";
-import ModalSimNao from "../../../components/ModalSimNao";
-import ModalOk from "../../../components/ModalOk";
-import ModalDenuncia from "../../../components/ModalDenuncia";
-import ModalAdicionarFoto from "../../../components/ModalAdicionarFoto";
-import { useNavigation } from "@react-navigation/native";
+import FundoLogin from "../../../assets/FundoLogin.png";
+
 
 function PreLogin({ navigation }) {
   // const navigation = useNavigation();
@@ -20,20 +17,12 @@ function PreLogin({ navigation }) {
   //   navigation.navigate("Login");
   // }
 
-  const [modalVisible, setModalVisible] = React.useState(false);
-
-  function closeModal() {
-    setModalVisible(false);
-  }
-  function openModal() {
-    setModalVisible(true);
-  }
 
   return (
     <SafeAreaView className="flex  w-screen h-screen mt-14 ">
       <ImageBackground
         className="flex  h-screen w-screen"
-        source={PreLoginImage}
+        source={FundoLogin}
       >
         <View className="flex items-center justify-around h-full w-full space-y-2">
           <View></View>
@@ -44,7 +33,6 @@ function PreLogin({ navigation }) {
 
           <View className="mb-10 flex w-full max-w-[87%] items-center space-y-2">
             <Button
-              onPress={openModal}
               className="flex mt-10"
               text="text-branco text-[16px]"
               placeholder="Podólogo"
@@ -65,11 +53,6 @@ function PreLogin({ navigation }) {
           </View>
         </View>
       </ImageBackground>
-      <ModalSimNao
-        modalVisible={modalVisible}
-        mensagem="Adicionar foto de perfil"
-        onNoClick={closeModal}
-      ></ModalSimNao>
     </SafeAreaView>
   );
 }

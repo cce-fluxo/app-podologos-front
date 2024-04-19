@@ -8,7 +8,7 @@ const Stack = createStackNavigator();
 export default function StackRoutes() {
   return (
     <Stack.Navigator
-      initialRouteName="DenunciaPaciente"
+      initialRouteName="PreLogin"
       screenOptions={{ headerShown: false }}
     >
       <Stack.Screen
@@ -31,16 +31,7 @@ export default function StackRoutes() {
         }}
         component={Login}
       />
-      <Stack.Screen
-        name="DenunciaPaciente"
-        component ={DenunciaPaciente}
-        options={{
-          headerTitleAlign: "center",
-          headerStyle: {
-            backgroundColor: "white",
-          },
-        }}
-      />
+     
     </Stack.Navigator>
   );
 }

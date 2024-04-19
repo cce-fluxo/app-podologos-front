@@ -9,16 +9,23 @@ import {
 import Header from "../../../../components/Header";
 import { Button } from "../../../../components/Button";
 import CustomRadioButton from "../../../../components/RadioButton";
-
-
+import ModalOk from "../../../../components/ModalOk";
 
 function DenunciaPaciente() {
+  const [modalVisible, setModalVisible] = React.useState(false);
+
+  function closeModal() {
+    setModalVisible(false);
+  }
+  function openModal() {
+    setModalVisible(true);
+  }
   const [selectedId, setSelectedId] = useState<string | undefined>("first");
 
   const radioButtons = useMemo(
     () => [
       {
-        id: "1", 
+        id: "1",
         label: "Higiene Inadequada",
         value: "option1",
       },
@@ -64,24 +71,22 @@ function DenunciaPaciente() {
   return (
     <SafeAreaView className="flex min-h-screen w-full bg-branco">
       <Header text="Confirmar denúncia"></Header>
-      <ScrollView className="">
-        <View className="flex w-full mb-10 justify-center ml-6">
+      <ScrollView className="mt-4">
+        <View className="flex w-full mb-14 justify-center ">
           {radioButtons.map((radio, index) => (
-            <View className="flex items-start justify-center space-y-8  " >
+            <View className="flex items-start justify-center space-y-8 px-8 ">
               <CustomRadioButton
                 key={index}
                 label={radio.label}
                 onPress={() => setSelectedId(radio.id)}
                 selected={selectedId === radio.id}
               />
-              <View className="w-full items-center h-[1px] bg-cinza"></View>
+              <View className="w-full items-center h-[1px] bg-cinza "></View>
             </View>
-            
           ))}
-          
         </View>
-        <View className="w-full flex items-center space-y-4">
-          <Button placeholder="Avaliar"></Button>
+        <View className="w-full flex items-center space-y-4 mb-16">
+          <Button onPress={openModal} placeholder="Confirmar denúncia"></Button>
           <Button
             className=" bg-white border-2 border-azul"
             text="text-azul text-[16px]"
@@ -89,6 +94,11 @@ function DenunciaPaciente() {
           ></Button>
         </View>
       </ScrollView>
+      <ModalOk
+        modalVisible={modalVisible}
+        mensagem="Denúncia feita com sucesso!"
+        onNoClick={closeModal}
+      />
     </SafeAreaView>
   );
 }
