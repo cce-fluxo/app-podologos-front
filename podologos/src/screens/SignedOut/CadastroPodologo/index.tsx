@@ -12,7 +12,7 @@ import { Button } from "../../../components/Button";
 import Header from "../../../components/Header";
 import { MaterialIcons } from "@expo/vector-icons";
 
-export default function CadastroPaciente() {
+export default function CadastroPodologo() {
   const [data, setData] = useState({
     foto: "",
     nome: "",
@@ -57,12 +57,17 @@ export default function CadastroPaciente() {
         </Button>
         <FormData.Root onSubmit={onSubmit}>
           <FormData.Form columns={column2} id="formQuestion">
+            <Button
+              className="self-center mt-2 bg-branco border-[1px] border-azul"
+              placeholder="Formação"
+              text="text-azul"
+            ></Button>
             <View className="flex flex-row items-center w-[90%] self-center">
               <Text>Declaro que li e concordo com os Termos e Condições</Text>
             </View>
             <Button
-              className="self-center mt-2"
-              placeholder="Continuar"
+              className="self-center mt-2 mb-6"
+              placeholder="Criar conta"
             ></Button>
           </FormData.Form>
         </FormData.Root>

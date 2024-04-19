@@ -21,7 +21,7 @@ function InfoConsultasRealizadas() {
         <Text className="text-texto_cinza text-[18px] font-semibold">
           Informações do paciente
         </Text>
-        <InformacaoUsuario/>
+        <InformacaoUsuario />
         <View className="self-center w-[80%] border-b-[1px] opacity-10"></View>
         <Text className="self-center text-azul text-[16px]">
           Realizada em 01/02/2024
@@ -39,13 +39,12 @@ function InfoConsultasRealizadas() {
         <Text className="text-texto_cinza text-[18px] font-semibold">
           Observações
         </Text>
-        <Text className="text-texto_cinza_claro">
+        <Text className="text-texto_cinza_claro mb-8">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis
           officia expedita quisquam unde nihil placeat repellendus. Recusandae
           fuga inventore blanditiis maxime explicabo excepturi corporis, natus
           repellat, eveniet perspiciatis dicta similique?
         </Text>
-      
       </ScrollView>
     </SafeAreaView>
   );
