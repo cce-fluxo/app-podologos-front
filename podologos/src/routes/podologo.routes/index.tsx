@@ -6,6 +6,7 @@ import ProfileStack from "./profile.routes";
 import CadastroPaciente from "../../screens/SignedOut/CadastroPaciente";
 import CadastroPodologo from "../../screens/SignedOut/CadastroPodologo";
 import FormacaoPodologo from "../../screens/SignedOut/FormacaoPodologo";
+import EditarPodologo from "../../screens/Private/Podologo/EditarPodologo";
 
 const Tab = createBottomTabNavigator();
 
@@ -43,7 +44,7 @@ export default function TabRoutes() {
     >
       <Tab.Screen
         name="HomeStack"
-        component={FormacaoPodologo}
+        component={EditarPodologo}
         options={{
           tabBarLabel: "Home",
           tabBarIcon: ({ color, size }) => (
