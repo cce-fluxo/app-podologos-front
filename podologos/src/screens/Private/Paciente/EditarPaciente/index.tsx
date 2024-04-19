@@ -7,7 +7,7 @@ import Input from "../../../../components/Inputs";
 import { FormData } from "../../../../components/FormData/Index";
 import { useState } from "react";
 
-export default function EditarPodologo() {
+export default function EditarPaciente() {
   const [data, setData] = useState({
     foto: "",
     nome: "",
@@ -15,10 +15,6 @@ export default function EditarPodologo() {
     email: "",
     telefone: "",
     cep: "",
-    formacao: "",
-    instituicao: "",
-    anoConclusao: "",
-    tipoFormacao: "",
   });
 
   const onSubmit = (data: any) => {};
@@ -49,29 +45,6 @@ export default function EditarPodologo() {
       component: Input,
     },
     { name: "cep", texto: "CEP", placeholder: "12345-678", component: Input },
-    {
-      name: "formacao",
-      texto: "Formação",
-      placeholder: "Podologia",
-      component: Input,
-    },
-    {
-      name: "instituicao",
-      texto: "Instituição",
-      placeholder: "UFRJ",
-      component: Input,
-    },
-    {
-      name: "anoConclusao",
-      texto: "Ano de conclusão",
-      placeholder: "2022",
-      component: Input,
-    },
-    {
-      name: "tipoFormacao",
-      placeholder: "Superior",
-      component: Input,
-    },
   ];
   return (
     <SafeAreaView className="flex w-full bg-branco">
@@ -84,6 +57,11 @@ export default function EditarPodologo() {
             <Text className="font-semibold">4.75</Text>
           </View>
         </View>
+        <Button
+          className="self-center mt-8 bg-branco border-[1px] border-azul"
+          placeholder="Editar ficha de anamnese"
+          text="text-azul"
+        ></Button>
 
         <FormData.Root onSubmit={onSubmit}>
           <FormData.Form columns={column} id="formQuestion">
