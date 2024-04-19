@@ -26,7 +26,7 @@ export default function CadastroPaciente() {
 
   const onSubmit = (data: any) => {};
 
-  const column2 = [
+  const column = [
     {
       name: "nome",
       placeholder: "Nome*",
@@ -56,7 +56,7 @@ export default function CadastroPaciente() {
           <MaterialIcons name="add" size={20} color="#2087ED" />
         </Button>
         <FormData.Root onSubmit={onSubmit}>
-          <FormData.Form columns={column2} id="formQuestion">
+          <FormData.Form columns={column} id="formQuestion">
             <View className="flex flex-row items-center w-[90%] self-center">
               <Text>Declaro que li e concordo com os Termos e Condições</Text>
             </View>

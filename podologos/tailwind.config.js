@@ -14,6 +14,7 @@ module.exports = {
         cinza: "#C3C5C7",
         texto_cinza: "#4F5450",
         texto_cinza_claro: "#636C74",
+        titulo_anamnese: "#46555A",
         botao_desabilitado: "#BBBBBB",
       },
     },
