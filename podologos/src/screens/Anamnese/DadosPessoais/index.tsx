@@ -4,49 +4,67 @@ import { FormData } from "../../../components/FormData/Index";
 import Input from "../../../components/Inputs";
 import { Button } from "../../../components/Button";
 
-export default function Identificacao() {
+export default function DadosPessoais() {
   const onSubmit = (data: any) => {};
 
   const column = [
     {
       name: "nome",
-      placeholder: "Data de Nascimento",
+      placeholder: "Nome",
       className: "w-full",
       component: Input,
     },
     {
-      name: "sobrenome",
-      placeholder: "Naturalidade",
-      className: "w-full",
-      component: Input,
-    },
-    {
-      name: "email",
-      placeholder: "Selecione",
-      className: "w-full",
-      component: Input,
-    },
-    {
-      name: "telefone",
-      placeholder: "Profissão",
+      name: "nascimetno",
+      placeholder: "Nascimento",
       className: "w-full",
       component: Input,
     },
     {
       name: "cep",
-      placeholder: "Estado Civil",
+      placeholder: "CEP",
       className: "w-full",
       component: Input,
     },
     {
-      name: "senha",
-      placeholder: "Moro",
+      name: "endereco",
+      placeholder: "Endereço",
       className: "w-full",
       component: Input,
     },
     {
-      name: "confirmarSenha",
-      placeholder: "Motivo da visita",
+      name: "bairro",
+      placeholder: "Bairro",
+      className: "w-full",
+      component: Input,
+    },
+    {
+      name: "cidade",
+      placeholder: "Cidade",
+      className: "w-full",
+      component: Input,
+    },
+    {
+      name: "uf",
+      placeholder: "UF",
+      className: "w-full",
+      component: Input,
+    },
+    {
+      name: "telefone",
+      placeholder: "Telefone",
+      className: "w-full",
+      component: Input,
+    },
+    {
+      name: "sexo",
+      placeholder: "Sexo",
+      className: "w-full",
+      component: Input,
+    },
+    {
+      name: "profissao",
+      placeholder: "Profissão",
       className: "w-full",
       component: Input,
     },
@@ -57,7 +75,7 @@ export default function Identificacao() {
       <Header text="Ficha de anamnese"></Header>
       <ScrollView className="w-full px-5">
         <Text className="text-[20px] text-titulo_anamnese font-semibold mb-2">
-          Identificação
+          Dados pessoais
         </Text>
         <FormData.Root onSubmit={onSubmit}>
           <FormData.Form columns={column} id="formQuestion">
@@ -66,7 +84,7 @@ export default function Identificacao() {
               placeholder="Continuar"
             ></Button>
             <Button
-              className="bg-branco border-azul border-[1px] self-center w-full mt-4"
+              className="bg-branco border-azul border-[1px] self-center w-full mt-4 mb-6"
               text="text-azul"
               placeholder="Preencher mais tarde"
             ></Button>
