@@ -6,7 +6,7 @@ import PodologosRoutes from "./podologo.routes";
 export default function Routes() {
   return (
     <NavigationContainer>
-      <PodologosRoutes />
+      <StackRoutes />
     </NavigationContainer>
   );
 }

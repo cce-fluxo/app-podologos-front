@@ -11,8 +11,11 @@ import Input from "../../../components/Inputs";
 import { Button } from "../../../components/Button";
 import Header from "../../../components/Header";
 import { MaterialIcons } from "@expo/vector-icons";
+import CheckBoxx from "../../../components/CheckBox";
+import Checkbox from "expo-checkbox";
 
 export default function CadastroPaciente() {
+  const [isChecked, setIsChecked] = useState(false);
   const [data, setData] = useState({
     foto: "",
     nome: "",
@@ -57,12 +60,20 @@ export default function CadastroPaciente() {
         </Button>
         <FormData.Root onSubmit={onSubmit}>
           <FormData.Form columns={column} id="formQuestion">
-            <View className="flex flex-row items-center w-[90%] self-center">
-              <Text>Declaro que li e concordo com os Termos e Condições</Text>
+            <View className="flex flex-row items-center w-[90%] self-center ">
+              <Checkbox
+                className="ml-4 "
+                value={isChecked}
+                onValueChange={setIsChecked}
+                color={isChecked ? "#2087ED" : undefined}
+              ></Checkbox>
+              <Text className="ml-4">
+                Declaro que li e concordo com os Termos e Condições
+              </Text>
             </View>
             <Button
               className="self-center mt-2"
-              placeholder="Continuar"
+              placeholder="Criar conta"
             ></Button>
           </FormData.Form>
         </FormData.Root>
