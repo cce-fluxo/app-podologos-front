@@ -11,7 +11,6 @@ import Input from "../../../components/Inputs";
 import { Button } from "../../../components/Button";
 import Header from "../../../components/Header";
 import { MaterialIcons } from "@expo/vector-icons";
-import CheckBoxx from "../../../components/CheckBox";
 import Checkbox from "expo-checkbox";
 
 export default function CadastroPaciente() {
