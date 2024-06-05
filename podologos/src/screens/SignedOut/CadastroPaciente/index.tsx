@@ -11,10 +11,23 @@ import Input from "../../../components/Inputs";
 import { Button } from "../../../components/Button";
 import Header from "../../../components/Header";
 import { MaterialIcons } from "@expo/vector-icons";
+import { api } from "../../../services/api";
 import Checkbox from "expo-checkbox";
 
 export default function CadastroPaciente() {
   const [isChecked, setIsChecked] = useState(false);
+
+  async function onSubmit(data: object) {
+    try {
+      const response = await api.post("/auth/signin", data);
+
+      return response.data;
+    } catch (error: any) {
+      error?.response?.data?.message[0];
+      console.log(error);
+    }
+  }
+
   const [data, setData] = useState({
     foto: "",
     nome: "",
@@ -25,9 +38,6 @@ export default function CadastroPaciente() {
     senha: "",
     confirmarSenha: "",
   });
-
-  const onSubmit = (data: any) => {};
-
   const column = [
     {
       name: "nome",
