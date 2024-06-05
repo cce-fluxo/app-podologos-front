@@ -5,7 +5,7 @@ export function getAPIClient(ctx?: any) {
   axios.defaults.withCredentials = true;
 
   const api = axios.create({
-    baseURL: "https://schoolme-f3eb9aadec9b.herokuapp.com",
+    baseURL: "https://podologos-back-ecbm.onrender.com/",
   });
 
   return api;

@@ -1,5 +1,5 @@
 import { api } from "./api";
-import { Toast } from "toastify-react-native";
+import FlashMessage from "react-native-flash-message";
 import { IncomingMessage, ServerResponse } from "http";
 
 type User = {

@@ -1,6 +1,5 @@
 "use client";
 import { createContext, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import axios from "axios";
 import { recoverUserInformation, SignInRequest } from "../services/auth";
 import { api } from "../services/api";
@@ -49,7 +48,6 @@ export function AuthProvider({ children }: any) {
   /* console.log(user, "user"); */
 
   const isAuthenticated = !!user;
-  const Router = useRouter();
 
   async function reloadUserInformation() {
     recoverUserInformation().then((response: any) => {
@@ -68,8 +66,6 @@ export function AuthProvider({ children }: any) {
 
     setUser(user);
     await reloadUserInformation();
-
-    Router.push("/PostRegistration");
   }
 
   useEffect(() => {
