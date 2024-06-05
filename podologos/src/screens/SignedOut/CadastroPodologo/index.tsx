@@ -11,8 +11,11 @@ import Input from "../../../components/Inputs";
 import { Button } from "../../../components/Button";
 import Header from "../../../components/Header";
 import { MaterialIcons } from "@expo/vector-icons";
+import Checkbox from "expo-checkbox";
 
 export default function CadastroPodologo() {
+  const [isChecked, setIsChecked] = useState(false);
+
   const [data, setData] = useState({
     foto: "",
     nome: "",
@@ -62,8 +65,16 @@ export default function CadastroPodologo() {
               placeholder="Formação"
               text="text-azul"
             ></Button>
-            <View className="flex flex-row items-center w-[90%] self-center">
-              <Text>Declaro que li e concordo com os Termos e Condições</Text>
+             <View className="flex flex-row items-center w-[90%] self-center ">
+              <Checkbox
+                className="ml-4 "
+                value={isChecked}
+                onValueChange={setIsChecked}
+                color={isChecked ? "#2087ED" : undefined}
+              ></Checkbox>
+              <Text className="ml-4">
+                Declaro que li e concordo com os Termos e Condições
+              </Text>
             </View>
             <Button
               className="self-center mt-2 mb-6"
