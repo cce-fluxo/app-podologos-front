@@ -1,20 +1,38 @@
 import React, { createContext, useState } from "react";
 import * as auth from "../services/auth";
 
+type User = {
+  email: string;
+};
+
 interface AuthContextData {
   signed: boolean;
-  user: object;
-  signIn(): Promise<void>;
+  user: User | null;
+  signIn: (data: SignInData) => Promise<void>;
   signOut(): void;
 }
+type SignInData = {
+  email: string;
+  password: string;
+};
+
+type signInResponse = {
+  token: string;
+  user: User;
+};
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState<object | null>(null);
+  const [user, setUser] = useState<User | null>(null);
+  const signed = !!user;
 
-  async function signIn() {
-    const response = await auth.signIn();
-    setUser(response.user);
+  async function signIn({ email, password }: SignInData) {
+    const { user } = (await auth.signIn({
+      email,
+      password,
+    })) as signInResponse;
+
+    setUser(user);
   }
 
   function signOut() {
@@ -22,7 +40,7 @@ export function AuthProvider({ children }) {
   }
 
   return (
-    <AuthContext.Provider value={{ signed: !!user, user, signIn, signOut }}>
+    <AuthContext.Provider value={{ signed, user, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   );

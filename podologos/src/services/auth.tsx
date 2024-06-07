@@ -1,3 +1,5 @@
+import { api } from "./api";
+import ToastManager, { Toast } from "toastify-react-native";
 interface Response {
   token: string;
   user: {
@@ -6,16 +8,22 @@ interface Response {
   };
 }
 
-export function signIn(): Promise<Response> {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        token: "fjsdiopfj23ioprui039wfjsefsdçl",
-        user: {
-          name: "Felipe",
-          email: "felipe.cassano@gmail.com",
-        },
-      });
-    }, 2000);
-  });
+type User = {
+  email: string;
+  password: string;
+};
+
+export async function signIn({ email, password }: User) {
+  try {
+    const user = { email: email, password: password };
+    Toast.info("Aguarde...", "");
+    const response = await api.post("/auth/signin", user, {
+      withCredentials: true,
+    });
+    Toast.success("Sucesso ao logar");
+    return response.data;
+  } catch (error) {
+    Toast.error("Erro no login", "");
+    console.log(error);
+  }
 }

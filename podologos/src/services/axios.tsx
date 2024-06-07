@@ -4,9 +4,8 @@ export function getAPIClient(ctx?: any) {
   axios.defaults.withCredentials = true;
 
   const api = axios.create({
-    baseURL: "https://podologos-back-ecbm.onrender.com/",
+    baseURL: "https://podologos-back-ecbm.onrender.com",
   });
 
   return api;
 }
-
