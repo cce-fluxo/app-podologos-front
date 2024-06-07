@@ -17,38 +17,41 @@ import Checkbox from "expo-checkbox";
 export default function CadastroPaciente() {
   const [isChecked, setIsChecked] = useState(false);
 
-  async function onSubmit(data: object) {
+  async function signUp(data: object) {
     try {
-      const response = await api.post("/auth/signin", data);
-
+      const response = await api.post("/patient/registrar-paciente", data);
+      console.log(response.data);
       return response.data;
-    } catch (error: any) {
-      error?.response?.data?.message[0];
-      console.log(error);
+    } catch (err: any) {
+      console.log(err);
+      console.log(err.response.data);
+      console.log(err.response.status);
     }
   }
 
   const [data, setData] = useState({
-    foto: "",
-    nome: "",
-    sobrenome: "",
+    // foto: "",
+    first_name: "",
+    last_name: "",
     email: "",
-    telefone: "",
+    encrypted_password: "",
+    phone_number: "",
+    birth_date: "1999-12-31",
     cep: "",
-    senha: "",
-    confirmarSenha: "",
+    // confirmarSenha: "",
+    address_num: "42",
   });
   const column = [
     {
-      name: "nome",
+      name: "first_name",
       placeholder: "Nome*",
       component: Input,
     },
-    { name: "sobrenome", placeholder: "Sobrenome*", component: Input },
+    { name: "last_name", placeholder: "Sobrenome*", component: Input },
     { name: "email", placeholder: "Email*", component: Input },
-    { name: "telefone", placeholder: "Telefone*", component: Input },
+    { name: "phone_number", placeholder: "Telefone*", component: Input },
     { name: "cep", placeholder: "CEP*", component: Input },
-    { name: "senha", placeholder: "Senha*", component: Input },
+    { name: "encrypted_password", placeholder: "Senha*", component: Input },
     {
       name: "confirmarSenha",
       placeholder: "Confirmar senha*",
@@ -67,7 +70,7 @@ export default function CadastroPaciente() {
         >
           <MaterialIcons name="add" size={20} color="#2087ED" />
         </Button>
-        <FormData.Root onSubmit={onSubmit}>
+        <FormData.Root onSubmit={() => signUp(data)}>
           <FormData.Form columns={column} id="formQuestion">
             <View className="flex flex-row items-center w-[90%] self-center ">
               <Checkbox
@@ -83,6 +86,7 @@ export default function CadastroPaciente() {
             <Button
               className="self-center mt-2"
               placeholder="Criar conta"
+              onSubmit={() => signUp}
             ></Button>
           </FormData.Form>
         </FormData.Root>

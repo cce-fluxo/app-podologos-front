@@ -12,15 +12,8 @@ export default function StackRoutes() {
       initialRouteName="CadastroPaciente"
       screenOptions={{ headerShown: false }}
     >
-      <Stack.Screen
-        name="PreLogin"
-        component={PreLogin}
-        options={{
-          headerTitleAlign: "center",
-          headerShown: false,
-          title: "Tela A",
-        }}
-      />
+      <Stack.Screen name="CadastroPaciente" component={CadastroPaciente} />
+
       <Stack.Screen
         name="Login"
         component={Login}
@@ -32,7 +25,15 @@ export default function StackRoutes() {
           },
         }}
       />
-      <Stack.Screen name="CadastroPaciente" component={CadastroPaciente} />
+      <Stack.Screen
+        name="PreLogin"
+        component={PreLogin}
+        options={{
+          headerTitleAlign: "center",
+          headerShown: false,
+          title: "Tela A",
+        }}
+      />
     </Stack.Navigator>
   );
 }

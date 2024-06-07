@@ -1,5 +1,4 @@
 import axios from "axios";
-import Router from "next/router";
 
 export function getAPIClient(ctx?: any) {
   axios.defaults.withCredentials = true;
@@ -10,3 +9,4 @@ export function getAPIClient(ctx?: any) {
 
   return api;
 }
+
