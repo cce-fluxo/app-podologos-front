@@ -14,6 +14,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { api } from "../../../services/api";
 import Checkbox from "expo-checkbox";
 import { CadastroSchema } from "../../../components/Schemas";
+import TermosCondicoes from "../../../components/TermosCondicoes";
 
 export default function CadastroPaciente() {
   const [isChecked, setIsChecked] = useState(false);
@@ -59,16 +60,16 @@ export default function CadastroPaciente() {
 
   return (
     <SafeAreaView className="h-full w-full flex flex-col items-center bg-branco">
-      <ScrollView className="mt-4 w-full">
+      <ScrollView className=" w-full">
         <Button
-          className="bg-branco border-azul border-[1px] self-center w-[87%]"
+          className="bg-branco border-azul border-[1px] self-center w-[87%] mt-6 mb-4"
           text="text-azul"
           placeholder="Adicionar foto de perfil"
         >
           <MaterialIcons name="add" size={20} color="#2087ED" />
         </Button>
         <FormData.Root
-          schema={CadastroSchema}
+          // schema={CadastroSchema}
           initialValues={{
             profile_picture: "1",
             first_name: "",
@@ -80,7 +81,7 @@ export default function CadastroPaciente() {
           }}
           onSubmit={(data) => {
             {
-              signUp(data), console.log(data);
+              signUp(data);
             }
           }}
         >
@@ -93,16 +94,14 @@ export default function CadastroPaciente() {
             columns={column}
             id="formQuestion"
           >
-            <View className="flex flex-row items-center w-[90%] self-center ">
+            <View className="flex flex-row items-center w-[90%] self-center mt-4 mb-4 ">
               <Checkbox
-                className="ml-4 "
+                className="ml-4"
                 value={isChecked}
                 onValueChange={setIsChecked}
-                color={isChecked ? "#2087ED" : undefined}
-              ></Checkbox>
-              <Text className="ml-4">
-                Declaro que li e concordo com os Termos e Condições
-              </Text>
+                color={isChecked ? "#00C86F" : undefined}
+              />
+              <TermosCondicoes />
             </View>
           </FormData.Form>
         </FormData.Root>
