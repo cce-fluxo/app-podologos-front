@@ -31,7 +31,6 @@ export function AuthProvider({ children }) {
       email,
       password,
     })) as signInResponse;
-
     setUser(user);
   }
 

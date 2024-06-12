@@ -10,20 +10,15 @@ import PreLoginImage from "../../../assets/PreLoginImage.png";
 import { Button } from "../../../components/Button";
 import FundoLogin from "../../../assets/FundoLogin.png";
 
-
 function PreLogin({ navigation }) {
   // const navigation = useNavigation();
   // function openScreen() {
   //   navigation.navigate("Login");
   // }
 
-
   return (
     <SafeAreaView className="flex  w-screen h-screen mt-14 ">
-      <ImageBackground
-        className="flex  h-screen w-screen"
-        source={FundoLogin}
-      >
+      <ImageBackground className="flex  h-screen w-screen" source={FundoLogin}>
         <View className="flex items-center justify-around h-full w-full space-y-2">
           <View></View>
 
@@ -36,16 +31,23 @@ function PreLogin({ navigation }) {
               className="flex mt-10"
               text="text-branco text-[16px]"
               placeholder="Podólogo"
+              onPress={() => {
+                navigation.navigate("CadastroPodologo");
+              }}
             ></Button>
             <Button
               className=" "
               text="text-branco text-[16px]"
               placeholder="Paciente"
               onPress={() => {
-                navigation.navigate("Login");
+                navigation.navigate("CadastroPaciente");
               }}
             ></Button>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("Login");
+              }}
+            >
               <Text className="text-branco text-[15px]">
                 Já possuo cadastro
               </Text>

@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import { FormData } from "../../../components/FormData/Index";
 import { useState } from "react";
-import Input from "../../../components/Inputs";
+import Input from "../../../components/FormData/InputForm";
 import { Button } from "../../../components/Button";
 import Header from "../../../components/Header";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -49,16 +49,13 @@ export default function CadastroPaciente() {
   }
 
   const [data, setData] = useState({
-    // foto: "",
+    profile_picture: "",
     first_name: "",
     last_name: "",
     email: "",
-    encrypted_password: "",
     phone_number: "",
-    birth_date: "1999-12-31",
     cep: "",
-    // confirmarSenha: "",
-    address_num: "42",
+    encrypted_password: "",
   });
   const column = [
     {
@@ -80,10 +77,9 @@ export default function CadastroPaciente() {
 
   return (
     <SafeAreaView className="h-full w-full flex flex-col items-center bg-branco">
-      <Header text="Nova conta"></Header>
-      <ScrollView className="w-full">
+      <ScrollView className="mt-4 w-full">
         <Button
-          className="bg-branco border-azul border-[1px] self-center"
+          className="bg-branco border-azul border-[1px] self-center w-[87%]"
           text="text-azul"
           placeholder="Adicionar foto de perfil"
           onPress={pickImage}
@@ -93,15 +89,13 @@ export default function CadastroPaciente() {
         <FormData.Root
           schema={CadastroSchema}
           initialValues={{
+            profile_picture: "1",
             first_name: "",
             last_name: "",
             email: "",
-            encrypted_password: "",
             phone_number: "",
-            birth_date: "1999-12-31",
             cep: "",
-            confirmarSenha: "",
-            address_num: "42",
+            encrypted_password: "",
           }}
           onSubmit={(data) => {
             {
@@ -110,7 +104,11 @@ export default function CadastroPaciente() {
           }}
         >
           <FormData.Form
-            handleSubmit={signUp}
+            retornavel={true}
+            ButtonStyles={{
+              className: "self-center mt-2 mb-10 w-[87%]",
+              placeholder: "Criar conta",
+            }}
             columns={column}
             id="formQuestion"
           >
@@ -125,10 +123,6 @@ export default function CadastroPaciente() {
                 Declaro que li e concordo com os Termos e Condições
               </Text>
             </View>
-            <Button
-              className="self-center mt-2"
-              placeholder="Criar conta"
-            ></Button>
           </FormData.Form>
         </FormData.Root>
       </ScrollView>
