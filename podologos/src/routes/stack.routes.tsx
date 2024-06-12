@@ -3,6 +3,7 @@ import Login from "../screens/SignedOut/Login";
 import PreLogin from "../screens/SignedOut/PreLogin";
 import DenunciaPaciente from "../screens/Private/Podologo/DenunciaPaciente";
 import CadastroPaciente from "../screens/SignedOut/CadastroPaciente";
+import CadastroTeste from "../screens/SignedOut/CadastroTeste";
 
 const Stack = createStackNavigator();
 

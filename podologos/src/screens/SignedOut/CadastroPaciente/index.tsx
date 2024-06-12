@@ -70,8 +70,29 @@ export default function CadastroPaciente() {
         >
           <MaterialIcons name="add" size={20} color="#2087ED" />
         </Button>
-        <FormData.Root onSubmit={() => signUp(data)}>
-          <FormData.Form columns={column} id="formQuestion">
+        <FormData.Root
+          initialValues={{
+            first_name: "",
+            last_name: "",
+            email: "",
+            encrypted_password: "",
+            phone_number: "",
+            birth_date: "1999-12-31",
+            cep: "",
+            confirmarSenha: "",
+            address_num: "42",
+          }}
+          onSubmit={(data) => {
+            {
+              signUp(data), console.log(data);
+            }
+          }}
+        >
+          <FormData.Form
+            handleSubmit={signUp}
+            columns={column}
+            id="formQuestion"
+          >
             <View className="flex flex-row items-center w-[90%] self-center ">
               <Checkbox
                 className="ml-4 "
@@ -86,7 +107,6 @@ export default function CadastroPaciente() {
             <Button
               className="self-center mt-2"
               placeholder="Criar conta"
-              onSubmit={() => signUp}
             ></Button>
           </FormData.Form>
         </FormData.Root>

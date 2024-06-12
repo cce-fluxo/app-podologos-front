@@ -29,7 +29,14 @@ function FormDataRoot({
         }}
         validationSchema={schema}
       >
-        {({ isSubmitting, handleChange, values, errors, touched }) => (
+        {({
+          isSubmitting,
+          handleChange,
+          values,
+          errors,
+          touched,
+          handleSubmit,
+        }) => (
           <React.Fragment>
             {children &&
               childrenArray.map((child: any, index: any) =>
@@ -37,6 +44,7 @@ function FormDataRoot({
                   key: index,
                   errors,
                   touched,
+                  handleSubmit,
                 })
               )}
           </React.Fragment>

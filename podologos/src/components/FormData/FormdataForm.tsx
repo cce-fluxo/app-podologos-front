@@ -1,6 +1,6 @@
 import React from "react";
 import { Form, Field } from "formik";
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 
 interface FromDataProps {
   columns: Col[];
@@ -9,6 +9,7 @@ interface FromDataProps {
   children?: React.ReactNode;
   errors?: any;
   touched?: any;
+  handleSubmit?: any;
 }
 interface Col {
   type?: string;
@@ -25,6 +26,7 @@ function FormdataForm({
   children,
   errors,
   touched,
+  handleSubmit,
 }: FromDataProps) {
   return (
     <View className="flex w-full" id={id}>
@@ -44,6 +46,10 @@ function FormdataForm({
         </View>
       ))}
       {children}
+      <TouchableOpacity
+        className="bg-black w-16 h-16"
+        onPress={handleSubmit}
+      ></TouchableOpacity>
     </View>
   );
 }
