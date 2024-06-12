@@ -5,7 +5,7 @@ function InputStyled({ field, placeholder, texto, form, ...rest }) {
   return (
     <View
       {...rest}
-      className={`w-[90%] h-auto self-center ${texto === undefined ? "gap-0" : ""}`}
+      className={`w-[87%] h-auto self-center ${texto === undefined ? "gap-0" : ""}`}
     >
       <Text className={`${texto === undefined ? "h-0" : "h-auto"}`}>
         {texto}
