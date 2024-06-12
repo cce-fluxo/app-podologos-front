@@ -13,6 +13,7 @@ import Header from "../../../components/Header";
 import { MaterialIcons } from "@expo/vector-icons";
 import { api } from "../../../services/api";
 import Checkbox from "expo-checkbox";
+import { CadastroSchema } from "../../../components/Schemas";
 
 export default function CadastroPaciente() {
   const [isChecked, setIsChecked] = useState(false);
@@ -71,6 +72,7 @@ export default function CadastroPaciente() {
           <MaterialIcons name="add" size={20} color="#2087ED" />
         </Button>
         <FormData.Root
+          // schema={CadastroSchema}
           initialValues={{
             first_name: "",
             last_name: "",

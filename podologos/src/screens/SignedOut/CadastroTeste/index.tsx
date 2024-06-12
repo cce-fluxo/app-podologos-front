@@ -7,6 +7,14 @@ import Header from "../../../components/Header";
 import { MaterialIcons } from "@expo/vector-icons";
 import { api } from "../../../services/api";
 import Checkbox from "expo-checkbox";
+import * as Yup from "yup";
+
+const SignupSchema = Yup.object().shape({
+  nome: Yup.string().required("Nome é obrigatório"),
+  sobrenome: Yup.string()
+    .min(3, "Mínimo de 3 letras")
+    .required("Sobrenome é obrigatório"),
+});
 
 export default function CadastroTeste() {
   const [isChecked, setIsChecked] = useState(false);
@@ -36,6 +44,7 @@ export default function CadastroTeste() {
           <MaterialIcons name="add" size={20} color="#2087ED" />
         </Button>
         <Formik
+          validationSchema={SignupSchema}
           initialValues={{
             nome: "",
             sobrenome: "",
