@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import { FormData } from "../../../components/FormData/Index";
 import { useState } from "react";
-import Input from "../../../components/Inputs";
+import Input from "../../../components/FormData/InputForm";
 import { Button } from "../../../components/Button";
 import Header from "../../../components/Header";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -72,7 +72,7 @@ export default function CadastroPaciente() {
           <MaterialIcons name="add" size={20} color="#2087ED" />
         </Button>
         <FormData.Root
-          schema={CadastroSchema}
+          // schema={CadastroSchema}
           initialValues={{
             first_name: "",
             last_name: "",
@@ -91,7 +91,11 @@ export default function CadastroPaciente() {
           }}
         >
           <FormData.Form
-            handleSubmit={signUp}
+            retornavel={true}
+            ButtonStyles={{
+              className: "self-center mt-2",
+              placeholder: "Criar conta",
+            }}
             columns={column}
             id="formQuestion"
           >
@@ -106,10 +110,6 @@ export default function CadastroPaciente() {
                 Declaro que li e concordo com os Termos e Condições
               </Text>
             </View>
-            <Button
-              className="self-center mt-2"
-              placeholder="Criar conta"
-            ></Button>
           </FormData.Form>
         </FormData.Root>
       </ScrollView>

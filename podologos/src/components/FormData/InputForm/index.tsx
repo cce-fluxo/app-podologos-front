@@ -11,6 +11,9 @@ function InputStyled({ field, placeholder, texto, form, ...rest }) {
         {texto}
       </Text>
       <TextInput
+        onChangeText={form.handleChange(field.name)}
+        onBlur={form.handleBlur(field.name)}
+        value={form.values[field.name]}
         placeholder={placeholder}
         {...rest}
         className="bg-cinza/20 h-14 mt-2 rounded-[12px] p-4 text-black"
@@ -19,5 +22,5 @@ function InputStyled({ field, placeholder, texto, form, ...rest }) {
   );
 }
 
-const Input = styled(InputStyled);
-export default Input;
+const InputForm = styled(InputStyled);
+export default InputForm;

@@ -1,6 +1,7 @@
 import React from "react";
 import { Form, Field } from "formik";
 import { View, Text, TouchableOpacity } from "react-native";
+import { Button } from "../Button";
 
 interface FromDataProps {
   columns: Col[];
@@ -10,6 +11,8 @@ interface FromDataProps {
   errors?: any;
   touched?: any;
   handleSubmit?: any;
+  ButtonStyles?: any;
+  retornavel: boolean;
 }
 interface Col {
   type?: string;
@@ -27,6 +30,8 @@ function FormdataForm({
   errors,
   touched,
   handleSubmit,
+  ButtonStyles,
+  retornavel,
 }: FromDataProps) {
   return (
     <View className="flex w-full" id={id}>
@@ -34,8 +39,9 @@ function FormdataForm({
         <View key={index} className="mt-2 mb-2">
           <View>
             <Field
+              name={col.name}
               type={col.type}
-              label={col.placeholder}
+              placeholder={col.placeholder}
               options={col.options}
               {...col}
             />
@@ -46,10 +52,11 @@ function FormdataForm({
         </View>
       ))}
       {children}
-      <TouchableOpacity
-        className="bg-black w-16 h-16"
-        onPress={handleSubmit}
-      ></TouchableOpacity>
+      {retornavel ? (
+        <Button {...ButtonStyles} onPress={handleSubmit}></Button>
+      ) : (
+        <></>
+      )}
     </View>
   );
 }

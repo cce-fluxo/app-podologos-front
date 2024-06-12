@@ -11,9 +11,27 @@ export default function StackRoutes() {
   return (
     <Stack.Navigator
       initialRouteName="CadastroPaciente"
-      screenOptions={{ headerShown: false }}
+      screenOptions={{ headerShown: true }}
     >
-      <Stack.Screen name="CadastroPaciente" component={CadastroPaciente} />
+      <Stack.Screen
+        name="CadastroPaciente"
+        component={CadastroPaciente}
+        options={{
+          title: "Nova Conta",
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: "#FBFBFB",
+            height: 60,
+          },
+          headerTitleStyle: {
+            fontSize: 23,
+            color: "#0A284D",
+            fontWeight: "medium",
+
+            // Ajuste o peso da fonte conforme necessário
+          },
+        }}
+      />
 
       <Stack.Screen
         name="Login"
