@@ -72,7 +72,7 @@ export default function CadastroPaciente() {
           <MaterialIcons name="add" size={20} color="#2087ED" />
         </Button>
         <FormData.Root
-          // schema={CadastroSchema}
+          schema={CadastroSchema}
           initialValues={{
             first_name: "",
             last_name: "",

@@ -13,7 +13,7 @@ export default function StackRoutes() {
       initialRouteName="CadastroPaciente"
       screenOptions={{ headerShown: false }}
     >
-      <Stack.Screen name="CadastroPaciente" component={CadastroTeste} />
+      <Stack.Screen name="CadastroPaciente" component={CadastroPaciente} />
 
       <Stack.Screen
         name="Login"
