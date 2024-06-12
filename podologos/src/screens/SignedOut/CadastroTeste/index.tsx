@@ -62,7 +62,14 @@ export default function CadastroTeste() {
             signUp(values);
           }}
         >
-          {({ handleChange, handleBlur, handleSubmit, values }) => (
+          {({
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            values,
+            errors,
+            touched,
+          }) => (
             <View className="flex gap-2 space-y-4 mt-3 justify-center w-full ">
               {/* Div do nome  */}
               <View className="">
@@ -72,7 +79,10 @@ export default function CadastroTeste() {
                   value={values.nome}
                   placeholder="Nome*"
                   keyboardType="default"
-                ></Input>
+                />
+                {touched.nome && errors.nome && (
+                  <Text className="text-red-600 ml-8">{errors.sobrenome}</Text>
+                )}
               </View>
               <View className="">
                 <Input
@@ -81,7 +91,10 @@ export default function CadastroTeste() {
                   value={values.sobrenome}
                   placeholder="Sobrenome*"
                   keyboardType="default"
-                ></Input>
+                />
+                {touched.sobrenome && errors.sobrenome && (
+                  <Text className="text-red-600 ml-8">{errors.sobrenome}</Text>
+                )}
               </View>
               <View className="flex flex-row items-center w-[90%] self-center">
                 <Checkbox

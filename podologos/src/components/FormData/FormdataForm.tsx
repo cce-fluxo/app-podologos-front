@@ -40,7 +40,7 @@ function FormdataForm({
               {...col}
             />
             {touched[col.name] && errors[col.name] && (
-              <Text className="text-red-600">{errors[col.name]}</Text>
+              <Text className="text-red-600 ml-8">{errors[col.name]}</Text>
             )}
           </View>
         </View>
