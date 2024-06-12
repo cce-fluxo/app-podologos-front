@@ -4,6 +4,7 @@ import PreLogin from "../screens/SignedOut/PreLogin";
 import DenunciaPaciente from "../screens/Private/Podologo/DenunciaPaciente";
 import CadastroPaciente from "../screens/SignedOut/CadastroPaciente";
 import CadastroTeste from "../screens/SignedOut/CadastroTeste";
+import MinhasSolicitacoes from "../screens/Private/Paciente/MinhasSolicitacoes";
 
 const Stack = createStackNavigator();
 
@@ -13,7 +14,7 @@ export default function StackRoutes() {
       initialRouteName="CadastroPaciente"
       screenOptions={{ headerShown: false }}
     >
-      <Stack.Screen name="CadastroPaciente" component={CadastroPaciente} />
+      <Stack.Screen name="CadastroPaciente" component={MinhasSolicitacoes} />
 
       <Stack.Screen
         name="Login"

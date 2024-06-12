@@ -1,14 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Image, SafeAreaView, ScrollView, Text, View } from "react-native";
 import { Entypo } from "@expo/vector-icons";
-import Header from "../../../../components/Header";
-import ProfileInfo from "../../../../components/ProfileInfo";
-import { Button } from "../../../../components/Button";
+import Header from "../../../../../components/Header";
+import ProfileInfo from "../../../../../components/ProfileInfo";
+import { Button } from "../../../../../components/Button";
 import FotoPe from "../../../../assets/FotoPe.png";
 import UserIcon from "../../../../assets/UserIcon.png";
-import InformacaoUsuario from "../../../../components/InformacaoUsuario";
+import InformacaoUsuario from "../../../../../components/InformacaoUsuario";
+import { api } from "../../../../../services/api";
 
-function InfoConsultaAceita() {
+function InfoConsultaAceita({ route }) {
+  const { id } = route.params;
+  const [data, setData] = useState([]);
+
+  async function getConsulta() {
+    try {
+      const response = await api.get(`/appointment/consultas-paciente/${id}`);
+      setData(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    getConsulta();
+  }, []);
+
   return (
     <SafeAreaView className="flex w-full h-full bg-branco">
       <Header text="Informações"></Header>

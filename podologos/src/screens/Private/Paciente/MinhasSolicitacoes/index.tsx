@@ -1,11 +1,27 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { SafeAreaView, ScrollView, Text, View } from "react-native";
 import { EvilIcons } from "@expo/vector-icons";
 import Navbar from "../../../../components/Navbar";
 import SolicitacaoPaciente from "../../../../components/SolicitacaoPaciente";
 import PageTitle from "../../../../components/Header";
+import { api } from "../../../../services/api";
 
 export default function MinhasSolicitacoes() {
+  const [data, setData] = useState([]);
+
+  async function getConsultas() {
+    try {
+      const response = await api.get("/appointment/consultas-paciente");
+      setData(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    getConsultas();
+  }, []);
+
   return (
     <SafeAreaView className="flex items-center w-screen flex-1 space-y-10 bg-branco">
       <View className="flex items-center w-screen space-y-10 px-5">
