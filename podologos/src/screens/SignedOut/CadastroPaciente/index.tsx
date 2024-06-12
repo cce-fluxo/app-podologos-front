@@ -14,9 +14,27 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { api } from "../../../services/api";
 import Checkbox from "expo-checkbox";
 import { CadastroSchema } from "../../../components/Schemas";
+import * as ImagePicker from "expo-image-picker";
 
 export default function CadastroPaciente() {
   const [isChecked, setIsChecked] = useState(false);
+  const [image, setImage] = useState(null);
+
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+    }
+  };
 
   async function signUp(data: object) {
     try {
@@ -68,6 +86,7 @@ export default function CadastroPaciente() {
           className="bg-branco border-azul border-[1px] self-center"
           text="text-azul"
           placeholder="Adicionar foto de perfil"
+          onPress={pickImage}
         >
           <MaterialIcons name="add" size={20} color="#2087ED" />
         </Button>
