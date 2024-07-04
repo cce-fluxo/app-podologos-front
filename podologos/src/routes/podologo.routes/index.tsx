@@ -7,19 +7,19 @@ const Stack = createStackNavigator();
 
 function PodologosRoutes() {
   return (
-    <Stack.Navigator initialRouteName="TabRoutes" screenOptions={{ headerShown: false }}>
+    <Stack.Navigator
+      initialRouteName="TabRoutes"
+      screenOptions={{ headerShown: false }}
+    >
+      <Stack.Screen name="TabRoutes" component={TabRoutes}></Stack.Screen>
       <Stack.Screen
-        name="TabRoutes"
-        component={TabRoutes}
+        name="PerfilDoPaciente"
+        component={PerfilDoPaciente}
       ></Stack.Screen>
       <Stack.Screen
-      name="PerfilDoPaciente"
-      component={PerfilDoPaciente}
-    ></Stack.Screen>
-       <Stack.Screen
-      name="DenunciaPaciente"
-      component={DenunciaPaciente}
-    ></Stack.Screen>
+        name="DenunciaPaciente"
+        component={DenunciaPaciente}
+      ></Stack.Screen>
     </Stack.Navigator>
   );
 }

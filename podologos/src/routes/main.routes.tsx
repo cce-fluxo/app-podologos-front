@@ -32,7 +32,7 @@ export default function StackRoutes() {
           headerTitleAlign: "center",
           headerStyle: {
             backgroundColor: "#FBFBFB",
-            height: 100,
+            height: 110,
           },
           headerTitleStyle: {
             fontSize: 23,
@@ -51,7 +51,7 @@ export default function StackRoutes() {
           headerTitleAlign: "center",
           headerStyle: {
             backgroundColor: "#FBFBFB",
-            height: 100,
+            height: 110,
           },
           headerTitleStyle: {
             fontSize: 23,

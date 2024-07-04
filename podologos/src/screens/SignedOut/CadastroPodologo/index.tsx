@@ -13,6 +13,7 @@ import Header from "../../../components/Header";
 import { MaterialIcons } from "@expo/vector-icons";
 import Checkbox from "expo-checkbox";
 import { CadastroSchema } from "../../../components/Schemas";
+import TermosCondicoes from "../../../components/TermosCondicoes";
 
 export default function CadastroPodologo() {
   const [isChecked, setIsChecked] = useState(false);
@@ -27,8 +28,6 @@ export default function CadastroPodologo() {
     senha: "",
     confirmarSenha: "",
   });
-
-  const onSubmit = (data: any) => {};
 
   const column2 = [
     {
@@ -50,9 +49,9 @@ export default function CadastroPodologo() {
 
   return (
     <SafeAreaView className="h-full w-full flex flex-col items-center bg-branco">
-      <ScrollView className="w-full mt-6 mb-4">
+      <ScrollView className="w-full mb-4">
         <Button
-          className="bg-branco border-azul border-[1px] self-center w-[87%]"
+          className="bg-branco border-azul border-[1px] self-center w-[87%] mt-6 mb-4"
           text="text-azul"
           placeholder="Adicionar foto de perfil"
         >
@@ -77,14 +76,14 @@ export default function CadastroPodologo() {
           <FormData.Form
             retornavel={true}
             ButtonStyles={{
-              className: "self-center mt-2 mb-10 w-[87%]",
+              className: "self-center mt-6 mb-10 w-[87%]",
               placeholder: "Criar conta",
             }}
             columns={column2}
             id="formQuestion"
           >
             <Button
-              className="self-center mt-2 bg-branco border-[1px] border-azul mb-2 "
+              className="self-center mt-2 bg-branco border-[1px] border-azul mb-6 w-[87%] "
               placeholder="Formação"
               text="text-azul"
             ></Button>
@@ -93,11 +92,9 @@ export default function CadastroPodologo() {
                 className="ml-4 "
                 value={isChecked}
                 onValueChange={setIsChecked}
-                color={isChecked ? "#2087ED" : undefined}
+                color={isChecked ? "#00C86F" : undefined}
               ></Checkbox>
-              <Text className="ml-4">
-                Declaro que li e concordo com os Termos e Condições
-              </Text>
+              <TermosCondicoes />
             </View>
           </FormData.Form>
         </FormData.Root>
