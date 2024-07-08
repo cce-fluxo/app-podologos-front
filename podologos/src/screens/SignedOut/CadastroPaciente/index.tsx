@@ -50,7 +50,7 @@ export default function CadastroPaciente() {
     { name: "email", placeholder: "Email*", component: Input },
     { name: "phone_number", placeholder: "Telefone*", component: Input },
     { name: "cep", placeholder: "CEP*", component: Input },
-    { name: "encrypted_password", placeholder: "Senha*", component: Input },
+    { name: "password", placeholder: "Senha*", component: Input },
     {
       name: "confirmarSenha",
       placeholder: "Confirmar senha*",
@@ -77,7 +77,7 @@ export default function CadastroPaciente() {
             email: "",
             phone_number: "",
             cep: "",
-            encrypted_password: "",
+            password: "",
           }}
           onSubmit={(data) => {
             {
