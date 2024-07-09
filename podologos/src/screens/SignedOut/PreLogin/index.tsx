@@ -40,7 +40,7 @@ function PreLogin({ navigation }) {
               text="text-branco text-[16px]"
               placeholder="Paciente"
               onPress={() => {
-                navigation.navigate("CadastroPaciente");
+                navigation.navigate("ForgotPassword");
               }}
             ></Button>
             <TouchableOpacity

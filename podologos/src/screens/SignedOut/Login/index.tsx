@@ -9,7 +9,7 @@ import ToastManager from "toastify-react-native";
 import { Formik } from "formik";
 import { LoginSchema } from "../../../components/Schemas";
 
-function Login() {
+function Login(navigation) {
   const { signed, signIn, user } = useContext(AuthContext);
 
   console.log(signed);
@@ -87,11 +87,15 @@ function Login() {
                 <Text className="text-red-600 ml-8">{errors.senha}</Text>
               )}
               <View className="w-full items-center space-y-2">
-                <TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate("CadastroPodologo");
+                  }}
+                >
                   <Text className="text-azul">Esqueci minha senha</Text>
                 </TouchableOpacity>
                 <Button
-                  text=" text-[16px]"
+                  text="text-branco text-[16px]"
                   className="items-center"
                   placeholder="Entrar"
                   onPress={handleSubmit}
@@ -102,7 +106,7 @@ function Login() {
         </Formik>
       </View>
       <Button
-        className=" bg-white border-2 border-azul"
+        className="bg-white border-2 border-azul"
         text="text-azul text-[16px]"
         placeholder="Nova conta"
       ></Button>
