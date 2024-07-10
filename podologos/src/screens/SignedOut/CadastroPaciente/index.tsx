@@ -6,7 +6,7 @@ import {
   View,
 } from "react-native";
 import { FormData } from "../../../components/FormData/Index";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Input from "../../../components/FormData/InputForm";
 import { Button } from "../../../components/Button";
 import Header from "../../../components/Header";
@@ -17,13 +17,14 @@ import { CadastroSchema } from "../../../components/Schemas";
 import TermosCondicoes from "../../../components/TermosCondicoes";
 import * as ImagePicker from "expo-image-picker";
 import ToastManager, { Toast } from "toastify-react-native";
+import AuthContext from "../../../context/AuthContext";
 
 export default function CadastroPaciente() {
   const [isChecked, setIsChecked] = useState(false);
   const [image, setImage] = useState(null);
+  const { signed, register, user } = useContext(AuthContext);
 
   const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
@@ -38,19 +39,24 @@ export default function CadastroPaciente() {
     }
   };
 
-  async function signUp(data: object) {
-    try {
-      Toast.info("Aguarde...", "");
-      const response = await api.post("/patient/registrar-paciente", data);
-      Toast.success("Sucesso ao cadastrar");
-      return response.data;
-    } catch (err: any) {
-      Toast.error("Erro no cadastro", "");
-      console.log(err);
-      console.log(err.response.data);
-      console.log(err.response.status);
-    }
+  async function signUp(data: any) {
+    await register(data);
+    console.log(user, signed);
   }
+
+  // async function signUp(data: object) {
+  //   try {
+  //     //Toast.info("Aguarde...", "");
+  //     const response = await api.post("/patient/registrar-paciente", data);
+  //     //Toast.success("Sucesso ao cadastrar");
+  //     return response.data;
+  //   } catch (err: any) {
+  //     //Toast.error("Erro no cadastro", "");
+  //     console.log(err);
+  //     console.log(err.response.data);
+  //     console.log(err.response.status);
+  //   }
+  // }
 
   const [data, setData] = useState({
     profile_picture: "",
@@ -59,7 +65,7 @@ export default function CadastroPaciente() {
     email: "",
     phone_number: "",
     cep: "",
-    encrypted_password: "",
+    password: "",
   });
   const column = [
     {

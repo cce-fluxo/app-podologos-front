@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import PreLoginImage from "../../../assets/PreLoginImage.png";
 import { Button } from "../../../components/Button";
 import FundoLogin from "../../../assets/FundoLogin.png";
 
@@ -40,7 +39,7 @@ function PreLogin({ navigation }) {
               text="text-branco text-[16px]"
               placeholder="Paciente"
               onPress={() => {
-                navigation.navigate("ForgotPassword");
+                navigation.navigate("CadastroPaciente");
               }}
             ></Button>
             <TouchableOpacity
