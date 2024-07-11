@@ -19,7 +19,7 @@ function Login() {
   async function handleSignIn(values: any) {
     const User = {
       email: values.email,
-      password: values.password,
+      password: values.senha,
     };
     console.log("Logar");
     signIn(User);
@@ -93,7 +93,7 @@ function Login() {
                   <Text className="text-azul">Esqueci minha senha</Text>
                 </TouchableOpacity>
                 <Button
-                  text=" text-[16px]"
+                  text="text-branco text-[16px]"
                   className="items-center"
                   placeholder="Entrar"
                   onPress={handleSubmit}
@@ -104,7 +104,7 @@ function Login() {
         </Formik>
       </View>
       <Button
-        className=" bg-white border-2 border-azul"
+        className="bg-white border-2 border-azul"
         text="text-azul text-[16px]"
         placeholder="Nova conta"
         onPress={() => navigation.navigate("PreLogin")}

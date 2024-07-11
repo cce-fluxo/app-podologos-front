@@ -6,7 +6,7 @@ import {
   View,
 } from "react-native";
 import { FormData } from "../../../components/FormData/Index";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Input from "../../../components/FormData/InputForm";
 import { Button } from "../../../components/Button";
 import Header from "../../../components/Header";
@@ -15,21 +15,48 @@ import { api } from "../../../services/api";
 import Checkbox from "expo-checkbox";
 import { CadastroSchema } from "../../../components/Schemas";
 import TermosCondicoes from "../../../components/TermosCondicoes";
+import * as ImagePicker from "expo-image-picker";
+import ToastManager, { Toast } from "toastify-react-native";
+import AuthContext from "../../../context/AuthContext";
 
 export default function CadastroPaciente() {
   const [isChecked, setIsChecked] = useState(false);
+  const [image, setImage] = useState(null);
+  const { signed, register, user } = useContext(AuthContext);
 
-  async function signUp(data: object) {
-    try {
-      const response = await api.post("/patient/registrar-paciente", data);
-      console.log(response.data);
-      return response.data;
-    } catch (err: any) {
-      console.log(err);
-      console.log(err.response.data);
-      console.log(err.response.status);
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
     }
+  };
+
+  async function signUp(data: any) {
+    await register(data);
+    console.log(user, signed);
   }
+
+  // async function signUp(data: object) {
+  //   try {
+  //     //Toast.info("Aguarde...", "");
+  //     const response = await api.post("/patient/registrar-paciente", data);
+  //     //Toast.success("Sucesso ao cadastrar");
+  //     return response.data;
+  //   } catch (err: any) {
+  //     //Toast.error("Erro no cadastro", "");
+  //     console.log(err);
+  //     console.log(err.response.data);
+  //     console.log(err.response.status);
+  //   }
+  // }
 
   // const [data, setData] = useState({
   //   profile_picture: "",
@@ -40,6 +67,7 @@ export default function CadastroPaciente() {
   //   cep: "",
   //   password: "",
   // });
+
   const column = [
     {
       name: "first_name",
@@ -65,6 +93,7 @@ export default function CadastroPaciente() {
           className="bg-branco border-azul border-[1px] self-center w-[87%] mt-6 mb-4"
           text="text-azul"
           placeholder="Adicionar foto de perfil"
+          onPress={pickImage}
         >
           <MaterialIcons name="add" size={20} color="#2087ED" />
         </Button>
@@ -107,6 +136,7 @@ export default function CadastroPaciente() {
           </FormData.Form>
         </FormData.Root>
       </ScrollView>
+      <ToastManager position="center" />
     </SafeAreaView>
   );
 }
