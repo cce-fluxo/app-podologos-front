@@ -12,6 +12,11 @@ export declare global {
       PerfilPodologo: undefined;
       PerfilDoPaciente: undefined;
       DenunciaPaciente: undefined;
+      CadastroPodologo: undefined;
+      CadastroPaciente: undefined;
+      Email: undefined;
+      Codigo: undefined;
+      NovaSenha: undefined;
     }
   }
 }

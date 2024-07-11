@@ -6,14 +6,14 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import PreLoginImage from "../../../assets/PreLoginImage.png";
 import { Button } from "../../../components/Button";
 import FundoLogin from "../../../assets/FundoLogin.png";
+import { useNavigation } from "@react-navigation/native";
 
-function PreLogin({ navigation }) {
-  // const navigation = useNavigation();
+function PreLogin() {
+  const navigation = useNavigation();
   // function openScreen() {
-  //   navigation.navigate("Login");
+  //   navigation.navigate("");
   // }
 
   return (

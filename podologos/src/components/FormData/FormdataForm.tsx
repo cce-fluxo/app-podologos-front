@@ -2,6 +2,7 @@ import React from "react";
 import { Form, Field } from "formik";
 import { View, Text, TouchableOpacity } from "react-native";
 import { Button } from "../Button";
+import InputForm from "./InputForm";
 
 interface FromDataProps {
   columns: Col[];
@@ -20,6 +21,7 @@ interface Col {
   placeholder: string;
   component: any;
   options?: string[];
+  // mask?: { type: string; options: any };
 }
 
 function FormdataForm({
@@ -43,6 +45,8 @@ function FormdataForm({
               type={col.type}
               placeholder={col.placeholder}
               options={col.options}
+              // component={InputForm}
+              // mask={col.mask}
               {...col}
             />
             {touched[col.name] && errors[col.name] && (

@@ -4,16 +4,17 @@ import Input from "../../../components/Inputs";
 import { Button } from "../../../components/Button";
 import { StatusBar } from "expo-status-bar";
 import AuthContext from "../../../context/AuthContext";
-import { FormData } from "../../../components/FormData/Index";
 import ToastManager from "toastify-react-native";
 import { Formik } from "formik";
 import { LoginSchema } from "../../../components/Schemas";
+import { useNavigation } from "@react-navigation/native";
 
 function Login() {
+  const navigation = useNavigation();
   const { signed, signIn, user } = useContext(AuthContext);
 
-  console.log(signed);
-  console.log(user);
+  // console.log(signed);
+  // console.log(user);
 
   async function handleSignIn(values: any) {
     const User = {
@@ -48,7 +49,6 @@ function Login() {
             email: "",
             senha: "",
           }}
-          //   validationSchema={CadastroSchema}
           onSubmit={(values) => {
             handleSignIn(values);
             console.log(values);
@@ -62,9 +62,9 @@ function Login() {
             errors,
             touched,
           }) => (
-            <View className="flex space-y-2 mt-3 w-full justify-around content ">
-              {/* Div do nome  */}
-              <View className="">
+            <View className="flex space-y-2 mt-3 w-full items-center justify-center ">
+              {/* Div do email  */}
+              <View className="w-full">
                 <Input
                   onChangeText={handleChange("email")}
                   onBlur={handleBlur("email")}
@@ -76,18 +76,20 @@ function Login() {
                   <Text className="text-red-600 ml-8">{errors.email}</Text>
                 )}
               </View>
-              <Input
-                onChangeText={handleChange("senha")}
-                onBlur={handleBlur("senha")}
-                value={values.senha}
-                placeholder="Senha*"
-                keyboardType="default"
-              />
-              {touched.senha && errors.senha && (
-                <Text className="text-red-600 ml-8">{errors.senha}</Text>
-              )}
+              <View className="w-full">
+                <Input
+                  onChangeText={handleChange("senha")}
+                  onBlur={handleBlur("senha")}
+                  value={values.senha}
+                  placeholder="Senha*"
+                  keyboardType="default"
+                />
+                {touched.senha && errors.senha && (
+                  <Text className="text-red-600 ml-8">{errors.senha}</Text>
+                )}
+              </View>
               <View className="w-full items-center space-y-2">
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("Email")}>
                   <Text className="text-azul">Esqueci minha senha</Text>
                 </TouchableOpacity>
                 <Button
@@ -105,6 +107,7 @@ function Login() {
         className=" bg-white border-2 border-azul"
         text="text-azul text-[16px]"
         placeholder="Nova conta"
+        onPress={() => navigation.navigate("PreLogin")}
       ></Button>
       <StatusBar style="auto" />
       <ToastManager />

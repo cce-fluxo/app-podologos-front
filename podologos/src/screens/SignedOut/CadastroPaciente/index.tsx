@@ -31,15 +31,15 @@ export default function CadastroPaciente() {
     }
   }
 
-  const [data, setData] = useState({
-    profile_picture: "",
-    first_name: "",
-    last_name: "",
-    email: "",
-    phone_number: "",
-    cep: "",
-    encrypted_password: "",
-  });
+  // const [data, setData] = useState({
+  //   profile_picture: "",
+  //   first_name: "",
+  //   last_name: "",
+  //   email: "",
+  //   phone_number: "",
+  //   cep: "",
+  //   password: "",
+  // });
   const column = [
     {
       name: "first_name",
@@ -82,6 +82,7 @@ export default function CadastroPaciente() {
           onSubmit={(data) => {
             {
               signUp(data);
+              console.log(data);
             }
           }}
         >

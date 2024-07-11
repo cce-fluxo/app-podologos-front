@@ -1,12 +1,14 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import Login from "../../screens/SignedOut/Login";
 import PreLogin from "../../screens/SignedOut/PreLogin";
-import DenunciaPaciente from "../../screens/Private/Podologo/DenunciaPaciente";
 import CadastroPaciente from "../../screens/SignedOut/CadastroPaciente";
-import CadastroTeste from "../../screens/SignedOut/CadastroTeste";
 import CadastroPodologo from "../../screens/SignedOut/CadastroPodologo";
+import Email from "../../screens/SignedOut/ForgotPassword/Email";
+import Codigo from "../../screens/SignedOut/ForgotPassword/Codigo";
+import NovaSenha from "../../screens/SignedOut/ForgotPassword/NovaSenha";
 
 const Stack = createStackNavigator();
+
 export default function SocialRoutes() {
   return (
     <Stack.Navigator
@@ -22,11 +24,18 @@ export default function SocialRoutes() {
         }}
       />
       <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
         name="CadastroPaciente"
         component={CadastroPaciente}
         options={{
-          headerBackTitleVisible: false, // Garante que a seta de volta seja visível
-          headerTintColor: "black", // Cor da seta de volta
+          headerBackTitleVisible: false,
+          headerTintColor: "black",
           title: "Nova Conta",
           headerTitleAlign: "center",
           headerStyle: {
@@ -56,17 +65,65 @@ export default function SocialRoutes() {
             fontSize: 23,
             color: "#0A284D",
             fontWeight: "medium",
-
-            // Ajuste o peso da fonte conforme necessário
           },
         }}
       />
 
       <Stack.Screen
-        name="Login"
-        component={Login}
+        name="Email"
+        component={Email}
         options={{
-          headerShown: false,
+          headerBackTitleVisible: false,
+          headerTintColor: "black",
+          title: "Esqueci minha senha",
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: "#FBFBFB",
+            height: 110,
+          },
+          headerTitleStyle: {
+            fontSize: 23,
+            color: "#0A284D",
+            fontWeight: "medium",
+          },
+        }}
+      />
+      <Stack.Screen
+        name="Codigo"
+        component={Codigo}
+        options={{
+          headerBackTitleVisible: false,
+          headerTintColor: "black",
+          title: "Recuperar senha",
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: "#FBFBFB",
+            height: 110,
+          },
+          headerTitleStyle: {
+            fontSize: 23,
+            color: "#0A284D",
+            fontWeight: "medium",
+          },
+        }}
+      />
+      <Stack.Screen
+        name="NovaSenha"
+        component={NovaSenha}
+        options={{
+          headerBackTitleVisible: false,
+          headerTintColor: "black",
+          title: "Nova senha",
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: "#FBFBFB",
+            height: 110,
+          },
+          headerTitleStyle: {
+            fontSize: 23,
+            color: "#0A284D",
+            fontWeight: "medium",
+          },
         }}
       />
     </Stack.Navigator>

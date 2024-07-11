@@ -4,11 +4,10 @@ import { Modal, Text, TouchableOpacity, View } from "react-native";
 interface PopupProps {
   modalVisible: boolean;
   mensagem: string;
-  onYesClick?: () => void;
-  onNoClick: () => void;
+  onOkClick: () => void;
 }
 
-function ModalOk({ modalVisible, mensagem, onNoClick }: PopupProps) {
+function ModalOk({ modalVisible, mensagem, onOkClick }: PopupProps) {
   return (
     <Modal transparent={true} visible={modalVisible}>
       <View className="w-screen h-screen z-50 flex items-center justify-center fixed inset-0  bg-black-transparent">
@@ -18,7 +17,7 @@ function ModalOk({ modalVisible, mensagem, onNoClick }: PopupProps) {
           </Text>
 
           <View className="flex items-center justify-center border-t-[1px] border-zinc-300 ">
-            <TouchableOpacity className="mx-auto py-3" onPress={onNoClick}>
+            <TouchableOpacity className="mx-auto py-3" onPress={onOkClick}>
               <Text className="text-azul font-semibold text-lg">Ok</Text>
             </TouchableOpacity>
           </View>

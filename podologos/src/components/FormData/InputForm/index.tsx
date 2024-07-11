@@ -24,3 +24,26 @@ function InputStyled({ field, placeholder, texto, form, ...rest }) {
 
 const InputForm = styled(InputStyled);
 export default InputForm;
+
+// Mascara:
+// {mask ? (
+//   <TextInputMask
+//     type={mask.type}
+//     options={mask.options}
+//     onChangeText={form.handleChange(field.name)}
+//     onBlur={form.handleBlur(field.name)}
+//     value={form.values[field.name]}
+//     placeholder={placeholder}
+//     className="bg-cinza/20 h-14 mt-2 rounded-[12px] p-4 text-black"
+//     {...rest}
+//   />
+// ) : (
+//   <TextInput
+//     onChangeText={form.handleChange(field.name)}
+//     onBlur={form.handleBlur(field.name)}
+//     value={form.values[field.name]}
+//     placeholder={placeholder}
+//     className="bg-cinza/20 h-14 mt-2 rounded-[12px] p-4 text-black"
+//     {...rest}
+//   />
+// )}

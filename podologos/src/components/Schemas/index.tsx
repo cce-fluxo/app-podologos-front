@@ -31,6 +31,19 @@ export const CadastroSchema = Yup.object().shape({
     .required("Confirmação de senha é obrigatória"),
 });
 
+export const EmailSchema = Yup.object().shape({
+  email: Yup.string().email("Email inválido").required("Email é obrigatório"),
+});
+
+export const NovaSenhaSchema = Yup.object().shape({
+  password: Yup.string()
+    .required("Senha obrigatória")
+    .min(8, "A senha deve ter pelo menos 8 caracteres"),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref("password"), null], "As senhas devem corresponder")
+    .required("Confirmação de senha obrigatória"),
+});
+
 // export const SignupSchema = Yup.object().shape({
 //   name: Yup.string().min(3, "3 letters minimum").required("Required field"),
 //   surname: Yup.string().min(3, "3 letters minimum").required("Required field"),
