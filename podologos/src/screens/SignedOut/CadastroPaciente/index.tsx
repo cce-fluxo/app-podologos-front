@@ -1,17 +1,9 @@
-import {
-  SafeAreaView,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { SafeAreaView, ScrollView, View } from "react-native";
 import { FormData } from "../../../components/FormData/Index";
 import { useState, useContext } from "react";
 import Input from "../../../components/FormData/InputForm";
 import { Button } from "../../../components/Button";
-import Header from "../../../components/Header";
 import { MaterialIcons } from "@expo/vector-icons";
-import { api } from "../../../services/api";
 import Checkbox from "expo-checkbox";
 import { CadastroSchema } from "../../../components/Schemas";
 import TermosCondicoes from "../../../components/TermosCondicoes";
