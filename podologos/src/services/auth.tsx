@@ -34,12 +34,19 @@ export async function register(data: any) {
   try {
     console.log(data, "isso");
     //Toast.info("Aguarde...", "");
-    const response = await api.post("/patient/registrar-paciente", data, {
+    const token = await api.post("/patient/registrar-paciente", data, {
       withCredentials: true,
     });
-    console.log(response.data, "fdhfdghfd");
-    //Toast.success("Sucesso ao cadastrar");
-    return response.data;
+    try {
+      const response = await api.get("/user", token.data);
+      console.log(response.data, "fdhfdghfd");
+      //Toast.success("Sucesso ao cadastrar");
+      return response.data;
+    } catch (error) {
+      //Toast.error("Erro no cadastro", "");
+      console.log(error);
+    }
+    console.log(token.data, "fdhfdghfd");
   } catch (error) {
     //Toast.error("Erro no cadastro", "");
     console.log(error);
