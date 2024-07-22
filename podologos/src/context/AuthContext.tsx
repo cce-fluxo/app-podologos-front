@@ -37,6 +37,7 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState<User | null>(null);
   const signed = !!user;
 
+
   async function signIn({ email, password }: SignInData) {
     const { user } = (await auth.signIn({
       email,
@@ -45,6 +46,7 @@ export function AuthProvider({ children }) {
     setUser(user);
   }
 
+  
   async function register({
     profile_picture,
     first_name,
