@@ -8,7 +8,9 @@ import { api } from '../../../../services/api';
 import { Toast } from 'toastify-react-native';
 
 function Codigo({ navigation }) {
+
   const route = useRoute();
+  
   const { email }: any = route.params;
 
   let formikRef = React.useRef(null);

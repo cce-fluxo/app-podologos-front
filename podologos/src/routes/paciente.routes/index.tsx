@@ -1,19 +1,20 @@
-import { createStackNavigator } from "@react-navigation/stack";
-import TabRoutes from "./tab.routes";
-import PerfilDoPaciente from "../../screens/Private/Podologo/PerfilDoPaciente";
-import DenunciaPaciente from "../../screens/Private/Podologo/DenunciaPaciente";
-import PacienteTabRoutes from "./pacienteTab.routes";
+import { createStackNavigator } from '@react-navigation/stack';
+import PerfilDoPaciente from '../../screens/Private/Podologo/PerfilDoPaciente';
+import DenunciaPaciente from '../../screens/Private/Podologo/DenunciaPaciente';
+import PacienteTabRoutes from './pacienteTab.routes';
 
 const Stack = createStackNavigator();
 
 function PodologosRoutes() {
   return (
-    <Stack.Navigator initialRouteName="TabRoutes" screenOptions={{ headerShown: false }}>
+    <Stack.Navigator
+      initialRouteName='TabRoutes'
+      screenOptions={{ headerShown: false }}
+    >
       <Stack.Screen
-        name="TabRoutes"
+        name='TabRoutes'
         component={PacienteTabRoutes}
       ></Stack.Screen>
-  
     </Stack.Navigator>
   );
 }

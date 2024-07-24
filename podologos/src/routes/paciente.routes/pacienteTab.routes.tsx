@@ -1,8 +1,8 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Entypo, FontAwesome } from "@expo/vector-icons";
-import ConsultasStack from "./consultas.routes";
-import HomeStack from "./home.routes";
-import ProfileStack from "./profile.routes";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Entypo, FontAwesome } from '@expo/vector-icons';
+import HomePacienteStack from './homePaciente.routes';
+import ConsultasPacienteStack from './consultasPaciente.routes';
+import ProfilePacitenteStack from './profilePaciente.routes';
 
 const Tab = createBottomTabNavigator();
 
@@ -15,10 +15,10 @@ export default function PacienteTabRoutes() {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: "#2087ED",
-        tabBarInactiveTintColor: "#2087ED60",
+        tabBarActiveTintColor: '#2087ED',
+        tabBarInactiveTintColor: '#2087ED60',
         tabBarHideOnKeyboard: true,
-        tabBarLabelPosition: "below-icon",
+        tabBarLabelPosition: 'below-icon',
         tabBarIconStyle: {
           marginTop: 8,
         },
@@ -29,8 +29,8 @@ export default function PacienteTabRoutes() {
           height: 80,
           paddingBottom: 20,
           borderTopWidth: 0,
-          backgroundColor: "#FFF",
-          shadowColor: "#000",
+          backgroundColor: '#FFF',
+          shadowColor: '#000',
           shadowOffset: { width: 0, height: -2 },
           shadowOpacity: 0.25,
           shadowRadius: 3.84,
@@ -39,35 +39,35 @@ export default function PacienteTabRoutes() {
       }}
     >
       <Tab.Screen
-        name="HomeStack"
-        component={HomeStack}
+        name='HomeStack'
+        component={HomePacienteStack}
         options={{
-          tabBarLabel: "Home",
+          tabBarLabel: 'Home',
           tabBarIcon: ({ color, size }) => (
-            <Entypo name="home" size={22} color={color} />
+            <Entypo name='home' size={22} color={color} />
           ),
         }}
       />
 
       <Tab.Screen
-        name="ConsultasStack"
-        component={ConsultasStack}
+        name='ConsultasStack'
+        component={ConsultasPacienteStack}
         options={{
-          headerTitleAlign: "center",
-          tabBarLabel: "Consultas",
+          headerTitleAlign: 'center',
+          tabBarLabel: 'Consultas',
           tabBarIcon: ({ color, size }) => (
-            <FontAwesome name="plus-square" size={22} color={color} />
+            <FontAwesome name='plus-square' size={22} color={color} />
           ),
         }}
       />
       <Tab.Screen
-        name="ProfileStack"
-        component={ProfileStack}
+        name='ProfileStack'
+        component={ProfilePacitenteStack}
         options={{
-          headerTitleAlign: "center",
-          tabBarLabel: "Perfil",
+          headerTitleAlign: 'center',
+          tabBarLabel: 'Perfil',
           tabBarIcon: ({ color, size }) => (
-            <FontAwesome name="user-circle" size={22} color={color} />
+            <FontAwesome name='user-circle' size={22} color={color} />
           ),
         }}
       />

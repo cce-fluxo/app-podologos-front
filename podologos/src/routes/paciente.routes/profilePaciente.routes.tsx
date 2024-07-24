@@ -4,7 +4,7 @@ import PerfilPodologo from '../../screens/Private/Podologo/PerfilPodologo';
 
 const Stack = createStackNavigator();
 
-function ProfileStack() {
+export default function ProfilePacitenteStack() {
   return (
     <Stack.Navigator initialRouteName='' screenOptions={{ headerShown: false }}>
       <Stack.Screen
@@ -14,5 +14,3 @@ function ProfileStack() {
     </Stack.Navigator>
   );
 }
-
-export default ProfileStack;

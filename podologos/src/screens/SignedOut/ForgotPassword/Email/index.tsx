@@ -8,7 +8,9 @@ import React from 'react';
 import { EmailSchema } from '../../../../components/Schemas';
 import { api } from '../../../../services/api';
 
-function Email({ navigation }) {
+function Email({navigation}) {
+
+  
   let formikRef = React.useRef(null);
   const handleSubmit = () => {
     if (formikRef.current) {
@@ -18,7 +20,6 @@ function Email({ navigation }) {
   };
 
   const [email, setEmail] = React.useState('');
-
   async function handleEmailSubmit(values: any) {
     try {
       const response = await api.patch('/auth/forgot-password', values);
@@ -31,6 +32,7 @@ function Email({ navigation }) {
       console.log(err.response.status);
     }
   }
+
   function handleFormSubmit(values: any) {
     navigation.navigate('Codigo', { email: values.email });
   }
@@ -54,7 +56,7 @@ function Email({ navigation }) {
             email: '',
           }}
           onSubmit={(values) => {
-            handleEmailSubmit(values);
+            handleFormSubmit(values);
             console.log(values);
           }}
         >

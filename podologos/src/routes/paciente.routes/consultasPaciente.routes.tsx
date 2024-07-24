@@ -7,32 +7,20 @@ import InfoConsultasRealizadas from '../../screens/Private/Podologo/InfoConsulta
 
 const Stack = createStackNavigator();
 
-function ConsultasStack() {
+export default function ConsultasPacienteStack() {
   return (
-    <Stack.Navigator initialRouteName='ConsultasAceitas'>
+    <Stack.Navigator
+      initialRouteName='ConsultasAceitas'
+      screenOptions={{ headerShown: false }}
+    >
       <Stack.Screen
         name='ConsultasAceitas'
         component={ConsultasAceitas}
-        options={{ headerShown: false }}
+        options={{ headerTitle: 'Consultas', headerTitleAlign: 'center' }}
       ></Stack.Screen>
       <Stack.Screen
         name='ConsultasRealizadas'
         component={ConsultasRealizadas}
-        options={{
-          headerBackTitleVisible: false,
-          headerTintColor: 'black',
-          title: 'Consultas',
-          headerTitleAlign: 'center',
-          headerStyle: {
-            backgroundColor: '#FBFBFB',
-            height: 110,
-          },
-          headerTitleStyle: {
-            fontSize: 23,
-            color: '#0A284D',
-            fontWeight: 'medium',
-          },
-        }}
       ></Stack.Screen>
       <Stack.Screen
         name='InfoConsultasAceitas'
@@ -45,5 +33,3 @@ function ConsultasStack() {
     </Stack.Navigator>
   );
 }
-
-export default ConsultasStack;
