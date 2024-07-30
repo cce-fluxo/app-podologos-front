@@ -35,7 +35,7 @@ export default function SocialRoutes() {
         component={CadastroPaciente}
         options={{
           headerBackTitleVisible: false,
-          headerTintColor: 'black',
+          headerTintColor: '#0A284D',
           title: 'Nova Conta',
           headerTitleAlign: 'center',
           headerStyle: {
@@ -44,7 +44,6 @@ export default function SocialRoutes() {
           },
           headerTitleStyle: {
             fontSize: 23,
-            color: '#0A284D',
             fontWeight: 'medium',
           },
         }}
@@ -54,7 +53,7 @@ export default function SocialRoutes() {
         component={CadastroPodologo}
         options={{
           headerBackTitleVisible: false,
-          headerTintColor: 'black',
+          headerTintColor: '#0A284D',
           title: 'Nova Conta',
           headerTitleAlign: 'center',
           headerStyle: {
@@ -63,7 +62,6 @@ export default function SocialRoutes() {
           },
           headerTitleStyle: {
             fontSize: 23,
-            color: '#0A284D',
             fontWeight: 'medium',
           },
         }}
@@ -74,7 +72,7 @@ export default function SocialRoutes() {
         component={Email}
         options={{
           headerBackTitleVisible: false,
-          headerTintColor: 'black',
+          headerTintColor: '#0A284D',
           title: 'Esqueci minha senha',
           headerTitleAlign: 'center',
           headerStyle: {
@@ -83,7 +81,6 @@ export default function SocialRoutes() {
           },
           headerTitleStyle: {
             fontSize: 23,
-            color: '#0A284D',
             fontWeight: 'medium',
           },
         }}
@@ -93,7 +90,7 @@ export default function SocialRoutes() {
         component={Codigo}
         options={{
           headerBackTitleVisible: false,
-          headerTintColor: 'black',
+          headerTintColor: '#0A284D',
           title: 'Recuperar senha',
           headerTitleAlign: 'center',
           headerStyle: {
@@ -102,7 +99,6 @@ export default function SocialRoutes() {
           },
           headerTitleStyle: {
             fontSize: 23,
-            color: '#0A284D',
             fontWeight: 'medium',
           },
         }}
@@ -112,7 +108,7 @@ export default function SocialRoutes() {
         component={NovaSenha}
         options={{
           headerBackTitleVisible: false,
-          headerTintColor: 'black',
+          headerTintColor: '#0A284D',
           title: 'Nova senha',
           headerTitleAlign: 'center',
           headerStyle: {
@@ -121,7 +117,6 @@ export default function SocialRoutes() {
           },
           headerTitleStyle: {
             fontSize: 23,
-            color: '#0A284D',
             fontWeight: 'medium',
           },
         }}

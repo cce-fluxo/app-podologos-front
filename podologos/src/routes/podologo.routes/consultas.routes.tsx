@@ -13,14 +13,9 @@ function ConsultasStack() {
       <Stack.Screen
         name='ConsultasAceitas'
         component={ConsultasAceitas}
-        options={{ headerShown: false }}
-      ></Stack.Screen>
-      <Stack.Screen
-        name='ConsultasRealizadas'
-        component={ConsultasRealizadas}
         options={{
           headerBackTitleVisible: false,
-          headerTintColor: 'black',
+          headerTintColor: '#0A284D',
           title: 'Consultas',
           headerTitleAlign: 'center',
           headerStyle: {
@@ -29,7 +24,24 @@ function ConsultasStack() {
           },
           headerTitleStyle: {
             fontSize: 23,
-            color: '#0A284D',
+            fontWeight: 'medium',
+          },
+        }}
+      ></Stack.Screen>
+      <Stack.Screen
+        name='ConsultasRealizadas'
+        component={ConsultasRealizadas}
+        options={{
+          headerBackTitleVisible: false,
+          headerTintColor: '#0A284D',
+          title: 'Consultas',
+          headerTitleAlign: 'center',
+          headerStyle: {
+            backgroundColor: '#FBFBFB',
+            height: 110,
+          },
+          headerTitleStyle: {
+            fontSize: 23,
             fontWeight: 'medium',
           },
         }}
@@ -37,10 +49,38 @@ function ConsultasStack() {
       <Stack.Screen
         name='InfoConsultasAceitas'
         component={InfoConsultasAceitas}
+        options={{
+          headerBackTitleVisible: false,
+          headerTintColor: '#0A284D',
+          title: 'Consultas',
+          headerTitleAlign: 'center',
+          headerStyle: {
+            backgroundColor: '#FBFBFB',
+            height: 110,
+          },
+          headerTitleStyle: {
+            fontSize: 23,
+            fontWeight: 'medium',
+          },
+        }}
       ></Stack.Screen>
       <Stack.Screen
         name='InfoConsultasRealizadas'
         component={InfoConsultasRealizadas}
+        options={{
+          headerBackTitleVisible: false,
+          headerTintColor: '#0A284D',
+          title: 'Consultas',
+          headerTitleAlign: 'center',
+          headerStyle: {
+            backgroundColor: '#FBFBFB',
+            height: 110,
+          },
+          headerTitleStyle: {
+            fontSize: 23,
+            fontWeight: 'medium',
+          },
+        }}
       ></Stack.Screen>
     </Stack.Navigator>
   );

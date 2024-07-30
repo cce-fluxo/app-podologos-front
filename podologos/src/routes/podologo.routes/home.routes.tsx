@@ -19,8 +19,8 @@ function HomeStack() {
         component={InfoSolicitacaoConsulta}
         options={{
           headerBackTitleVisible: false,
-          headerTintColor: 'black',
-          title: 'Recuperar senha',
+          headerTintColor: '#0A284D',
+          title: 'Solicitação',
           headerTitleAlign: 'center',
           headerStyle: {
             backgroundColor: '#FBFBFB',
@@ -28,7 +28,6 @@ function HomeStack() {
           },
           headerTitleStyle: {
             fontSize: 23,
-            color: '#0A284D',
             fontWeight: 'medium',
           },
         }}
