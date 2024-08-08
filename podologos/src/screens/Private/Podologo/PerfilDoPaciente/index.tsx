@@ -18,7 +18,7 @@ import { useNavigation } from '@react-navigation/native';
 
 function PerfilDoPaciente() {
   const navigation = useNavigation();
-  const [notas, setNotas] = useState([
+  const [notas, setNotas] = useState<Array<'star' | 'star-outlined'>>([
     'star-outlined',
     'star-outlined',
     'star-outlined',
@@ -40,7 +40,6 @@ function PerfilDoPaciente() {
 
   return (
     <SafeAreaView className='flex w-full bg-branco'>
-      <Header text='Perfil do paciente'></Header>
       <ScrollView className='flex space-y-8 px-5'>
         <View className='flex items-center justify-center'>
           <Image className='' source={PerfilImage}></Image>

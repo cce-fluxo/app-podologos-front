@@ -1,35 +1,89 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
-import ConsultasAceitas from '../../screens/Private/Podologo/ConsultasAceitas';
-import ConsultasRealizadas from '../../screens/Private/Podologo/ConsultasRealizadas';
-import InfoConsultasAceitas from '../../screens/Private/Podologo/InfoConsultasAceitas';
-import InfoConsultasRealizadas from '../../screens/Private/Podologo/InfoConsultasRealizadas';
+import MinhasSolicitacoes from '../../screens/Private/Paciente/MinhasSolicitacoes';
+import InfoConsultaRealizada from '../../screens/Private/Paciente/InfoConsultaRealizada';
+import InfoConsultaAceita from '../../screens/Private/Paciente/InfoConsultaAceita';
+import InfoConsultaSolicitada from '../../screens/Private/Paciente/InfoConsultaSolicitada';
 
 const Stack = createStackNavigator();
 
-export default function ConsultasPacienteStack() {
+function ConsultasPacientesStack() {
   return (
-    <Stack.Navigator
-      initialRouteName='ConsultasAceitas'
-      screenOptions={{ headerShown: false }}
-    >
+    <Stack.Navigator initialRouteName='MinhasSolicitacoes'>
       <Stack.Screen
-        name='ConsultasAceitas'
-        component={ConsultasAceitas}
-        options={{ headerTitle: 'Consultas', headerTitleAlign: 'center' }}
+        name='MinhasSolicitacoes'
+        component={MinhasSolicitacoes}
+        options={{
+          headerBackTitleVisible: false,
+          headerTintColor: '#0A284D',
+          title: 'Consultas',
+          headerTitleAlign: 'center',
+          headerStyle: {
+            backgroundColor: '#FBFBFB',
+            height: 110,
+          },
+          headerTitleStyle: {
+            fontSize: 23,
+            fontWeight: 'medium',
+          },
+        }}
       ></Stack.Screen>
       <Stack.Screen
-        name='ConsultasRealizadas'
-        component={ConsultasRealizadas}
+        name='InfoConsultaRealizada'
+        component={InfoConsultaRealizada}
+        options={{
+          headerBackTitleVisible: false,
+          headerTintColor: '#0A284D',
+          title: 'Consultas',
+          headerTitleAlign: 'center',
+          headerStyle: {
+            backgroundColor: '#FBFBFB',
+            height: 110,
+          },
+          headerTitleStyle: {
+            fontSize: 23,
+            fontWeight: 'medium',
+          },
+        }}
       ></Stack.Screen>
       <Stack.Screen
-        name='InfoConsultasAceitas'
-        component={InfoConsultasAceitas}
+        name='InfoConsultaAceita'
+        component={InfoConsultaAceita}
+        options={{
+          headerBackTitleVisible: false,
+          headerTintColor: '#0A284D',
+          title: 'Consultas',
+          headerTitleAlign: 'center',
+          headerStyle: {
+            backgroundColor: '#FBFBFB',
+            height: 110,
+          },
+          headerTitleStyle: {
+            fontSize: 23,
+            fontWeight: 'medium',
+          },
+        }}
       ></Stack.Screen>
       <Stack.Screen
-        name='InfoConsultasRealizadas'
-        component={InfoConsultasRealizadas}
+        name='InfoConsultaSolicitada'
+        component={InfoConsultaSolicitada}
+        options={{
+          headerBackTitleVisible: false,
+          headerTintColor: '#0A284D',
+          title: 'Consultas',
+          headerTitleAlign: 'center',
+          headerStyle: {
+            backgroundColor: '#FBFBFB',
+            height: 110,
+          },
+          headerTitleStyle: {
+            fontSize: 23,
+            fontWeight: 'medium',
+          },
+        }}
       ></Stack.Screen>
     </Stack.Navigator>
   );
 }
+
+export default ConsultasPacientesStack;

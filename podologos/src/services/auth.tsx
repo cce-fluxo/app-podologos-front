@@ -27,7 +27,9 @@ export async function signIn({ email, password }: User) {
   } catch (error) {
     Toast.error("Erro no login", "");
     console.log(error);
+    console.log(error.response.data);
   }
+  
 }
 
 export async function register(data: any) {

@@ -1,21 +1,39 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
-import HomePodologo from '../../screens/Private/Podologo/HomePodologo';
-import InfoSolicitacaoConsulta from '../../screens/Private/Podologo/InfoSolicitacaoConsulta';
+import HomePaciente from '../../screens/Private/Paciente/HomePaciente';
+import NovaConsulta from '../../screens/Private/Paciente/NovaConsulta';
 
 const Stack = createStackNavigator();
 
-export default function HomePacienteStack() {
+function HomePacienteStack() {
   return (
-    <Stack.Navigator
-      initialRouteName='HomePodologo'
-      screenOptions={{ headerShown: false }}
-    >
+    <Stack.Navigator initialRouteName='HomePaciente'>
       <Stack.Screen
-        name='InfoSolicitacaoConsulta'
-        component={InfoSolicitacaoConsulta}
+        name='HomePaciente'
+        component={HomePaciente}
+        options={{ headerShown: false }}
       ></Stack.Screen>
-      <Stack.Screen name='HomePodologo' component={HomePodologo}></Stack.Screen>
+
+      <Stack.Screen
+        name='NovaConsulta'
+        component={NovaConsulta}
+        options={{
+          headerBackTitleVisible: false,
+          headerTintColor: '#0A284D',
+          title: 'Solicitação',
+          headerTitleAlign: 'center',
+          headerStyle: {
+            backgroundColor: '#FBFBFB',
+            height: 110,
+          },
+          headerTitleStyle: {
+            fontSize: 23,
+            fontWeight: 'medium',
+          },
+        }}
+      ></Stack.Screen>
     </Stack.Navigator>
   );
 }
+
+export default HomePacienteStack;
