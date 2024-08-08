@@ -17,12 +17,12 @@ function Login() {
   // console.log(user);
 
   async function handleSignIn(values: any) {
-    const User = {
+    const userCredentials = {
       email: values.email,
-      password: values.senha,
+      password: values.password,
     };
     console.log('Logar');
-    signIn(User);
+    await signIn(userCredentials); // Adicionado await para garantir sincronização
   }
 
   const columns = [
@@ -47,7 +47,7 @@ function Login() {
           validationSchema={LoginSchema}
           initialValues={{
             email: '',
-            senha: '',
+            password: '',
           }}
           onSubmit={(values) => {
             handleSignIn(values);
@@ -78,14 +78,14 @@ function Login() {
               </View>
               <View className='w-full'>
                 <Input
-                  onChangeText={handleChange('senha')}
-                  onBlur={handleBlur('senha')}
-                  value={values.senha}
+                  onChangeText={handleChange('password')}
+                  onBlur={handleBlur('password')}
+                  value={values.password}
                   placeholder='Senha*'
                   keyboardType='default'
                 />
-                {touched.senha && errors.senha && (
-                  <Text className='ml-8 text-red-600'>{errors.senha}</Text>
+                {touched.password && errors.password && (
+                  <Text className='ml-8 text-red-600'>{errors.password}</Text>
                 )}
               </View>
               <View className='w-full items-center space-y-2'>

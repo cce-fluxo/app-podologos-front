@@ -10,11 +10,12 @@ import TermosCondicoes from '../../../components/TermosCondicoes';
 import * as ImagePicker from 'expo-image-picker';
 import ToastManager, { Toast } from 'toastify-react-native';
 import AuthContext from '../../../context/AuthContext';
+import { api } from '../../../services/api';
 
 export default function CadastroPaciente() {
   const [isChecked, setIsChecked] = useState(false);
   const [image, setImage] = useState(null);
-  const { signed, register, user } = useContext(AuthContext);
+  const { signed, user } = useContext(AuthContext);
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -31,24 +32,19 @@ export default function CadastroPaciente() {
     }
   };
 
-  async function signUp(data: any) {
-    await register(data);
-    console.log(user, signed);
+  async function signUp(data: object) {
+    try {
+      //Toast.info("Aguarde...", "");
+      const response = await api.post('/patient/registrar-paciente', data);
+      //Toast.success("Sucesso ao cadastrar");
+      return response.data;
+    } catch (err: any) {
+      //Toast.error("Erro no cadastro", "");
+      console.log(err);
+      console.log(err.response.data);
+      console.log(err.response.status);
+    }
   }
-
-  // async function signUp(data: object) {
-  //   try {
-  //     //Toast.info("Aguarde...", "");
-  //     const response = await api.post("/patient/registrar-paciente", data);
-  //     //Toast.success("Sucesso ao cadastrar");
-  //     return response.data;
-  //   } catch (err: any) {
-  //     //Toast.error("Erro no cadastro", "");
-  //     console.log(err);
-  //     console.log(err.response.data);
-  //     console.log(err.response.status);
-  //   }
-  // }
 
   // const [data, setData] = useState({
   //   profile_picture: "",
@@ -90,7 +86,7 @@ export default function CadastroPaciente() {
           <MaterialIcons name='add' size={20} color='#2087ED' />
         </Button>
         <FormData.Root
-          // schema={CadastroSchema}
+          schema={CadastroSchema}
           initialValues={{
             profile_picture: '1',
             first_name: '',
@@ -99,11 +95,13 @@ export default function CadastroPaciente() {
             phone_number: '',
             cep: '',
             password: '',
+            confirmarSenha: '',
           }}
           onSubmit={(data) => {
             {
-              signUp(data);
-              console.log(data);
+              const { confirmarSenha, ...filteredData } = data;
+              signUp(filteredData);
+              console.log(filteredData);
             }
           }}
         >

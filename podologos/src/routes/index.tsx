@@ -8,7 +8,7 @@ import TabRoutes from './podologo.routes/tab.routes';
 export default function Routes() {
   return (
     <NavigationContainer>
-      <PodologosRoutes />
+      <SocialRoutes />
     </NavigationContainer>
   );
 }

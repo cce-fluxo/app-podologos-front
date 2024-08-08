@@ -1,5 +1,5 @@
-import React, { createContext, useState } from "react";
-import * as auth from "../services/auth";
+import React, { createContext, useState } from 'react';
+import * as auth from '../services/auth';
 
 type User = {
   email: string;
@@ -9,7 +9,6 @@ interface AuthContextData {
   signed: boolean;
   user: User | null;
   signIn: (data: SignInData) => Promise<void>;
-  register: (data: RegisterData) => Promise<void>;
   signOut(): void;
 }
 type SignInData = {
@@ -37,35 +36,14 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState<User | null>(null);
   const signed = !!user;
 
-
   async function signIn({ email, password }: SignInData) {
-    const { user } = (await auth.signIn({
-      email,
-      password,
-    })) as Response;
-    setUser(user);
-  }
+    const response = await auth.signIn({ email, password });
 
-  
-  async function register({
-    profile_picture,
-    first_name,
-    last_name,
-    phone_number,
-    cep,
-    password,
-    email,
-  }: RegisterData) {
-    const { user } = (await auth.register({
-      profile_picture,
-      first_name,
-      last_name,
-      phone_number,
-      cep,
-      password,
-      email,
-    })) as Response;
-    setUser(user);
+    if (response && response.user) {
+      setUser(response.user);
+    } else {
+      ('Erro'); // Tratar erros ou respostas inesperadas aqui
+    }
   }
 
   function signOut() {
@@ -73,7 +51,7 @@ export function AuthProvider({ children }) {
   }
 
   return (
-    <AuthContext.Provider value={{ signed, user, register, signIn, signOut }}>
+    <AuthContext.Provider value={{ signed, user, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   );
