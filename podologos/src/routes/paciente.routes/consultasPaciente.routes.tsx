@@ -13,20 +13,7 @@ function ConsultasPacientesStack() {
       <Stack.Screen
         name='MinhasSolicitacoes'
         component={MinhasSolicitacoes}
-        options={{
-          headerBackTitleVisible: false,
-          headerTintColor: '#0A284D',
-          title: 'Consultas',
-          headerTitleAlign: 'center',
-          headerStyle: {
-            backgroundColor: '#FBFBFB',
-            height: 110,
-          },
-          headerTitleStyle: {
-            fontSize: 23,
-            fontWeight: 'medium',
-          },
-        }}
+        options={{ headerShown: false }}
       ></Stack.Screen>
       <Stack.Screen
         name='InfoConsultaRealizada'

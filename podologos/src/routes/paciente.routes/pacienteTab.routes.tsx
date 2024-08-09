@@ -27,7 +27,7 @@ export default function PacienteTabRoutes() {
         },
         tabBarStyle: {
           height: 80,
-          paddingBottom: 20,
+          paddingBottom: 15,
           borderTopWidth: 0,
           backgroundColor: '#FFF',
           shadowColor: '#000',
@@ -35,6 +35,8 @@ export default function PacienteTabRoutes() {
           shadowOpacity: 0.25,
           shadowRadius: 3.84,
           elevation: 5,
+          borderTopLeftRadius: 20,
+          borderTopRightRadius: 20,
         },
       }}
     >

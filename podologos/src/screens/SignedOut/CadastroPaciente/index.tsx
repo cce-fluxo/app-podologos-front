@@ -36,10 +36,10 @@ export default function CadastroPaciente() {
     try {
       //Toast.info("Aguarde...", "");
       const response = await api.post('/patient/registrar-paciente', data);
-      //Toast.success("Sucesso ao cadastrar");
+      Toast.success('Sucesso ao cadastrar');
       return response.data;
     } catch (err: any) {
-      //Toast.error("Erro no cadastro", "");
+      Toast.error('Erro no cadastro', '');
       console.log(err);
       console.log(err.response.data);
       console.log(err.response.status);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Image, SafeAreaView, ScrollView, Text, View } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 import PerfilImage from '../../../../assets/PerfilImage.png';
@@ -6,12 +6,28 @@ import Header from '../../../../components/Header';
 import ProfileInfo from '../../../../components/ProfileInfo';
 import { Button } from '../../../../components/Button';
 import Avaliacao from '../../../../components/Avaliacao';
+import ModalSimNao from '../../../../components/ModalSimNao';
 
-function PerfilPaciente() {
+function PerfilPaciente({ navigation }) {
+  const [modalDelete, setModalDelete] = useState(false);
+  function closeDeleteModal() {
+    setModalDelete(false);
+  }
+  function openDeleteModal() {
+    setModalDelete(true);
+  }
+  const [modalSair, setModalSair] = useState(false);
+
+  function closeSairModal() {
+    setModalSair(false);
+  }
+  function openSairModal() {
+    setModalSair(true);
+  }
+
   return (
     <SafeAreaView className='flex w-full bg-branco'>
-      <Header text='Perfil'></Header>
-      <ScrollView className='flex space-y-8 px-5'>
+      <ScrollView className='flex space-y-8 px-5 pt-5'>
         <View className='flex items-center justify-center'>
           <Image className='' source={PerfilImage}></Image>
           <View className='mt-3 flex flex-row items-center justify-center space-x-2 rounded-md bg-cinza p-1'>
@@ -33,16 +49,22 @@ function PerfilPaciente() {
           <ProfileInfo label='Cep' text='12345-678'></ProfileInfo>
         </View>
         <View className='flex w-full items-center space-y-4'>
-          <Button className='w-full' placeholder='Editar perfil'></Button>
+          <Button
+            className='w-full'
+            placeholder='Editar perfil '
+            onPress={() => navigation.navigate('EditarPaciente')}
+          ></Button>
           <Button
             className='w-full border-[1px] border-azul bg-white'
             text='text-azul text-[16px]'
             placeholder='Sair'
+            onPress={openSairModal}
           ></Button>
           <Button
             className='w-full border-[1px] border-azul bg-white'
             text='text-azul text-[16px]'
             placeholder='Excluir conta'
+            onPress={openDeleteModal}
           ></Button>
         </View>
         <Text className='text-[18px] font-semibold text-texto_cinza'>
@@ -73,6 +95,16 @@ function PerfilPaciente() {
           ))}
         </View>
       </ScrollView>
+      <ModalSimNao
+        modalVisible={modalDelete}
+        mensagem='Tem certeza que deseja excluir sua conta?'
+        onNoClick={closeDeleteModal}
+      ></ModalSimNao>
+      <ModalSimNao
+        modalVisible={modalSair}
+        mensagem='Tem certeza que deseja sair?'
+        onNoClick={closeSairModal}
+      ></ModalSimNao>
     </SafeAreaView>
   );
 }

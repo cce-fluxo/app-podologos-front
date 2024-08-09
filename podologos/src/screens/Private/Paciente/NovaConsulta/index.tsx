@@ -7,11 +7,10 @@ import Input from '../../../../components/Inputs';
 export default function NovaConsulta() {
   return (
     <SafeAreaView className='flex h-full w-full bg-branco'>
-      <Header text='Nova consulta'></Header>
       <View className='flex h-full justify-between px-5'>
         <View className='flex space-y-4'>
           <Button
-            className='w-full self-center border-[1px] border-azul bg-branco'
+            className='mt-8 w-full self-center border-[1px] border-azul bg-branco'
             text='text-azul'
             placeholder='Adicionar foto de perfil'
           >
@@ -30,7 +29,8 @@ export default function NovaConsulta() {
             placeholder='Editar ficha de anamnese'
           ></Button>
         </View>
-        <Button className='mb-20 w-full' placeholder='Enviar'></Button>
+
+        <Button className='mb-8 w-full' placeholder='Enviar'></Button>
       </View>
     </SafeAreaView>
   );

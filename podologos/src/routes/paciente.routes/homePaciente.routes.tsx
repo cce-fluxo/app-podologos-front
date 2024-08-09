@@ -20,7 +20,7 @@ function HomePacienteStack() {
         options={{
           headerBackTitleVisible: false,
           headerTintColor: '#0A284D',
-          title: 'Solicitação',
+          title: 'Nova Consulta',
           headerTitleAlign: 'center',
           headerStyle: {
             backgroundColor: '#FBFBFB',
@@ -28,7 +28,7 @@ function HomePacienteStack() {
           },
           headerTitleStyle: {
             fontSize: 23,
-            fontWeight: 'medium',
+            fontWeight: 'normal',
           },
         }}
       ></Stack.Screen>

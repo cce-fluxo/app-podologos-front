@@ -22,7 +22,7 @@ function Codigo({ navigation }) {
 
   const onSubmitCode = async (data: any) => {
     try {
-      /* console.log(Object.values(data).join("")); */
+      console.log(Object.values(data).join(''));
       const info = {
         token: Object.values(data).join(''),
       };
@@ -36,6 +36,7 @@ function Codigo({ navigation }) {
       Toast.error('Código inválido', '');
     }
   };
+  
   const handleFormSubmit = (values) => {
     console.log('Email:', email);
     console.log('Código:', values.codigo);

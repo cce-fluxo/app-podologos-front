@@ -2,9 +2,9 @@ import { ImageBackground, SafeAreaView, Text, View } from 'react-native';
 import HomePacienteImage from '../../../../assets/HomePacienteImage.png';
 import { Button } from '../../../../components/Button';
 
-export default function HomePaciente() {
+export default function HomePaciente({ navigation }) {
   return (
-    <SafeAreaView className='flex h-full w-full'>
+    <SafeAreaView className='flex h-full w-full '>
       <ImageBackground
         source={HomePacienteImage}
         alt=''
@@ -18,7 +18,11 @@ export default function HomePaciente() {
           Encontre podólogos experientes perto de você para proporcionar o
           cuidado que seus pés merecem.
         </Text>
-        <Button placeholder='Nova consulta' className='mb-8'></Button>
+        <Button
+          placeholder='Nova consulta'
+          className='mb-8'
+          onPress={() => navigation.navigate('NovaConsulta')}
+        ></Button>
       </ImageBackground>
     </SafeAreaView>
   );

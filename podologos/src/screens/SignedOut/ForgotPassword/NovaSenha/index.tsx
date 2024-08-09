@@ -31,7 +31,7 @@ function NovaSenha() {
     }
   };
 
-  async function handleFormSubmit(values) {
+  async function handleFormSubmit({ values }: any) {
     try {
       const data = {
         password: values.password,
@@ -50,7 +50,7 @@ function NovaSenha() {
     }
   }
 
-  function handleForm(values) {
+  function handleForm({ values }: any) {
     console.log(values.password);
     openModal();
   }

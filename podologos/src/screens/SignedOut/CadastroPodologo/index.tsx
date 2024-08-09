@@ -15,6 +15,7 @@ import Checkbox from 'expo-checkbox';
 import { CadastroSchema } from '../../../components/Schemas';
 import TermosCondicoes from '../../../components/TermosCondicoes';
 import { api } from '../../../services/api';
+import { Toast } from 'toastify-react-native';
 
 export default function CadastroPodologo() {
   const [isChecked, setIsChecked] = useState(false);
@@ -23,10 +24,11 @@ export default function CadastroPodologo() {
     try {
       //Toast.info("Aguarde...", "");
       const response = await api.post('/patient/registrar-paciente', data);
-      //Toast.success("Sucesso ao cadastrar");
+      Toast.success('Sucesso ao cadastrar');
+      console.log(response.data);
       return response.data;
     } catch (err: any) {
-      //Toast.error("Erro no cadastro", "");
+      Toast.error('Erro no cadastro', '');
       console.log(err);
       console.log(err.response.data);
       console.log(err.response.status);

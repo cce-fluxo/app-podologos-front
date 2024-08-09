@@ -1,9 +1,7 @@
 import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 import Input from '../../../../components/Inputs';
 import { Button } from '../../../../components/Button';
-import PageTitle from '../../../../components/Header';
 import { Formik } from 'formik';
-import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { EmailSchema } from '../../../../components/Schemas';
 import { api } from '../../../../services/api';
@@ -23,7 +21,6 @@ function Email({ navigation }) {
     try {
       const response = await api.patch('/auth/forgot-password', values);
       setEmail(values.email);
-      console.log(response.data);
       navigation.navigate('Codigo', { email: values.email });
       return response.data;
     } catch (err) {
