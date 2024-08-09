@@ -26,7 +26,10 @@ function Codigo({ navigation }) {
       const info = {
         token: Object.values(data).join(''),
       };
-      const response = await api.post('/auth/forgot-paswword/validate-token', info);
+      const response = await api.post(
+        '/auth/forgot-paswword/validate-token',
+        info
+      );
       return response;
     } catch (error) {
       console.log(error);

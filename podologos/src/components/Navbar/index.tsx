@@ -1,33 +1,33 @@
 /* import { useNavigation } from "@react-navigation/native"; */
 
-import React from "react";
-import { TouchableOpacity, View, Text, Image } from "react-native";
-import { Entypo, AntDesign, FontAwesome } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import React from 'react';
+import { TouchableOpacity, View, Text, Image } from 'react-native';
+import { Entypo, AntDesign, FontAwesome } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 export default function Navbar() {
   return (
-    <View className="flex flex-row h-20 w-full items-stretch shadow-sm shadow-black rounded-t-xl">
-      <TouchableOpacity className="h-20 flex flex-1">
-        <View className="flex flex-1 justify-center items-center">
-          <Entypo name="home" size={20} color={"#2087ED"} />
+    <View className='flex h-20 w-full flex-row items-stretch rounded-t-xl shadow-sm shadow-black'>
+      <TouchableOpacity className='flex h-20 flex-1'>
+        <View className='flex flex-1 items-center justify-center'>
+          <Entypo name='home' size={20} color={'#2087ED'} />
 
-          <Text className="text-azul text-[15px] font-semibold">Home</Text>
+          <Text className='text-[15px] font-semibold text-azul'>Home</Text>
         </View>
       </TouchableOpacity>
 
-      <TouchableOpacity className="h-20 flex flex-1">
-        <View className="flex flex-1 justify-center items-center">
-          <FontAwesome name="plus-square-o" size={20} color={"#2087ED"} />
+      <TouchableOpacity className='flex h-20 flex-1'>
+        <View className='flex flex-1 items-center justify-center'>
+          <FontAwesome name='plus-square-o' size={20} color={'#2087ED'} />
 
-          <Text className="text-azul text-[15px] font-semibold">Consultas</Text>
+          <Text className='text-[15px] font-semibold text-azul'>Consultas</Text>
         </View>
       </TouchableOpacity>
 
-      <TouchableOpacity className="h-20 flex flex-1">
-        <View className="flex flex-1 justify-center items-center">
-          <AntDesign name="hearto" size={20} color={"#2087ED"} />
-          <Text className="text-azul text-[15px] font-semibold">Perfil</Text>
+      <TouchableOpacity className='flex h-20 flex-1'>
+        <View className='flex flex-1 items-center justify-center'>
+          <AntDesign name='hearto' size={20} color={'#2087ED'} />
+          <Text className='text-[15px] font-semibold text-azul'>Perfil</Text>
         </View>
       </TouchableOpacity>
     </View>

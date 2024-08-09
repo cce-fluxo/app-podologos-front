@@ -1,5 +1,5 @@
-import { View, Text, Image, TouchableOpacity } from "react-native";
-import { Button } from "../Button";
+import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { Button } from '../Button';
 
 interface PopUpProps {
   texto: string;
@@ -8,13 +8,13 @@ interface PopUpProps {
 
 function PopUp({ texto, onClick }: PopUpProps) {
   return (
-    <View className="absolute w-full h-full bg-[#0000006a] flex justify-center items-center z-10">
-      <View className="flex justify-around items-center w-[85%] h-[16%] bg-branco rounded-[15px]">
-        <Text className="flex-1 p-2 text-center">{texto}</Text>
+    <View className='absolute z-10 flex h-full w-full items-center justify-center bg-[#0000006a]'>
+      <View className='flex h-[16%] w-[85%] items-center justify-around rounded-[15px] bg-branco'>
+        <Text className='flex-1 p-2 text-center'>{texto}</Text>
         <Button
-          className="h-2/5 bg-branco border-t-[1px] rounded-none"
-          texto="text-azul"
-          placeholder="Ok"
+          className='h-2/5 rounded-none border-t-[1px] bg-branco'
+          texto='text-azul'
+          placeholder='Ok'
           onClick={onClick}
         ></Button>
       </View>

@@ -1,14 +1,14 @@
-import React from "react";
+import React from 'react';
 import {
   ImageBackground,
   SafeAreaView,
   Text,
   TouchableOpacity,
   View,
-} from "react-native";
-import { Button } from "../../../components/Button";
-import FundoLogin from "../../../assets/FundoLogin.png";
-import { useNavigation } from "@react-navigation/native";
+} from 'react-native';
+import { Button } from '../../../components/Button';
+import FundoLogin from '../../../assets/FundoLogin.png';
+import { useNavigation } from '@react-navigation/native';
 
 function PreLogin() {
   const navigation = useNavigation();
@@ -17,38 +17,38 @@ function PreLogin() {
   // }
 
   return (
-    <SafeAreaView className="flex  w-screen h-screen mt-14 ">
-      <ImageBackground className="flex  h-screen w-screen" source={FundoLogin}>
-        <View className="flex items-center justify-around h-full w-full space-y-2">
+    <SafeAreaView className='mt-14 flex h-screen w-screen'>
+      <ImageBackground className='flex h-screen w-screen' source={FundoLogin}>
+        <View className='flex h-full w-full items-center justify-around space-y-2'>
           <View></View>
 
-          <Text className="font-bold max-w-[80%]  text-branco text-[32px]  ">
+          <Text className='max-w-[80%] text-[32px] font-bold text-branco'>
             O atendimento e conforto para os seus pés
           </Text>
 
-          <View className="mb-10 flex w-full max-w-[87%] items-center space-y-2">
+          <View className='mb-10 flex w-full max-w-[87%] items-center space-y-2'>
             <Button
-              className="flex mt-10"
-              text="text-branco text-[16px]"
-              placeholder="Podólogo"
+              className='mt-10 flex'
+              text='text-branco text-[16px]'
+              placeholder='Podólogo'
               onPress={() => {
-                navigation.navigate("CadastroPodologo");
+                navigation.navigate('CadastroPodologo');
               }}
             ></Button>
             <Button
-              className=" "
-              text="text-branco text-[16px]"
-              placeholder="Paciente"
+              className=' '
+              text='text-branco text-[16px]'
+              placeholder='Paciente'
               onPress={() => {
-                navigation.navigate("CadastroPaciente");
+                navigation.navigate('CadastroPaciente');
               }}
             ></Button>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("Login");
+                navigation.navigate('Login');
               }}
             >
-              <Text className="text-branco text-[15px]">
+              <Text className='text-[15px] text-branco'>
                 Já possuo cadastro
               </Text>
             </TouchableOpacity>

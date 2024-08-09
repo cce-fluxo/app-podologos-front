@@ -1,8 +1,8 @@
-import React from "react";
-import { Form, Field } from "formik";
-import { View, Text, TouchableOpacity } from "react-native";
-import { Button } from "../Button";
-import InputForm from "./InputForm";
+import React from 'react';
+import { Form, Field } from 'formik';
+import { View, Text, TouchableOpacity } from 'react-native';
+import { Button } from '../Button';
+import InputForm from './InputForm';
 
 interface FromDataProps {
   columns: Col[];
@@ -36,9 +36,9 @@ function FormdataForm({
   retornavel,
 }: FromDataProps) {
   return (
-    <View className="flex w-full" id={id}>
+    <View className='flex w-full' id={id}>
       {columns.map((col: Col, index) => (
-        <View key={index} className="mt-2 mb-2">
+        <View key={index} className='mb-2 mt-2'>
           <View>
             <Field
               name={col.name}
@@ -50,7 +50,7 @@ function FormdataForm({
               {...col}
             />
             {touched[col.name] && errors[col.name] && (
-              <Text className="text-red-600 ml-8">{errors[col.name]}</Text>
+              <Text className='ml-8 text-red-600'>{errors[col.name]}</Text>
             )}
           </View>
         </View>

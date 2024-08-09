@@ -1,6 +1,6 @@
-import { Formik } from "formik";
-import React from "react";
-import { View } from "react-native";
+import { Formik } from 'formik';
+import React from 'react';
+import { View } from 'react-native';
 
 interface FormDataProps {
   onSubmit: (data: any) => void;
@@ -19,7 +19,7 @@ function FormDataRoot({
 }: FormDataProps) {
   const childrenArray = Array.isArray(children) ? children : [children];
   return (
-    <View id="select" className="flex h-full w-full">
+    <View id='select' className='flex h-full w-full'>
       <Formik
         enableReinitialize
         initialValues={initialValues}

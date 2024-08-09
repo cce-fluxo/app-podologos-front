@@ -1,5 +1,5 @@
-import React, { Image, Text, TouchableOpacity } from "react-native";
-import { styled } from "nativewind";
+import React, { Image, Text, TouchableOpacity } from 'react-native';
+import { styled } from 'nativewind';
 
 function ButtonStyled({
   disabled,
@@ -14,13 +14,13 @@ function ButtonStyled({
     <TouchableOpacity
       disabled={disabled}
       onPress={onPress}
-      className={`flex flex-row items-center justify-center w-[90%] h-14 ${disabled ? "bg-botao_desabilitado" : "bg-azul"} rounded-[12px]`}
+      className={`flex h-14 w-[90%] flex-row items-center justify-center ${disabled ? 'bg-botao_desabilitado' : 'bg-azul'} rounded-[12px]`}
       {...rest}
     >
       {children}
-      <Image source={imagem} alt=""></Image>
+      <Image source={imagem} alt=''></Image>
       <Text
-        className={`${text === undefined ? "text-branco" : text} text-[18px]`}
+        className={`${text === undefined ? 'text-branco' : text} text-[18px]`}
       >
         {placeholder}
       </Text>

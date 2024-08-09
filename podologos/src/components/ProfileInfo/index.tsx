@@ -1,5 +1,5 @@
-import React from "react";
-import { Text, View } from "react-native";
+import React from 'react';
+import { Text, View } from 'react-native';
 
 type ProfileInfoProps = {
   label: string;
@@ -8,9 +8,9 @@ type ProfileInfoProps = {
 
 function ProfileInfo({ label, text }: ProfileInfoProps) {
   return (
-    <View className="flex mb-3 ">
-      <Text className="font-semibold text-sm">{label}</Text>
-      <Text className="text-cinza font-bold text-[16px]">{text}</Text>
+    <View className='mb-3 flex'>
+      <Text className='text-sm font-semibold'>{label}</Text>
+      <Text className='text-[16px] font-bold text-cinza'>{text}</Text>
     </View>
   );
 }
