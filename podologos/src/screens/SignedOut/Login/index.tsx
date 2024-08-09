@@ -44,7 +44,7 @@ function Login() {
     <View className='flex-1 items-center justify-center gap-4 bg-white'>
       <View className='w-full'>
         <Formik
-          // validationSchema={LoginSchema}
+          validationSchema={LoginSchema}
           initialValues={{
             email: '',
             password: '',

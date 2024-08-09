@@ -21,8 +21,9 @@ export async function signIn({ email, password }: User) {
     const response = await api.post('/auth/signin', user, {
       withCredentials: true,
     });
-    if (response.data && response.data.token) {
+    if (response.data && response.data) {
       Toast.success('Sucesso ao logar');
+      console.log(response.data.token);
       return response.data; //retornar os dados da API
     } else {
       Toast.error('Erro ao receber dados de login', '');

@@ -8,9 +8,8 @@ import { api } from '../../../../services/api';
 import { Toast } from 'toastify-react-native';
 
 function Codigo({ navigation }) {
-
   const route = useRoute();
-  
+
   const { email }: any = route.params;
 
   let formikRef = React.useRef(null);
@@ -27,7 +26,8 @@ function Codigo({ navigation }) {
       const info = {
         token: Object.values(data).join(''),
       };
-      const response = await api.patch('/auth/reset-password', info);
+      const response = await api.post('/auth/forgot-paswword/validate-token', info);
+      return response;
     } catch (error) {
       console.log(error);
       Toast.error('Código inválido', '');
@@ -56,7 +56,7 @@ function Codigo({ navigation }) {
           }}
           onSubmit={(values) => {
             const submissionValues = { email: email, codigo: values.codigo };
-            handleFormSubmit(submissionValues);
+            onSubmitCode(submissionValues);
             console.log(submissionValues);
           }}
         >

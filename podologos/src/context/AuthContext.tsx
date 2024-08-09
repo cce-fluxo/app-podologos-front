@@ -36,9 +36,9 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState<User | null>(null);
   const signed = !!user;
 
+  
   async function signIn({ email, password }: SignInData) {
     const response = await auth.signIn({ email, password });
-
     if (response && response.user) {
       setUser(response.user);
     } else {

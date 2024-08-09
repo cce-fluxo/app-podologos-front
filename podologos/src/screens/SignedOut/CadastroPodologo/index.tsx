@@ -62,6 +62,7 @@ export default function CadastroPodologo() {
           <MaterialIcons name='add' size={20} color='#2087ED' />
         </Button>
         <FormData.Root
+          schema={CadastroSchema}
           initialValues={{
             profile_picture: '1',
             first_name: '',
