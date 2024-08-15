@@ -40,6 +40,7 @@ export function AuthProvider({ children }) {
     const response = await auth.signIn({ email, password });
     if (response && response.user) {
       setUser(response.user);
+    
     } else {
       ('Erro'); // Tratar erros ou respostas inesperadas aqui
     }

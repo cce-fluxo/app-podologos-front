@@ -13,18 +13,18 @@ function Login() {
   const navigation = useNavigation();
   const { signed, signIn, user } = useContext(AuthContext);
 
-  // console.log(signed);
-  // console.log(user);
-
   async function handleSignIn(values: any) {
     const userCredentials = {
       email: values.email,
       password: values.password,
     };
     console.log('Logar');
+    
     await signIn(userCredentials); // Adicionado await para garantir sincronização
-  }
+     
 
+  }
+ 
   const columns = [
     {
       type: 'email',
