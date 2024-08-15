@@ -1,12 +1,16 @@
-import { SafeAreaView, Text, View } from "react-native";
-import Input from "../../../../components/Inputs";
-import { Button } from "../../../../components/Button";
-import { Formik } from "formik";
-import React from "react";
-import { useNavigation } from "@react-navigation/native";
+import { SafeAreaView, Text, View } from 'react-native';
+import Input from '../../../../components/Inputs';
+import { Button } from '../../../../components/Button';
+import { Formik } from 'formik';
+import React from 'react';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { api } from '../../../../services/api';
+import { Toast } from 'toastify-react-native';
 
-function Codigo() {
-  const navigation = useNavigation();
+function Codigo({ navigation }) {
+  const route = useRoute();
+
+  const { email }: any = route.params;
 
   let formikRef = React.useRef(null);
   const handleSubmit = () => {
@@ -16,28 +20,48 @@ function Codigo() {
     }
   };
 
+  const onSubmitCode = async (data: any) => {
+    try {
+      console.log(Object.values(data).join(''));
+      const info = {
+        token: Object.values(data).join(''),
+      };
+      const response = await api.post(
+        '/auth/forgot-paswword/validate-token',
+        info
+      );
+      return response;
+    } catch (error) {
+      console.log(error);
+      Toast.error('Código inválido', '');
+    }
+  };
+  
   const handleFormSubmit = (values) => {
-    navigation.navigate("NovaSenha");
+    console.log('Email:', email);
+    console.log('Código:', values.codigo);
+    navigation.navigate('NovaSenha', { email: email });
   };
   return (
-    <SafeAreaView className="flex-1 bg-white">
-      <View className="flex-1 w-full justify-center items-center ">
-        <Text className="text-[#4F5450] font-bold text-[20px] mb-4 flex ">
+    <SafeAreaView className='flex-1 bg-white'>
+      <View className='w-full flex-1 items-center justify-center'>
+        <Text className='mb-4 flex text-[20px] font-bold text-[#4F5450]'>
           Verifique seu e-mail
         </Text>
-        <View className="w-full items-start ml-4">
-          <Text className="text-[14px] m-4">
+        <View className='ml-4 w-full items-start'>
+          <Text className='m-4 text-[14px]'>
             Digite o código enviado para o e-mail
           </Text>
         </View>
         <Formik
           innerRef={formikRef}
           initialValues={{
-            codigo: "",
+            codigo: '',
           }}
           onSubmit={(values) => {
-            handleFormSubmit(values);
-            console.log(values);
+            const submissionValues = { email: email, codigo: values.codigo };
+            onSubmitCode(submissionValues);
+            console.log(submissionValues);
           }}
         >
           {({
@@ -48,18 +72,18 @@ function Codigo() {
             errors,
             touched,
           }) => (
-            <View className="flex w-full justify-between items-center space-y-6 ">
+            <View className='flex w-full items-center justify-between space-y-6'>
               {/* Div do codigo  */}
-              <View className="flex w-full">
+              <View className='flex w-full'>
                 <Input
-                  onChangeText={handleChange("codigo")}
-                  onBlur={handleBlur("codigo")}
+                  onChangeText={handleChange('codigo')}
+                  onBlur={handleBlur('codigo')}
                   value={values.codigo}
-                  placeholder="Código*"
-                  keyboardType="default"
+                  placeholder='Código*'
+                  keyboardType='default'
                 />
                 {touched.codigo && errors.codigo && (
-                  <Text className="text-red-600 ml-6">
+                  <Text className='ml-6 text-red-600'>
                     {String(errors.codigo)}
                   </Text>
                 )}
@@ -68,12 +92,12 @@ function Codigo() {
           )}
         </Formik>
       </View>
-      <View className="w-full items-center justify-center mb-10">
+      <View className='mb-10 w-full items-center justify-center'>
         <Button
           onPress={handleSubmit}
-          text="text-white text-[16px]"
-          className="items-center"
-          placeholder="Enviar"
+          text='text-white text-[16px]'
+          className='items-center'
+          placeholder='Enviar'
         />
       </View>
     </SafeAreaView>

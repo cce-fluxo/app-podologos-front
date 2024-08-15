@@ -1,12 +1,13 @@
-import { api } from "./api";
-import ToastManager, { Toast } from "toastify-react-native";
-interface Response {
-  token: string;
-  user: {
-    name: string;
-    email: string;
-  };
-}
+import { api } from './api';
+import { Toast } from 'toastify-react-native';
+
+// interface Response {
+//   token: string;
+//   user: {
+//     name: string;
+//     email: string;
+//   };
+// }
 
 type User = {
   email: string;
@@ -16,37 +17,36 @@ type User = {
 export async function signIn({ email, password }: User) {
   try {
     const user = { email: email, password: password };
-    console.log(user, "isso");
-    Toast.info("Aguarde...", "");
-    const response = await api.post("/auth/signin", user, {
+    // Toast.info('Aguarde...', 'loading');
+    const response = await api.post('/auth/signin', user, {
       withCredentials: true,
     });
-    console.log(response.data, "fdhfdghfd");
-    Toast.success("Sucesso ao logar");
-    return response.data;
+    if (response.data && response.data) {
+      Toast.success('Sucesso ao logar');
+      console.log(response.data.token);
+      
+      return response.data; //retornar os dados da API
+    } else {
+      Toast.error('Erro ao receber dados de login', '');
+      return null;
+    }
   } catch (error) {
-    Toast.error("Erro no login", "");
+    Toast.error('Erro no login', '');
     console.log(error);
+    console.log(error.response.data);
   }
 }
 
 export async function register(data: any) {
   try {
-    console.log(data, "isso");
+    console.log(data, 'isso');
     //Toast.info("Aguarde...", "");
-    const token = await api.post("/patient/registrar-paciente", data, {
+    const response = await api.post('/patient/registrar-paciente', data, {
       withCredentials: true,
     });
-    try {
-      const response = await api.get("/user", token.data);
-      console.log(response.data, "fdhfdghfd");
-      //Toast.success("Sucesso ao cadastrar");
-      return response.data;
-    } catch (error) {
-      //Toast.error("Erro no cadastro", "");
-      console.log(error);
-    }
-    console.log(token.data, "fdhfdghfd");
+    console.log(response.data, 'fdhfdghfd');
+    //Toast.success("Sucesso ao cadastrar");
+    return response.data;
   } catch (error) {
     //Toast.error("Erro no cadastro", "");
     console.log(error);
