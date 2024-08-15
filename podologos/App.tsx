@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { SafeAreaView, Text, View } from 'react-native';
-import Routes from './src/routes';
+import MainRoutes from './src/routes/main.routes';
 import { AuthProvider } from './src/context/AuthContext';
 
 export default function App() {
@@ -8,7 +8,7 @@ export default function App() {
     <>
       <AuthProvider>
         <StatusBar backgroundColor='#F2F2F2' />
-        <Routes />
+        <MainRoutes />
       </AuthProvider>
     </>
   );

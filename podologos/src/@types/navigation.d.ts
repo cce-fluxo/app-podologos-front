@@ -17,6 +17,7 @@ export declare global {
       Email: undefined;
       Codigo: undefined;
       NovaSenha: undefined;
+      PacientesRoutes :undefined;
     }
   }
 }
