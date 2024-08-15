@@ -9,7 +9,7 @@ export default function HomePaciente({ navigation }) {
     const { signed, signIn } = useContext(AuthContext);
 
     useEffect(() => {
-      console.log('Estado signed mudou:', signed);
+      console.log('Estado signed mudou na HOME:', signed);
     }, [signed]);
 
   return (
