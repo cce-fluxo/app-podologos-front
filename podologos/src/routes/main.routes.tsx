@@ -6,14 +6,19 @@ import AuthContext from '../context/AuthContext';
 import PacientesRoutes from './paciente.routes';
 import { createStackNavigator } from '@react-navigation/stack';
 
-const Stack = createStackNavigator
+const Stack = createStackNavigator()
 
 export default function MainRoutes() {
-  //  const { token, user } = useAuth();
-  const { signed, signIn, user } = useContext(AuthContext);
+  
+  function RenderRoutes(){
+    //  const { token, user } = useAuth();
+    const { signed, signIn, user } = useContext(AuthContext);
 
-
-  if (signed && user) {
-    return (<Stack.Screen name="PacientesRoutes" component={PacientesRoutes}/>) 
-  } else return <Stack.Screen name='SocialRoutes' component={SocialRoutes} />; 
-}
+    if (signed && user) {
+      return (
+        <Stack.Screen name='PacientesRoutes' component={PacientesRoutes} />
+      );
+    } else return <Stack.Screen name='SocialRoutes' component={SocialRoutes} />;
+  }
+return <Stack.Navigator screenOptions={{headerShown:false}}> {RenderRoutes()}</Stack.Navigator>;
+  }
