@@ -1,9 +1,20 @@
 import { ImageBackground, SafeAreaView, Text, View } from 'react-native';
 import HomePacienteImage from '../../../../assets/HomePacienteImage.png';
 import { Button } from '../../../../components/Button';
+import { useContext, useEffect } from 'react';
+import AuthContext from '../../../../context/AuthContext';
 
 export default function HomePaciente({ navigation }) {
+  
+    const { signed, signIn } = useContext(AuthContext);
+
+    useEffect(() => {
+      console.log('Estado signed mudou:', signed);
+    }, [signed]);
+
   return (
+
+
     <SafeAreaView className='flex h-full w-full '>
       <ImageBackground
         source={HomePacienteImage}

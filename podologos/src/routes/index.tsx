@@ -6,8 +6,8 @@ import PacientesRoutes from './paciente.routes';
 
 export default function Routes() {
   return (
-    <NavigationContainer>
-      <PacientesRoutes />
-    </NavigationContainer>
+   
+      <SocialRoutes />
+ 
   );
 }

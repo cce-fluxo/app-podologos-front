@@ -34,17 +34,26 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState<User | null>(null);
-  const signed = !!user;
 
-  async function signIn({ email, password }: SignInData) {
-    const response = await auth.signIn({ email, password });
-    if (response && response.user) {
-      setUser(response.user);
-    
-    } else {
-      ('Erro'); // Tratar erros ou respostas inesperadas aqui
-    }
-  }
+  const signed = !!user
+
+
+ async function signIn({ email, password }: SignInData) {
+   console.log('Iniciando signIn com:', { email, password });
+   const response = await auth.signIn({ email, password });
+
+   console.log('Resposta recebida:', response);
+
+   // Ajuste para verificar se há um token
+   if (response && response.token) {
+     // Salve o token em um lugar seguro, como no armazenamento local
+     // e atualize o estado conforme necessário
+     console.log('Token recebido:', response.token);
+     setUser({ email }); // Ajuste conforme a lógica do seu aplicativo
+   } else {
+     console.log('Erro: Resposta da API não contém token');
+   }
+ }
 
   function signOut() {
     setUser(null);

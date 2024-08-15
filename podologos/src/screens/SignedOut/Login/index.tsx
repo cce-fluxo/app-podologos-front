@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import Input from '../../../components/Inputs';
 import { Button } from '../../../components/Button';
@@ -11,7 +11,12 @@ import { useNavigation } from '@react-navigation/native';
 
 function Login() {
   const navigation = useNavigation();
-  const { signed, signIn, user } = useContext(AuthContext);
+
+  const { signed, signIn } = useContext(AuthContext);
+
+  useEffect(() => {
+    console.log('Estado signed mudou:', signed);
+  }, [signed]);
 
   async function handleSignIn(values: any) {
     const userCredentials = {
@@ -19,12 +24,10 @@ function Login() {
       password: values.password,
     };
     console.log('Logar');
-    
-    await signIn(userCredentials); // Adicionado await para garantir sincronização
-     
-
+    await signIn(userCredentials);
+    console.log('Após chamada de signIn');
   }
- 
+
   const columns = [
     {
       type: 'email',
