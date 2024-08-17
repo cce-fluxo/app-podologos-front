@@ -10,7 +10,7 @@ import TermosCondicoes from '../../../components/TermosCondicoes';
 import * as ImagePicker from 'expo-image-picker';
 import ToastManager, { Toast } from 'toastify-react-native';
 import AuthContext from '../../../context/AuthContext';
-import { api } from '../../../services/api';
+import api from '../../../services/axios';
 
 export default function CadastroPaciente() {
   const [isChecked, setIsChecked] = useState(false);
@@ -24,9 +24,7 @@ export default function CadastroPaciente() {
       aspect: [4, 3],
       quality: 1,
     });
-
     console.log(result);
-
     if (!result.canceled) {
       setImage(result.assets[0].uri);
     }

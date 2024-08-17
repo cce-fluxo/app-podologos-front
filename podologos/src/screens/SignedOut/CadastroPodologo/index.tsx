@@ -14,7 +14,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import Checkbox from 'expo-checkbox';
 import { CadastroSchema } from '../../../components/Schemas';
 import TermosCondicoes from '../../../components/TermosCondicoes';
-import { api } from '../../../services/api';
+import api from '../../../services/axios';
 import { Toast } from 'toastify-react-native';
 
 export default function CadastroPodologo() {

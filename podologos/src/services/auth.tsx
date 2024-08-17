@@ -1,7 +1,7 @@
 import { useContext } from 'react';
-import { api } from './api';
 import { Toast } from 'toastify-react-native';
 import AuthContext from '../context/AuthContext';
+import api from './axios';
 
 // interface Response {
 //   token: string;
@@ -19,21 +19,20 @@ type User = {
 export async function signIn({ email, password }: User) {
   try {
     const user = { email, password };
+    // Toast.info('Aguarde...', 'loading');
     const response = await api.post('/auth/signin', user, {
       withCredentials: true,
     });
     console.log('Resposta da API:', response.data);
-
-    // Verifique se a resposta inclui o token
     if (response.data && response.data.token) {
       Toast.success('Sucesso ao logar');
       return response.data; // Retorne o token se o usuário não for incluído
     } else {
-      Toast.error('Erro ao receber dados de login',"");
+      Toast.error('Erro ao receber dados de login', '');
       return null;
     }
   } catch (error) {
-    Toast.error('Erro no login',"");
+    Toast.error('Erro no login', '');
     console.log('Erro na API:', error.response?.data || error.message);
   }
 }

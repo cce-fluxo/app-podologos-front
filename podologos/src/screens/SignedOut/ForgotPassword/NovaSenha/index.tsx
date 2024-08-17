@@ -6,7 +6,7 @@ import React from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { NovaSenhaSchema } from '../../../../components/Schemas';
 import ModalOk from '../../../../components/ModalOk';
-import { api } from '../../../../services/api';
+import api from '../../../../services/axios';
 
 function NovaSenha() {
   const [modalVisible, setModalVisible] = React.useState(false);

@@ -1,13 +1,20 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import * as auth from '../services/auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import api from '../services/axios';
 
 type User = {
   email: string;
+  nome?: string;
+  sobrenome?: string;
+  telefone?: string;
+  cep?: string;
 };
 
 interface AuthContextData {
   signed: boolean;
   user: User | null;
+  token: string;
   signIn: (data: SignInData) => Promise<void>;
   signOut(): void;
 }
@@ -34,33 +41,80 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState<User | null>(null);
+  const signed = !!user;
+  const [token, setToken] = useState('');
 
-  const signed = !!user
+  // async function signIn({ email, password }: SignInData) {
+  //   console.log('Iniciando signIn com:', { email, password });
+  //   // Chama a função signIn que retorna o token após login
+  //   const response = await auth.signIn({ email, password });
+  //   const token = response.data;
+  //   if (token) {
+  //     try {
+  //       // Armazena o token no AsyncStorage
+  //       await AsyncStorage.setItem('authToken', token);
+  //       console.log('Token armazenado com sucesso:', token);
+  //     } catch (error) {
+  //       console.log('Erro ao armazenar o token:', error);
+  //     }
+  //   } else {
+  //     console.log('Erro: Resposta da API não contém token');
+  //   }
+  // }
 
+  async function signIn({ email, password }: SignInData) {
+    console.log('Iniciando signIn com:', { email, password });
+    const response = await auth.signIn({ email, password });
+    console.log('Resposta recebida:', response);
 
- async function signIn({ email, password }: SignInData) {
-   console.log('Iniciando signIn com:', { email, password });
-   const response = await auth.signIn({ email, password });
-
-   console.log('Resposta recebida:', response);
-
-   // Ajuste para verificar se há um token
-   if (response && response.token) {
-     // Salve o token em um lugar seguro, como no armazenamento local
-     // e atualize o estado conforme necessário
-     console.log('Token recebido:', response.token);
-     setUser({ email }); // Ajuste conforme a lógica do seu aplicativo
-   } else {
-     console.log('Erro: Resposta da API não contém token');
-   }
- }
-
-  function signOut() {
-    setUser(null);
+    if (response && response.token) {
+      const token = response.token;
+      await AsyncStorage.setItem('@LIFE:token', token);
+      console.log('Token armazenado com sucesso:', token);
+      setToken(token);
+      await GetUser();
+      // setUser({ email }); // Ajuste conforme a lógica do seu aplicativo
+      //setUser(response.user);
+    } else {
+      console.log('Erro: Resposta da API não contém token');
+    }
   }
 
+  async function GetUser() {
+    try {
+      const response = await api.get('/user');
+      const data = response.data;
+      setUser({
+        email: data.email,
+        nome: data.first_name,
+        sobrenome: data.last_name,
+        telefone: data.phone_number,
+        cep: data.cep,
+      });
+    } catch (error) {
+      console.log('Erro ao buscar dados do usuário:', error);
+    }
+  }
+  function signOut() {
+    AsyncStorage.removeItem('@LIFE:token');
+    setUser(null);
+    setToken('');
+  }
+
+  useEffect(() => {
+    // Tenta obter o token do armazenamento e buscar o usuário quando o aplicativo inicia
+    async function initialize() {
+      const storedToken = await AsyncStorage.getItem('@LIFE:token');
+      if (storedToken) {
+        setToken(storedToken);
+        await GetUser(); // Obtém o usuário com o token armazenado
+      }
+    }
+    initialize();
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ signed, user, signIn, signOut }}>
+    <AuthContext.Provider value={{ signed, user, signIn, signOut, token }}>
       {children}
     </AuthContext.Provider>
   );

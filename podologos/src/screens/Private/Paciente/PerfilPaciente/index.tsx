@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Image, SafeAreaView, ScrollView, Text, View } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 import PerfilImage from '../../../../assets/PerfilImage.png';
@@ -7,22 +7,36 @@ import ProfileInfo from '../../../../components/ProfileInfo';
 import { Button } from '../../../../components/Button';
 import Avaliacao from '../../../../components/Avaliacao';
 import ModalSimNao from '../../../../components/ModalSimNao';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import api from '../../../../services/axios';
+import AuthContext from '../../../../context/AuthContext';
 
 function PerfilPaciente({ navigation }) {
+  const { signOut, user } = useContext(AuthContext);
   const [modalDelete, setModalDelete] = useState(false);
+  const [modalSair, setModalSair] = useState(false);
+
   function closeDeleteModal() {
     setModalDelete(false);
   }
   function openDeleteModal() {
     setModalDelete(true);
   }
-  const [modalSair, setModalSair] = useState(false);
 
   function closeSairModal() {
     setModalSair(false);
   }
   function openSairModal() {
     setModalSair(true);
+  }
+  async function DeleteAccount() {
+    try {
+      const response = await api.delete('/user');
+      console.log('Resposta da API:', response.data);
+      return response.data;
+    } catch (error) {
+      console.log('Erro ao deletar usuário:', error);
+    }
   }
 
   return (
@@ -39,14 +53,11 @@ function PerfilPaciente({ navigation }) {
           Ver anamnese
         </Text>
         <View className='flex space-y-4'>
-          <ProfileInfo label='Nome' text='Giovanni'></ProfileInfo>
-          <ProfileInfo label='Sobrenome' text='Souza'></ProfileInfo>
-          <ProfileInfo
-            label='Email'
-            text='giovannisouza@gmail.com'
-          ></ProfileInfo>
-          <ProfileInfo label='Telefone' text='(21) 12345-6789'></ProfileInfo>
-          <ProfileInfo label='Cep' text='12345-678'></ProfileInfo>
+          <ProfileInfo label='Nome' text={user.nome}></ProfileInfo>
+          <ProfileInfo label='Sobrenome' text={user.sobrenome}></ProfileInfo>
+          <ProfileInfo label='Email' text={user.email}></ProfileInfo>
+          <ProfileInfo label='Telefone' text={user.telefone}></ProfileInfo>
+          <ProfileInfo label='Cep' text={user.cep}></ProfileInfo>
         </View>
         <View className='flex w-full items-center space-y-4'>
           <Button
@@ -99,8 +110,10 @@ function PerfilPaciente({ navigation }) {
         modalVisible={modalDelete}
         mensagem='Tem certeza que deseja excluir sua conta?'
         onNoClick={closeDeleteModal}
+        onYesClick={DeleteAccount}
       ></ModalSimNao>
       <ModalSimNao
+        onYesClick={signOut}
         modalVisible={modalSair}
         mensagem='Tem certeza que deseja sair?'
         onNoClick={closeSairModal}

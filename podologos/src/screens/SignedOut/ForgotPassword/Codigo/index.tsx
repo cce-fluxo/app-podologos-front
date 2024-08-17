@@ -4,8 +4,9 @@ import { Button } from '../../../../components/Button';
 import { Formik } from 'formik';
 import React from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { api } from '../../../../services/api';
 import { Toast } from 'toastify-react-native';
+import { codigoValidationSchema } from '../../../../components/Schemas';
+import api from '../../../../services/axios';
 
 function Codigo({ navigation }) {
   const route = useRoute();
@@ -36,7 +37,7 @@ function Codigo({ navigation }) {
       Toast.error('Código inválido', '');
     }
   };
-  
+
   const handleFormSubmit = (values) => {
     console.log('Email:', email);
     console.log('Código:', values.codigo);
@@ -58,6 +59,7 @@ function Codigo({ navigation }) {
           initialValues={{
             codigo: '',
           }}
+          validationSchema={codigoValidationSchema}
           onSubmit={(values) => {
             const submissionValues = { email: email, codigo: values.codigo };
             onSubmitCode(submissionValues);

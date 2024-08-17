@@ -5,17 +5,13 @@ import { useContext, useEffect } from 'react';
 import AuthContext from '../../../../context/AuthContext';
 
 export default function HomePaciente({ navigation }) {
-  
-    const { signed, signIn } = useContext(AuthContext);
-
-    useEffect(() => {
-      console.log('Estado signed mudou na HOME:', signed);
-    }, [signed]);
+  const { signed,  user } = useContext(AuthContext);
+  useEffect(() => {
+    console.log('Estado signed mudou (Home):', signed);
+  }, [signed]);
 
   return (
-
-
-    <SafeAreaView className='flex h-full w-full '>
+    <SafeAreaView className='flex h-full w-full'>
       <ImageBackground
         source={HomePacienteImage}
         alt=''
@@ -23,7 +19,9 @@ export default function HomePaciente({ navigation }) {
       >
         <View className='w-[90%] justify-center'>
           <Text className='text-[25px] text-azul_escuro'>Bem vindo,</Text>
-          <Text className='text-[25px] font-bold text-azul_escuro'>Tiago</Text>
+          <Text className='text-[25px] font-bold text-azul_escuro'>
+            {user.nome}
+          </Text>
         </View>
         <Text className='w-[90%] text-[16px] text-branco'>
           Encontre podólogos experientes perto de você para proporcionar o
