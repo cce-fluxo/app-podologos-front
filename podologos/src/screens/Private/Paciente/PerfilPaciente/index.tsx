@@ -32,6 +32,7 @@ function PerfilPaciente({ navigation }) {
     try {
       const response = await api.delete('/user');
       console.log('Resposta da API:', response.data);
+      signOut()
       return response.data;
     } catch (error) {
       console.log('Erro ao deletar usuário:', error);
@@ -81,7 +82,7 @@ function PerfilPaciente({ navigation }) {
             Avaliações:
           </Text>
         </View>
-        <View className='mb-24 flex w-full space-y-4'>
+        <View className='mb-14 flex w-full space-y-4'>
           {Array.from({ length: 5 }).map((_, i) => (
             <Avaliacao key={i}></Avaliacao>
           ))}

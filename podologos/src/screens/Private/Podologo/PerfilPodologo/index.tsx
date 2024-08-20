@@ -72,10 +72,10 @@ function PerfilPodologo() {
             Avaliações:
           </Text>
         </View>
-        <View className='mb-14 flex'>
-          <Avaliacao />
-          <Avaliacao />
-          <Avaliacao />
+        <View className='mb-14 flex w-full space-y-4'>
+          {Array.from({ length: 5 }).map((_, i) => (
+            <Avaliacao key={i}></Avaliacao>
+          ))}
         </View>
       </ScrollView>
       <ModalSimNao

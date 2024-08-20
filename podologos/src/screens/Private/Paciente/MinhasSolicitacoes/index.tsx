@@ -1,9 +1,6 @@
 import React from 'react';
 import { SafeAreaView, ScrollView, Text, View } from 'react-native';
-import { EvilIcons } from '@expo/vector-icons';
-import Navbar from '../../../../components/Navbar';
 import SolicitacaoPaciente from '../../../../components/SolicitacaoPaciente';
-import PageTitle from '../../../../components/Header';
 
 export default function MinhasSolicitacoes() {
   return (

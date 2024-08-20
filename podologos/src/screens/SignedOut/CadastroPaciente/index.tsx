@@ -11,11 +11,13 @@ import * as ImagePicker from 'expo-image-picker';
 import ToastManager, { Toast } from 'toastify-react-native';
 import AuthContext from '../../../context/AuthContext';
 import api from '../../../services/axios';
+import { useNavigation } from '@react-navigation/native';
 
 export default function CadastroPaciente() {
   const [isChecked, setIsChecked] = useState(false);
   const [image, setImage] = useState(null);
   const { signed, user } = useContext(AuthContext);
+  const navigation = useNavigation();
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -35,6 +37,7 @@ export default function CadastroPaciente() {
       //Toast.info("Aguarde...", "");
       const response = await api.post('/patient/registrar-paciente', data);
       Toast.success('Sucesso ao cadastrar');
+      navigation.navigate("Login")
       return response.data;
     } catch (err: any) {
       Toast.error('Erro no cadastro', '');
