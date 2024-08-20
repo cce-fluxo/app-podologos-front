@@ -3,6 +3,7 @@ import React, { SafeAreaView, Text, View } from 'react-native';
 import MainRoutes from './src/routes/main.routes';
 import { AuthProvider } from './src/context/AuthContext';
 import { NavigationContainer } from '@react-navigation/native';
+import TesteRoutes from './src/routes';
 
 export default function App() {
   return (
@@ -10,7 +11,7 @@ export default function App() {
       <AuthProvider>
         <StatusBar style='auto' backgroundColor='white' />
         <NavigationContainer>
-          <MainRoutes />
+          <TesteRoutes />
         </NavigationContainer>
       </AuthProvider>
     </>

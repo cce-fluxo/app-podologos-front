@@ -19,7 +19,7 @@ function ConsultasStack() {
           title: 'Consultas',
           headerTitleAlign: 'center',
           headerStyle: {
-            backgroundColor: '#FBFBFB',
+            backgroundColor: '#FFFFFF',
             height: 110,
           },
           headerTitleStyle: {
@@ -37,7 +37,7 @@ function ConsultasStack() {
           title: 'Consultas',
           headerTitleAlign: 'center',
           headerStyle: {
-            backgroundColor: '#FBFBFB',
+            backgroundColor: '#FFFFFF',
             height: 110,
           },
           headerTitleStyle: {
@@ -55,7 +55,7 @@ function ConsultasStack() {
           title: 'Consultas',
           headerTitleAlign: 'center',
           headerStyle: {
-            backgroundColor: '#FBFBFB',
+            backgroundColor: '#FFFFFF',
             height: 110,
           },
           headerTitleStyle: {
@@ -73,7 +73,7 @@ function ConsultasStack() {
           title: 'Consultas',
           headerTitleAlign: 'center',
           headerStyle: {
-            backgroundColor: '#FBFBFB',
+            backgroundColor: '#FFFFFF',
             height: 110,
           },
           headerTitleStyle: {

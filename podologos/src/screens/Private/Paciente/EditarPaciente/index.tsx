@@ -20,8 +20,6 @@ export default function EditarPaciente() {
   //   cep: '',
   // });
 
-  
-
   async function EditProfile({ values }: any) {
     try {
       const data = {
@@ -104,9 +102,9 @@ export default function EditarPaciente() {
   return (
     <SafeAreaView className='flex w-full flex-1 bg-branco'>
       <ScrollView>
-        <View className='flex items-center justify-center'>
+        <View className='flex items-center justify-center pt-5'>
           <Image className='' source={PerfilImage}></Image>
-          <View className='mt-3 flex flex-row items-center justify-center rounded-md bg-zinc-200 p-1'>
+          <View className='mt-3 flex flex-row items-center justify-center rounded-md bg-zinc-100 p-1'>
             <Entypo name='star' size={20} color='black' />
             <Text className='font-semibold'>4.75</Text>
           </View>

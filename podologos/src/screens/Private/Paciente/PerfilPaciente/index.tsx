@@ -43,7 +43,7 @@ function PerfilPaciente({ navigation }) {
       <ScrollView className='flex space-y-8 px-5 pt-5'>
         <View className='flex items-center justify-center'>
           <Image className='' source={PerfilImage}></Image>
-          <View className='mt-3 flex flex-row items-center justify-center space-x-2 rounded-md bg-cinza p-1'>
+          <View className='mt-3 flex flex-row items-center justify-center space-x-2 rounded-md bg-zinc-100 p-1'>
             <Entypo name='star' size={20} color='black' />
             <Text className='font-semibold'>4.75</Text>
           </View>
