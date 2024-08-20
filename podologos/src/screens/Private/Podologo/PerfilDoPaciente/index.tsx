@@ -41,7 +41,7 @@ function PerfilDoPaciente() {
   return (
     <SafeAreaView className='flex w-full bg-branco'>
       <ScrollView className='flex space-y-5 px-5'>
-        <View className='flex items-center justify-center'>
+        <View className='flex items-center justify-center pt-5'>
           <Image className='' source={PerfilImage}></Image>
           <View className='mt-3 flex flex-row items-center justify-center space-x-2 rounded-md bg-zinc-100 p-1'>
             <Entypo name='star' size={20} color='black' />

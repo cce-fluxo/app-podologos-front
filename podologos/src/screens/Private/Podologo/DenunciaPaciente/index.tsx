@@ -69,22 +69,22 @@ function DenunciaPaciente() {
   );
 
   return (
-    <SafeAreaView className='flex min-h-screen w-full bg-branco'>
-      <ScrollView className='mt-4'>
-        <View className='mb-14 flex w-full justify-center'>
+    <SafeAreaView className='flex w-full flex-1 bg-branco'>
+      <ScrollView className='pb-8 pt-5'>
+        <View className='mb-10 flex w-full justify-center'>
           {radioButtons.map((radio, index) => (
-            <View className='flex items-start justify-center space-y-8 px-8'>
+            <View className='flex items-start justify-center space-y-4 px-4'>
               <CustomRadioButton
                 key={index}
                 label={radio.label}
                 onPress={() => setSelectedId(radio.id)}
                 selected={selectedId === radio.id}
               />
-              <View className='h-[1px] w-full items-center bg-cinza'></View>
+              <View className='mb-4 w-[90%] self-center border-b-[1px] opacity-10'></View>
             </View>
           ))}
         </View>
-        <View className='mb-16 flex w-full items-center space-y-4'>
+        <View className='mb-14 flex w-full items-center space-y-4'>
           <Button onPress={openModal} placeholder='Confirmar denúncia'></Button>
           <Button
             className='border-2 border-azul bg-white'
