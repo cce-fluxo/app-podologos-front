@@ -6,6 +6,7 @@ import CadastroPodologo from '../../screens/SignedOut/CadastroPodologo';
 import Email from '../../screens/SignedOut/ForgotPassword/Email';
 import Codigo from '../../screens/SignedOut/ForgotPassword/Codigo';
 import NovaSenha from '../../screens/SignedOut/ForgotPassword/NovaSenha';
+import FormacaoPodologo from '../../screens/SignedOut/FormacaoPodologo';
 
 const Stack = createStackNavigator();
 
@@ -110,6 +111,24 @@ export default function SocialRoutes() {
           headerBackTitleVisible: false,
           headerTintColor: '#0A284D',
           title: 'Nova senha',
+          headerTitleAlign: 'center',
+          headerStyle: {
+            backgroundColor: '#FBFBFB',
+            height: 110,
+          },
+          headerTitleStyle: {
+            fontSize: 23,
+            fontWeight: 'medium',
+          },
+        }}
+      />
+      <Stack.Screen
+        name='FormacaoPodologo'
+        component={FormacaoPodologo}
+        options={{
+          headerBackTitleVisible: false,
+          headerTintColor: '#0A284D',
+          title: 'Formação',
           headerTitleAlign: 'center',
           headerStyle: {
             backgroundColor: '#FBFBFB',

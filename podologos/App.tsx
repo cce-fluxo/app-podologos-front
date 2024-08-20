@@ -4,7 +4,6 @@ import MainRoutes from './src/routes/main.routes';
 import { AuthProvider } from './src/context/AuthContext';
 import { NavigationContainer } from '@react-navigation/native';
 import TesteRoutes from './src/routes';
-import PodologosRoutes from './src/routes/podologo.routes';
 
 export default function App() {
   return (

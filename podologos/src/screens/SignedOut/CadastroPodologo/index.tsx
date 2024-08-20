@@ -1,8 +1,4 @@
-import {
-  SafeAreaView,
-  ScrollView,
-  View,
-} from 'react-native';
+import { SafeAreaView, ScrollView, View } from 'react-native';
 import { FormData } from '../../../components/FormData/Index';
 import { useState } from 'react';
 import Input from '../../../components/FormData/InputForm';
@@ -14,7 +10,7 @@ import TermosCondicoes from '../../../components/TermosCondicoes';
 import api from '../../../services/axios';
 import { Toast } from 'toastify-react-native';
 
-export default function CadastroPodologo() {
+export default function CadastroPodologo({ navigation }: any) {
   const [isChecked, setIsChecked] = useState(false);
 
   async function signUp(data: object) {
@@ -88,6 +84,7 @@ export default function CadastroPodologo() {
             id='formQuestion'
           >
             <Button
+              onPress={() => navigation.navigate('FormacaoPodologo')}
               className='mb-6 mt-2 w-[87%] self-center border-[1px] border-azul bg-branco'
               placeholder='Formação'
               text='text-azul'

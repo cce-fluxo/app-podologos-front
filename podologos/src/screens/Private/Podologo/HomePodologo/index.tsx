@@ -18,14 +18,16 @@ function Home() {
       </Text>
 
       <ScrollView className=''>
-        <Solicitacoes
-          onPress={() => navigation.navigate('InfoSolicitacaoConsulta')}
-        />
-        <Solicitacoes />
-        <Solicitacoes />
-        <Solicitacoes />
-        <Solicitacoes />
-        <Solicitacoes />
+        <View className='flex pb-6'>
+          <Solicitacoes
+            onPress={() => navigation.navigate('InfoSolicitacaoConsulta')}
+          />
+          <Solicitacoes />
+          <Solicitacoes />
+          <Solicitacoes />
+          <Solicitacoes />
+          <Solicitacoes />
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
