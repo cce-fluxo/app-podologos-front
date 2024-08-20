@@ -5,7 +5,7 @@ import PerfilImage from '../../../../assets/PerfilImage.png';
 import Header from '../../../../components/Header';
 import ProfileInfo from '../../../../components/ProfileInfo';
 import { Button } from '../../../../components/Button';
-import ModalSimNao from '../../../../components/ModalSimNao';
+import ModalSimNao from '../../../../components/PopUps/ModalSimNao';
 import Avaliacao from '../../../../components/Avaliacao';
 import { useNavigation } from '@react-navigation/native';
 

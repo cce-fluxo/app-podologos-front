@@ -9,7 +9,7 @@ import {
 import Header from '../../../../components/Header';
 import { Button } from '../../../../components/Button';
 import CustomRadioButton from '../../../../components/RadioButton';
-import ModalOk from '../../../../components/ModalOk';
+import ModalOk from '../../../../components/PopUps/ModalOk';
 
 function DenunciaPaciente() {
   const [modalVisible, setModalVisible] = React.useState(false);
