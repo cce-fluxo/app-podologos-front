@@ -7,7 +7,7 @@ import { Button } from '../../../../components/Button';
 import FotoPe from '../../../../assets/FotoPe.png';
 import UserIcon from '../../../../assets/UserIcon.png';
 import InformacaoUsuario from '../../../../components/InformacaoUsuario';
-import ModalSimNao from '../../../../components/ModalSimNao';
+import ModalSimNao from '../../../../components/PopUps/ModalSimNao';
 
 function InfoConsultasAceitas() {
   const [modalVisible, setModalVisible] = React.useState(false);

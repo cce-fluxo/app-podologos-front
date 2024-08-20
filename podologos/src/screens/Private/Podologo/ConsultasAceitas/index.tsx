@@ -15,7 +15,7 @@ function ConsultasAceitas() {
 
   return (
     <SafeAreaView className='flex w-screen flex-1 items-center space-y-6 bg-white'>
-      <View className='flex w-full flex-row justify-around'>
+      <View className='flex w-full flex-row justify-around pt-6'>
         <TouchableOpacity className='border-b-4 border-azul'>
           <Text className='vont-semibold text-[22px] text-azul'>Aceitas</Text>
         </TouchableOpacity>

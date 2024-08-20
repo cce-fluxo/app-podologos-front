@@ -8,14 +8,16 @@ import ToastManager from 'toastify-react-native';
 import { Formik } from 'formik';
 import { LoginSchema } from '../../../components/Schemas';
 import { useNavigation } from '@react-navigation/native';
+import Svg, { Path } from 'react-native-svg';
+import { Ionicons } from '@expo/vector-icons';
 
 function Login() {
   const navigation = useNavigation();
-
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const { signed, signIn } = useContext(AuthContext);
 
   useEffect(() => {
-    console.log('Estado signed mudou:', signed);
+    console.log('Estado signed mudou (Login):', signed);
   }, [signed]);
 
   async function handleSignIn(values: any) {
@@ -67,7 +69,7 @@ function Login() {
           }) => (
             <View className='mt-3 flex w-full items-center justify-center space-y-2'>
               {/* Div do email  */}
-              <View className='w-full'>
+              <View className='flex w-full'>
                 <Input
                   onChangeText={handleChange('email')}
                   onBlur={handleBlur('email')}
@@ -80,12 +82,25 @@ function Login() {
                 )}
               </View>
               <View className='w-full'>
+                <View></View>
                 <Input
                   onChangeText={handleChange('password')}
                   onBlur={handleBlur('password')}
                   value={values.password}
                   placeholder='Senha*'
+                  secureTextEntry={!isPasswordVisible}
                   keyboardType='default'
+                  rightIcon={
+                    <TouchableOpacity
+                      onPress={() => setIsPasswordVisible(!isPasswordVisible)}
+                    >
+                      <Ionicons
+                        name={isPasswordVisible ? 'eye-off' : 'eye'}
+                        size={24}
+                        color='grey'
+                      />
+                    </TouchableOpacity>
+                  }
                 />
                 {touched.password && errors.password && (
                   <Text className='ml-8 text-red-600'>{errors.password}</Text>

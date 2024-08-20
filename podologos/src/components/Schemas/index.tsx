@@ -44,6 +44,12 @@ export const NovaSenhaSchema = Yup.object().shape({
     .required('Confirmação de senha obrigatória'),
 });
 
+export const codigoValidationSchema = Yup.object().shape({
+  codigo: Yup
+    .string()
+    .required('Code is Required'),
+})
+
 // export const SignupSchema = Yup.object().shape({
 //   name: Yup.string().min(3, "3 letters minimum").required("Required field"),
 //   surname: Yup.string().min(3, "3 letters minimum").required("Required field"),

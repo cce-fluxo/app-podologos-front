@@ -29,6 +29,20 @@ function ProfilePacienteStack() {
       <Stack.Screen
         name='EditarPaciente'
         component={EditarPaciente}
+        options={{
+          headerBackTitleVisible: false,
+          headerTintColor: '#0A284D',
+          title: 'Perfil',
+          headerTitleAlign: 'center',
+          headerStyle: {
+            backgroundColor: '#FBFBFB',
+            height: 110,
+          },
+          headerTitleStyle: {
+            fontSize: 23,
+            fontWeight: 'medium',
+          },
+        }}
       ></Stack.Screen>
     </Stack.Navigator>
   );

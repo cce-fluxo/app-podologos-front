@@ -5,8 +5,8 @@ import { Formik } from 'formik';
 import React from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { NovaSenhaSchema } from '../../../../components/Schemas';
-import ModalOk from '../../../../components/ModalOk';
-import { api } from '../../../../services/api';
+import ModalOk from '../../../../components/PopUps/ModalOk';
+import api from '../../../../services/axios';
 
 function NovaSenha() {
   const [modalVisible, setModalVisible] = React.useState(false);

@@ -5,9 +5,9 @@ import PerfilImage from '../../../../assets/PerfilImage.png';
 import Header from '../../../../components/Header';
 import ProfileInfo from '../../../../components/ProfileInfo';
 import { Button } from '../../../../components/Button';
-import ModalSimNao from '../../../../components/ModalSimNao';
 import Avaliacao from '../../../../components/Avaliacao';
 import { useNavigation } from '@react-navigation/native';
+import ModalSimNao from '../../../../components/PopUps/ModalSimNao';
 
 function PerfilPodologo() {
   const [modalVisible, setModalVisible] = React.useState(false);
@@ -24,9 +24,9 @@ function PerfilPodologo() {
   return (
     <SafeAreaView className='flex w-full bg-white'>
       <ScrollView>
-        <View className='flex items-center justify-center'>
+        <View className='flex items-center justify-center pt-4'>
           <Image className='' source={PerfilImage}></Image>
-          <View className='mt-3 flex flex-row items-center justify-center rounded-md bg-zinc-200 p-1'>
+          <View className='mt-3 flex flex-row items-center justify-center space-x-1 rounded-md bg-zinc-100 p-1'>
             <Entypo name='star' size={20} color='black' />
             <Text className='font-semibold'>4.75</Text>
           </View>
@@ -41,11 +41,17 @@ function PerfilPodologo() {
           ></ProfileInfo>
           <ProfileInfo label='Telefone' text='(21) 12345-6789'></ProfileInfo>
           <ProfileInfo label='Cep' text='12345-678'></ProfileInfo>
-          <ProfileInfo label='Formação' text='Podologia - UFRJ'></ProfileInfo>
+          <ProfileInfo
+            retornavel={true}
+            label='Formação'
+            text='Podologia - UFRJ'
+            ensino='Ensino Superior'
+            formacao='2022'
+          ></ProfileInfo>
         </View>
-        <View className='mt-10 flex w-full items-center space-y-4'>
+        <View className='mt-7 flex w-full items-center space-y-4'>
           <Button
-            onPress={() => navigation.navigate('PerfilDoPaciente')}
+            onPress={() => navigation.navigate('EditarPodologo')}
             text='text-branco text-[16px]'
             placeholder='Editar perfil'
           ></Button>

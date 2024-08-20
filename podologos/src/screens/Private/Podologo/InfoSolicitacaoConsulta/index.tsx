@@ -8,7 +8,7 @@ import FotoPe from '../../../../assets/FotoPe.png';
 import UserIcon from '../../../../assets/UserIcon.png';
 import InformacaoUsuario from '../../../../components/InformacaoUsuario';
 import { useNavigation } from '@react-navigation/native';
-import ModalOk from '../../../../components/ModalOk';
+import ModalOk from '../../../../components/PopUps/ModalOk';
 
 function InfoSolicitacaoConsulta({}) {
   const navigation = useNavigation();

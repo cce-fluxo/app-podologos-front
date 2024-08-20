@@ -15,7 +15,7 @@ function ConsultasRealizadas() {
 
   return (
     <SafeAreaView className='flex w-screen flex-1 items-center space-y-6 bg-white'>
-      <View className='flex w-full flex-row justify-around'>
+      <View className='flex w-full flex-row justify-around pt-6'>
         <TouchableOpacity
           onPress={() => {
             navigation.navigate('ConsultasAceitas');

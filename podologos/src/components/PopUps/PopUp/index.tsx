@@ -1,5 +1,5 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native';
-import { Button } from '../Button';
+import { Button } from '../../Button';
 
 interface PopUpProps {
   texto: string;

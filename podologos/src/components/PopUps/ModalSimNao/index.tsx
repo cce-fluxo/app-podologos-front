@@ -8,7 +8,12 @@ interface PopupProps {
   onNoClick: () => void;
 }
 
-function ModalSimNao({ modalVisible, mensagem, onNoClick }: PopupProps) {
+function ModalSimNao({
+  modalVisible,
+  mensagem,
+  onNoClick,
+  onYesClick,
+}: PopupProps) {
   return (
     <Modal transparent={true} visible={modalVisible}>
       <View className='fixed inset-0 z-50 flex h-screen w-screen items-center justify-center bg-black-transparent'>
@@ -18,7 +23,7 @@ function ModalSimNao({ modalVisible, mensagem, onNoClick }: PopupProps) {
           </Text>
 
           <View className='flex flex-row items-center justify-center border-t-[1px] border-zinc-300'>
-            <TouchableOpacity onPress={onNoClick} className='mx-auto py-3'>
+            <TouchableOpacity onPress={onYesClick} className='mx-auto py-3'>
               <Text className='text-lg font-semibold text-azul'>Sim</Text>
             </TouchableOpacity>
             <View className='h-full border-r-[1px] border-zinc-300' />
