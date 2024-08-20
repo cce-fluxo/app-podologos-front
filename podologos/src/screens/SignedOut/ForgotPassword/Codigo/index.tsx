@@ -62,7 +62,7 @@ function Codigo({ navigation }) {
           validationSchema={codigoValidationSchema}
           onSubmit={(values) => {
             const submissionValues = { email: email, codigo: values.codigo };
-            onSubmitCode(submissionValues);
+            handleFormSubmit(submissionValues);
             console.log(submissionValues);
           }}
         >

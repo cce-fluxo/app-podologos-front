@@ -40,7 +40,7 @@ function PerfilPaciente({ navigation }) {
 
   return (
     <SafeAreaView className='flex w-full bg-branco'>
-      <ScrollView className='flex space-y-8 px-5 pt-5'>
+      <ScrollView className=''>
         <View className='flex items-center justify-center'>
           <Image className='' source={PerfilImage}></Image>
           <View className='mt-3 flex flex-row items-center justify-center space-x-2 rounded-md bg-zinc-100 p-1'>
@@ -48,60 +48,42 @@ function PerfilPaciente({ navigation }) {
             <Text className='font-semibold'>4.75</Text>
           </View>
         </View>
-        <Text className='self-center text-[14px] font-semibold text-azul underline'>
+        <Text className='mt-4 self-center text-[14px] font-semibold text-azul underline'>
           Ver anamnese
         </Text>
-        <View className='flex space-y-4'>
+        <View className='ml-6 mt-10'>
           <ProfileInfo label='Nome' text={user.nome}></ProfileInfo>
           <ProfileInfo label='Sobrenome' text={user.sobrenome}></ProfileInfo>
           <ProfileInfo label='Email' text={user.email}></ProfileInfo>
           <ProfileInfo label='Telefone' text={user.telefone}></ProfileInfo>
           <ProfileInfo label='Cep' text={user.cep}></ProfileInfo>
         </View>
-        <View className='flex w-full items-center space-y-4'>
+        <View className='mt-7 flex w-full items-center space-y-4'>
           <Button
-            className='w-full'
             placeholder='Editar perfil '
             onPress={() => navigation.navigate('EditarPaciente')}
           ></Button>
           <Button
-            className='w-full border-[1px] border-azul bg-white'
+            className='border-[1px] border-azul bg-white'
             text='text-azul text-[16px]'
             placeholder='Sair'
             onPress={openSairModal}
           ></Button>
           <Button
-            className='w-full border-[1px] border-azul bg-white'
+            className='border-[1px] border-azul bg-white'
             text='text-azul text-[16px]'
             placeholder='Excluir conta'
             onPress={openDeleteModal}
           ></Button>
         </View>
-        <Text className='text-[18px] font-semibold text-texto_cinza'>
-          Avaliações
-        </Text>
+        <View className='mb-10 mt-10 flex w-full space-y-4'>
+          <Text className='ml-6 text-[25px] font-semibold text-[#46555A]'>
+            Avaliações:
+          </Text>
+        </View>
         <View className='mb-24 flex w-full space-y-4'>
-          {Array.from({ length: 10 }).map((_, i) => (
-            <View
-              key={i}
-              className='flex w-full space-y-3 rounded-2xl bg-branco p-4 shadow-md shadow-black'
-            >
-              <View className='flex flex-row items-center justify-between'>
-                <Text className='text-[18px] font-semibold text-texto_cinza'>
-                  Larissa Oliveira
-                </Text>
-                <View className='flex flex-row items-center space-x-1 rounded-md bg-cinza p-1'>
-                  <Entypo name='star' size={12} color='black' />
-                  <Text className='font-semibold'>4.75</Text>
-                </View>
-              </View>
-              <Text className='text-texto_cinza_claro'>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Praesentium doloremque porro obcaecati suscipit et sunt rem
-                quasi! Sit perferendis nisi quia. Cum, veritatis. Ea praesentium
-                nulla distinctio quos ullam illum.
-              </Text>
-            </View>
+          {Array.from({ length: 5 }).map((_, i) => (
+            <Avaliacao key={i}></Avaliacao>
           ))}
         </View>
       </ScrollView>

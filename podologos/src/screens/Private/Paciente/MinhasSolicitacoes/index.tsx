@@ -20,16 +20,9 @@ export default function MinhasSolicitacoes() {
       </View>
 
       <ScrollView className='flex w-full px-5'>
-        <SolicitacaoPaciente />
-        <SolicitacaoPaciente />
-        <SolicitacaoPaciente />
-        <SolicitacaoPaciente />
-        <SolicitacaoPaciente />
-        <SolicitacaoPaciente />
-        <SolicitacaoPaciente />
-        <SolicitacaoPaciente />
-        <SolicitacaoPaciente />
-        <SolicitacaoPaciente />
+        {Array.from({ length: 2 }).map((_, i) => (
+          <SolicitacaoPaciente key={i} />
+        ))}
         <View className='h-8'></View>
       </ScrollView>
     </SafeAreaView>

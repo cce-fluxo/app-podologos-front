@@ -66,7 +66,6 @@ export function AuthProvider({ children }) {
     console.log('Iniciando signIn com:', { email, password });
     const response = await auth.signIn({ email, password });
     console.log('Resposta recebida:', response);
-
     if (response && response.token) {
       const token = response.token;
       await AsyncStorage.setItem('@LIFE:token', token);
@@ -95,6 +94,7 @@ export function AuthProvider({ children }) {
       console.log('Erro ao buscar dados do usuário:', error);
     }
   }
+  
   function signOut() {
     AsyncStorage.removeItem('@LIFE:token');
     setUser(null);

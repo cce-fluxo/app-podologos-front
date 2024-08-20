@@ -15,7 +15,6 @@ api.interceptors.request.use(
     } catch (error) {
       console.error('Erro ao recuperar o token:', error);
     }
-
     return config;
   },
   (error) => {

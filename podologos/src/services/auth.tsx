@@ -1,7 +1,6 @@
-import { useContext } from 'react';
 import { Toast } from 'toastify-react-native';
-import AuthContext from '../context/AuthContext';
 import api from './axios';
+import { useState } from 'react';
 
 // interface Response {
 //   token: string;
@@ -17,6 +16,7 @@ type User = {
 };
 
 export async function signIn({ email, password }: User) {
+
   try {
     const user = { email, password };
     // Toast.info('Aguarde...', 'loading');
