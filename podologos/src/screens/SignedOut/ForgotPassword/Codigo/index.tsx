@@ -3,7 +3,7 @@ import Input from '../../../../components/Inputs';
 import { Button } from '../../../../components/Button';
 import { Formik } from 'formik';
 import React from 'react';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useRoute } from '@react-navigation/native';
 import { Toast } from 'toastify-react-native';
 import { codigoValidationSchema } from '../../../../components/Schemas';
 import api from '../../../../services/axios';

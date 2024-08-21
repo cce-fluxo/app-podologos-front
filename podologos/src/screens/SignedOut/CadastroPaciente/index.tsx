@@ -46,17 +46,6 @@ export default function CadastroPaciente() {
       console.log(err.response.status);
     }
   }
-
-  // const [data, setData] = useState({
-  //   profile_picture: "",
-  //   first_name: "",
-  //   last_name: "",
-  //   email: "",
-  //   phone_number: "",
-  //   cep: "",
-  //   password: "",
-  // });
-
   const column = [
     {
       name: 'first_name',

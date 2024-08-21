@@ -4,10 +4,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from '../services/axios';
 
 type User = {
+  first_name?: string;
+  last_name?: string;
   email: string;
-  nome?: string;
-  sobrenome?: string;
-  telefone?: string;
+  phone_number?: string;
   cep?: string;
 };
 
@@ -17,6 +17,7 @@ interface AuthContextData {
   token: string;
   signIn: (data: SignInData) => Promise<void>;
   signOut(): void;
+  setUser?: any;
 }
 type SignInData = {
   email: string;
@@ -65,7 +66,7 @@ export function AuthProvider({ children }) {
   async function signIn({ email, password }: SignInData) {
     console.log('Iniciando signIn com:', { email, password });
     const response = await auth.signIn({ email, password });
-    console.log('Resposta recebida:', response);
+
     if (response && response.token) {
       const token = response.token;
       await AsyncStorage.setItem('@LIFE:token', token);
@@ -85,16 +86,16 @@ export function AuthProvider({ children }) {
       const data = response.data;
       setUser({
         email: data.email,
-        nome: data.first_name,
-        sobrenome: data.last_name,
-        telefone: data.phone_number,
+        first_name: data.first_name,
+        last_name: data.last_name,
+        phone_number: data.phone_number,
         cep: data.cep,
       });
     } catch (error) {
       console.log('Erro ao buscar dados do usuário:', error);
     }
   }
-  
+
   function signOut() {
     AsyncStorage.removeItem('@LIFE:token');
     setUser(null);
@@ -114,7 +115,9 @@ export function AuthProvider({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ signed, user, signIn, signOut, token }}>
+    <AuthContext.Provider
+      value={{ signed, user, setUser, signIn, signOut, token }}
+    >
       {children}
     </AuthContext.Provider>
   );

@@ -5,7 +5,7 @@ import { useContext, useEffect } from 'react';
 import AuthContext from '../../../../context/AuthContext';
 
 export default function HomePaciente({ navigation }) {
-  const { signed,  user } = useContext(AuthContext);
+  const { signed, user } = useContext(AuthContext);
   useEffect(() => {
     console.log('Estado signed mudou (Home):', signed);
   }, [signed]);
@@ -20,7 +20,7 @@ export default function HomePaciente({ navigation }) {
         <View className='w-[90%] justify-center'>
           <Text className='text-[25px] text-azul_escuro'>Bem vindo,</Text>
           <Text className='text-[25px] font-bold text-azul_escuro'>
-            {user.nome}
+            {user.first_name}
           </Text>
         </View>
         <Text className='w-[90%] text-[16px] text-branco'>

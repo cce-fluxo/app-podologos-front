@@ -8,19 +8,56 @@ import { useContext, useEffect, useState } from 'react';
 import { Toast } from 'toastify-react-native';
 import api from '../../../../services/axios';
 import AuthContext from '../../../../context/AuthContext';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function EditarPaciente() {
-  const { user } = useContext(AuthContext);
-  // const [userData, setUserData] = useState({
-  //   nome: '',
-  //   sobrenome: '',
-  //   email: '',
-  //   telefone: '',
-  //   cep: '',
-  // });
+  const { user, setUser } = useContext(AuthContext);
+  const [userData, setUserData] = useState({
+    first_name: '',
+    last_name: '',
+    email: '',
+    phone_number: '',
+    cep: '',
+  });
 
-  async function EditProfile({ values }: any) {
+  useEffect(() => {
+    if (user) {
+      setUserData({
+        first_name: user.first_name || '',
+        last_name: user.last_name || '',
+        email: user.email || '',
+        phone_number: user.phone_number || '',
+        cep: user.cep || '',
+      });
+    }
+  }, [user]);
+
+  // async function EditProfile({ values }: any) {
+  //   try {
+  //     const data = {
+  //       first_name: values.first_name,
+  //       last_name: values.last_name,
+  //       phone_number: values.phone_number,
+  //       cep: values.cep,
+  //     };
+  //     //Toast.info("Aguarde...", "");
+  //     console.log('dados enviados para edição:', data);
+
+  //     const response = await api.patch('/patient/atualizar-perfil', data);
+  //     console.log('Resposta da API:', response.data);
+  //     Toast.success('Sucesso ao editar');
+  //     // Atualiza o contexto com os novos dados do usuário
+  //     setUser((prevUser) => ({
+  //       ...prevUser,
+  //       ...data,
+  //     }));
+  //     return response.data;
+  //   } catch (err: any) {
+  //     Toast.error('Erro na edição', '');
+  //     console.error('Erro na edição:', err);
+  //     console.error('Resposta de erro da API:', err.response?.data);
+  //   }
+  // }
+  async function EditProfile(values: any) {
     try {
       const data = {
         first_name: values.first_name,
@@ -28,55 +65,44 @@ export default function EditarPaciente() {
         phone_number: values.phone_number,
         cep: values.cep,
       };
-      //Toast.info("Aguarde...", "");
       console.log('dados enviados para edição:', data);
       const response = await api.patch('/patient/atualizar-perfil', data);
+
       console.log('Resposta da API:', response.data);
       Toast.success('Sucesso ao editar');
+      // Atualiza o contexto com os novos dados do usuário
+      setUser((prevUser) => ({
+        ...prevUser,
+        ...data,
+      }));
       return response.data;
+
     } catch (err: any) {
+      // Mais detalhes do erro para debug
+      console.error('Erro na edição:', err.message);
+      console.error('Resposta completa de erro da API:', err.response);
+      // Verifique se o erro é relacionado à requisição (e.g., falta de autenticação)
+      if (err.response) {
+        console.error('Erro no status da requisição:', err.response.status);
+        console.error('Dados de erro retornados pela API:', err.response.data);
+      } else {
+        console.error('Erro inesperado, sem resposta da API:', err);
+      }
       Toast.error('Erro na edição', '');
-      console.error('Erro na edição:', err);
-      console.error('Resposta de erro da API:', err.response?.data);
     }
   }
-
-  // async function GetUser() {
-  //   try {
-  //     const token = await AsyncStorage.getItem('@LIFE:token');
-  //     if (!token) {
-  //       console.error('Token não encontrado');
-  //       return;
-  //     }
-  //     const response = await api.get('/user', {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     });
-  //     const data = response.data;
-  //     setUserData({
-  //       nome: data.first_name || '',
-  //       sobrenome: data.last_name || '',
-  //       email: data.email || '',
-  //       telefone: data.phone_number || '',
-  //       cep: data.cep || '',
-  //     });
-  //   } catch (error) {
-  //     console.log('Erro ao buscar dados do usuário:', error);
-  //   }
-  // }
 
   const column = [
     {
       name: 'first_name',
       texto: 'Nome',
-      placeholder: user.nome,
+      placeholder: user.first_name,
       component: Input,
     },
     {
       name: 'last_name',
       texto: 'Sobrenome',
-      placeholder: user.sobrenome,
+      placeholder: user.last_name,
       component: Input,
     },
     {
@@ -88,7 +114,7 @@ export default function EditarPaciente() {
     {
       name: 'phone_number',
       texto: 'Telefone',
-      placeholder: user.telefone,
+      placeholder: user.phone_number,
       component: Input,
     },
     {

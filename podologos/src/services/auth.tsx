@@ -1,6 +1,7 @@
 import { Toast } from 'toastify-react-native';
 import api from './axios';
 import { useState } from 'react';
+import { Alert } from 'react-native';
 
 // interface Response {
 //   token: string;
@@ -16,7 +17,6 @@ type User = {
 };
 
 export async function signIn({ email, password }: User) {
-
   try {
     const user = { email, password };
     // Toast.info('Aguarde...', 'loading');
@@ -33,6 +33,7 @@ export async function signIn({ email, password }: User) {
     }
   } catch (error) {
     Toast.error('Erro no login', '');
+    Alert.alert('Erro', 'Confira se o email e a senha estão corretos.');
     console.log('Erro na API:', error.response?.data || error.message);
   }
 }

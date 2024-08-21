@@ -6,7 +6,6 @@ import ProfileInfo from '../../../../components/ProfileInfo';
 import { Button } from '../../../../components/Button';
 import Avaliacao from '../../../../components/Avaliacao';
 import ModalSimNao from '../../../../components/PopUps/ModalSimNao';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from '../../../../services/axios';
 import AuthContext from '../../../../context/AuthContext';
 
@@ -32,7 +31,7 @@ function PerfilPaciente({ navigation }) {
     try {
       const response = await api.delete('/user');
       console.log('Resposta da API:', response.data);
-      signOut()
+      signOut();
       return response.data;
     } catch (error) {
       console.log('Erro ao deletar usuário:', error);
@@ -53,10 +52,10 @@ function PerfilPaciente({ navigation }) {
           Ver anamnese
         </Text>
         <View className='ml-6 mt-10'>
-          <ProfileInfo label='Nome' text={user.nome}></ProfileInfo>
-          <ProfileInfo label='Sobrenome' text={user.sobrenome}></ProfileInfo>
+          <ProfileInfo label='Nome' text={user.first_name}></ProfileInfo>
+          <ProfileInfo label='Sobrenome' text={user.last_name}></ProfileInfo>
           <ProfileInfo label='Email' text={user.email}></ProfileInfo>
-          <ProfileInfo label='Telefone' text={user.telefone}></ProfileInfo>
+          <ProfileInfo label='Telefone' text={user.phone_number}></ProfileInfo>
           <ProfileInfo label='Cep' text={user.cep}></ProfileInfo>
         </View>
         <View className='mt-7 flex w-full items-center space-y-4'>

@@ -1,22 +1,11 @@
-import {
-  SafeAreaView,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import { FormData } from '../../../components/FormData/Index';
-import React, { useState } from 'react';
+import { SafeAreaView, Text, View } from 'react-native';
+import React from 'react';
 import Input from '../../../components/Inputs';
 import { Button } from '../../../components/Button';
-import Header from '../../../components/Header';
-import { MaterialIcons } from '@expo/vector-icons';
 import { Formik } from 'formik';
-import { useRoute } from '@react-navigation/native';
 
 export default function FormacaoPodologo({ navigation }: any) {
   let formikRef = React.useRef(null);
-
   const [formacao, setformacao] = React.useState('');
 
   const handleSubmit = () => {

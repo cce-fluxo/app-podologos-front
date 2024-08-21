@@ -24,7 +24,6 @@ function Login() {
       email: values.email,
       password: values.password,
     };
-    console.log('Logar');
     await signIn(userCredentials);
     console.log('Após chamada de signIn');
   }
