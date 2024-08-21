@@ -12,15 +12,12 @@ import { Button } from '../../../components/Button';
 import Header from '../../../components/Header';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Formik } from 'formik';
+import { useRoute } from '@react-navigation/native';
 
-export default function FormacaoPodologo() {
+export default function FormacaoPodologo({ navigation }: any) {
   let formikRef = React.useRef(null);
 
-  const [data, setData] = useState({
-    instituicao: '',
-    anoConclusao: '',
-    tipoFormacao: '',
-  });
+  const [formacao, setformacao] = React.useState('');
 
   const handleSubmit = () => {
     if (formikRef.current) {
@@ -28,6 +25,14 @@ export default function FormacaoPodologo() {
       formikRef.current.submitForm();
     }
   };
+
+  function handleFormSubmit(values: any) {
+    navigation.navigate('CadastroPodologo', {
+      institution: values.institution,
+      degree_year: values.degree_year,
+      degree_type: values.degree_type,
+    });
+  }
 
   return (
     <SafeAreaView className='flex w-full flex-1 items-center bg-branco'>
@@ -42,6 +47,7 @@ export default function FormacaoPodologo() {
               degree_type: '',
             }}
             onSubmit={(values) => {
+              handleFormSubmit(values);
               console.log(values);
             }}
           >

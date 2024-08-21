@@ -1,4 +1,4 @@
-import { SafeAreaView, ScrollView, View } from 'react-native';
+import { Alert, SafeAreaView, ScrollView, View } from 'react-native';
 import { FormData } from '../../../components/FormData/Index';
 import { useState, useContext } from 'react';
 import Input from '../../../components/FormData/InputForm';
@@ -37,7 +37,7 @@ export default function CadastroPaciente() {
       //Toast.info("Aguarde...", "");
       const response = await api.post('/patient/registrar-paciente', data);
       Toast.success('Sucesso ao cadastrar');
-      navigation.navigate("Login")
+      navigation.navigate('Login');
       return response.data;
     } catch (err: any) {
       Toast.error('Erro no cadastro', '');
@@ -100,6 +100,13 @@ export default function CadastroPaciente() {
           }}
           onSubmit={(data) => {
             {
+              if (!isChecked) {
+                Alert.alert(
+                  'Erro',
+                  'Você deve aceitar os Termos e Condições para continuar.'
+                );
+                return;
+              }
               const { confirmarSenha, ...filteredData } = data;
               signUp(filteredData);
               console.log(filteredData);

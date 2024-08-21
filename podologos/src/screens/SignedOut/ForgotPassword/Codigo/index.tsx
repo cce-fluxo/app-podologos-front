@@ -10,7 +10,6 @@ import api from '../../../../services/axios';
 
 function Codigo({ navigation }) {
   const route = useRoute();
-
   const { email }: any = route.params;
 
   let formikRef = React.useRef(null);
