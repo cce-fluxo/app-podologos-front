@@ -12,7 +12,7 @@ import api from '../../../services/axios';
 import { Toast } from 'toastify-react-native';
 import { useRoute } from '@react-navigation/native';
 
-type RouteParams = {
+export type RouteParams = {
   institution?: string;
   degree_type?: string;
   degree_year?: string;
@@ -71,7 +71,7 @@ export default function CadastroPodologo({ navigation }: any) {
   async function signUp(data: object) {
     try {
       //Toast.info("Aguarde...", "");
-      const response = await api.post('/patient/registrar-paciente', data);
+      const response = await api.post('/doctor/register', data);
       Toast.success('Sucesso ao cadastrar');
       console.log(response.data);
       return response.data;
@@ -142,7 +142,6 @@ export default function CadastroPodologo({ navigation }: any) {
             >
               <MaterialIcons name='add' size={20} color='#2087ED' />
             </Button>
-
             <View className='flex w-[90%] flex-row items-center self-center'>
               <Checkbox
                 className='ml-4'

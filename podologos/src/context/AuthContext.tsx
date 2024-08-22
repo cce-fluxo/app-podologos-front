@@ -9,6 +9,7 @@ type User = {
   email: string;
   phone_number?: string;
   cep?: string;
+  doctor_id?: number;
 };
 
 interface AuthContextData {
@@ -38,30 +39,13 @@ type Response = {
   token: string;
   user: User;
 };
+
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState<User | null>(null);
   const signed = !!user;
   const [token, setToken] = useState('');
-
-  // async function signIn({ email, password }: SignInData) {
-  //   console.log('Iniciando signIn com:', { email, password });
-  //   // Chama a função signIn que retorna o token após login
-  //   const response = await auth.signIn({ email, password });
-  //   const token = response.data;
-  //   if (token) {
-  //     try {
-  //       // Armazena o token no AsyncStorage
-  //       await AsyncStorage.setItem('authToken', token);
-  //       console.log('Token armazenado com sucesso:', token);
-  //     } catch (error) {
-  //       console.log('Erro ao armazenar o token:', error);
-  //     }
-  //   } else {
-  //     console.log('Erro: Resposta da API não contém token');
-  //   }
-  // }
 
   async function signIn({ email, password }: SignInData) {
     console.log('Iniciando signIn com:', { email, password });
@@ -90,6 +74,7 @@ export function AuthProvider({ children }) {
         last_name: data.last_name,
         phone_number: data.phone_number,
         cep: data.cep,
+        doctor_id: data.doctor_id,
       });
     } catch (error) {
       console.log('Erro ao buscar dados do usuário:', error);

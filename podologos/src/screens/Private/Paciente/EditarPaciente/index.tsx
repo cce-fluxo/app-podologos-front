@@ -31,32 +31,6 @@ export default function EditarPaciente() {
     }
   }, [user]);
 
-  // async function EditProfile({ values }: any) {
-  //   try {
-  //     const data = {
-  //       first_name: values.first_name,
-  //       last_name: values.last_name,
-  //       phone_number: values.phone_number,
-  //       cep: values.cep,
-  //     };
-  //     //Toast.info("Aguarde...", "");
-  //     console.log('dados enviados para edição:', data);
-
-  //     const response = await api.patch('/patient/atualizar-perfil', data);
-  //     console.log('Resposta da API:', response.data);
-  //     Toast.success('Sucesso ao editar');
-  //     // Atualiza o contexto com os novos dados do usuário
-  //     setUser((prevUser) => ({
-  //       ...prevUser,
-  //       ...data,
-  //     }));
-  //     return response.data;
-  //   } catch (err: any) {
-  //     Toast.error('Erro na edição', '');
-  //     console.error('Erro na edição:', err);
-  //     console.error('Resposta de erro da API:', err.response?.data);
-  //   }
-  // }
   async function EditProfile(values: any) {
     try {
       const data = {
@@ -76,7 +50,6 @@ export default function EditarPaciente() {
         ...data,
       }));
       return response.data;
-
     } catch (err: any) {
       // Mais detalhes do erro para debug
       console.error('Erro na edição:', err.message);

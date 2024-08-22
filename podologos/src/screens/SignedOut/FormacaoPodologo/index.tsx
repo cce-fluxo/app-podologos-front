@@ -3,6 +3,7 @@ import React from 'react';
 import Input from '../../../components/Inputs';
 import { Button } from '../../../components/Button';
 import { Formik } from 'formik';
+import { RouteParams } from '../CadastroPodologo';
 
 export default function FormacaoPodologo({ navigation }: any) {
   let formikRef = React.useRef(null);
@@ -15,7 +16,7 @@ export default function FormacaoPodologo({ navigation }: any) {
     }
   };
 
-  function handleFormSubmit(values: any) {
+  function handleFormSubmit(values: RouteParams) {
     navigation.navigate('CadastroPodologo', {
       institution: values.institution,
       degree_year: values.degree_year,

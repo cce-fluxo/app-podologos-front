@@ -9,6 +9,7 @@ export default function HomePaciente({ navigation }) {
   useEffect(() => {
     console.log('Estado signed mudou (Home):', signed);
   }, [signed]);
+  console.log('testando o tipo de cliente:', !!user.doctor_id);
 
   return (
     <SafeAreaView className='flex h-full w-full'>

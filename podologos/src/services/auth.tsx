@@ -33,7 +33,7 @@ export async function signIn({ email, password }: User) {
     }
   } catch (error) {
     Toast.error('Erro no login', '');
-    Alert.alert('Erro', 'Confira se o email e a senha estão corretos.');
+    // Alert.alert('Erro', 'Confira se o email e a senha estão corretos.');
     console.log('Erro na API:', error.response?.data || error.message);
   }
 }
