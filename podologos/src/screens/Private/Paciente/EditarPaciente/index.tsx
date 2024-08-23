@@ -8,15 +8,15 @@ import { useContext, useEffect, useState } from 'react';
 import { Toast } from 'toastify-react-native';
 import api from '../../../../services/axios';
 import AuthContext from '../../../../context/AuthContext';
+import { EditPatientSchema } from '../../../../components/Schemas';
 
-export default function EditarPaciente() {
+export default function EditarPaciente({ navigation }) {
   const { user, setUser } = useContext(AuthContext);
   const [userData, setUserData] = useState({
-    first_name: '',
-    last_name: '',
-    phone_number: '',
-    cep: '',
-    email: '',
+    first_name: user.first_name,
+    last_name: user.last_name,
+    phone_number: user.phone_number,
+    cep: user.cep,
   });
 
   useEffect(() => {
@@ -24,7 +24,6 @@ export default function EditarPaciente() {
       setUserData({
         first_name: user.first_name || '',
         last_name: user.last_name || '',
-        email: user.email || '',
         phone_number: user.phone_number || '',
         cep: user.cep || '',
       });
@@ -41,11 +40,10 @@ export default function EditarPaciente() {
       };
       console.log('dados enviados para edição:', data);
       const response = await api.patch('/patient/atualizar-perfil', data);
-
       console.log('Resposta da API:', response.data);
       Toast.success('Sucesso ao editar');
       // Atualiza o contexto com os novos dados do usuário
-      setUser((prevUser) => ({
+      setUser((prevUser: any) => ({
         ...prevUser,
         ...data,
       }));
@@ -96,6 +94,7 @@ export default function EditarPaciente() {
       texto: 'Email',
       placeholder: user.email,
       component: Input,
+      readOnly: true, // Campo somente leitura
     },
   ];
 
@@ -110,12 +109,13 @@ export default function EditarPaciente() {
           </View>
         </View>
         <Button
-          className='mt-8 self-center border-[1px] border-azul bg-branco'
+          className='mb-4 mt-8 self-center border-[1px] border-azul bg-branco'
           placeholder='Editar ficha de anamnese'
           text='text-azul'
         ></Button>
-
         <FormData.Root
+          // schema={EditPatientSchema}
+          initialValues={userData}
           onSubmit={(data) => {
             console.log('Dados recebidos para salvar:', data);
             EditProfile(data);
@@ -124,13 +124,14 @@ export default function EditarPaciente() {
           <FormData.Form
             retornavel={true}
             ButtonStyles={{
-              className: 'self-center mt-2 mb-10 w-[87%]',
+              className: 'self-center mt-2 mb-4 w-[87%]',
               placeholder: 'Salvar',
             }}
             columns={column}
             id='formQuestion'
           ></FormData.Form>
           <Button
+            onPress={() => navigation.navigate('PerfilPaciente')}
             className='self-center border-[1px] border-azul bg-branco'
             placeholder='Cancelar'
             text='text-azul'

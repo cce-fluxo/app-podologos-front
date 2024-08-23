@@ -6,10 +6,14 @@ import AuthContext from '../../../../context/AuthContext';
 
 export default function HomePaciente({ navigation }) {
   const { signed, user } = useContext(AuthContext);
-  useEffect(() => {
-    console.log('Estado signed mudou (Home):', signed);
-  }, [signed]);
-  console.log('testando o tipo de cliente:', !!user.doctor_id);
+
+  console.log('Estado signed mudou (Home):', signed);
+
+  {
+    !!user.doctor_id
+      ? console.log('Usuário é um podólogo (Home)')
+      : console.log('Usuário é um paciente (Home)');
+  }
 
   return (
     <SafeAreaView className='flex h-full w-full'>

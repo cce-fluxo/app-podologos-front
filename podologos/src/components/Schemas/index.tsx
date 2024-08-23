@@ -45,10 +45,16 @@ export const NovaSenhaSchema = Yup.object().shape({
 });
 
 export const codigoValidationSchema = Yup.object().shape({
-  codigo: Yup
-    .string()
-    .required('Code is Required'),
-})
+  codigo: Yup.string().required('Code is Required'),
+});
+
+export const EditPatientSchema = Yup.object().shape({
+  first_name: Yup.string().required('O nome é obrigatório'),
+  last_name: Yup.string().required('O sobrenome é obrigatório'),
+  phone_number: Yup.string().required('O número de telefone é obrigatório'),
+  cep: Yup.string().required('O CEP é obrigatório'),
+  // O campo email é apenas para visualização, então não precisa ser validado aqui
+});
 
 // export const SignupSchema = Yup.object().shape({
 //   name: Yup.string().min(3, "3 letters minimum").required("Required field"),

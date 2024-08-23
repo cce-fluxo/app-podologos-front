@@ -50,7 +50,6 @@ export function AuthProvider({ children }) {
   async function signIn({ email, password }: SignInData) {
     console.log('Iniciando signIn com:', { email, password });
     const response = await auth.signIn({ email, password });
-
     if (response && response.token) {
       const token = response.token;
       await AsyncStorage.setItem('@LIFE:token', token);

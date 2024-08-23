@@ -16,7 +16,7 @@ import { useNavigation } from '@react-navigation/native';
 export default function CadastroPaciente() {
   const [isChecked, setIsChecked] = useState(false);
   const [image, setImage] = useState(null);
-  const { signed, user } = useContext(AuthContext);
+  const { signed, user, signIn } = useContext(AuthContext);
   const navigation = useNavigation();
 
   const pickImage = async () => {
@@ -32,12 +32,18 @@ export default function CadastroPaciente() {
     }
   };
 
-  async function signUp(data: object) {
+  async function signUp(data: any) {
     try {
       //Toast.info("Aguarde...", "");
       const response = await api.post('/patient/registrar-paciente', data);
-      Toast.success('Sucesso ao cadastrar');
-      navigation.navigate('Login');
+      Toast.success('Sucesso ao cadastrar', '');
+      const userCredentials = {
+        email: data.email,
+        password: data.password,
+      };
+      await signIn(userCredentials);
+      console.log('Após chamada de signIn');
+
       return response.data;
     } catch (err: any) {
       Toast.error('Erro no cadastro', '');
