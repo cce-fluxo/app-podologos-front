@@ -54,9 +54,9 @@ function PerfilPaciente({ navigation }) {
         <View className='ml-6 mt-10'>
           <ProfileInfo label='Nome' text={user.first_name}></ProfileInfo>
           <ProfileInfo label='Sobrenome' text={user.last_name}></ProfileInfo>
-          <ProfileInfo label='Email' text={user.email}></ProfileInfo>
           <ProfileInfo label='Telefone' text={user.phone_number}></ProfileInfo>
           <ProfileInfo label='Cep' text={user.cep}></ProfileInfo>
+          <ProfileInfo label='Email' text={user.email}></ProfileInfo>
         </View>
         <View className='mt-7 flex w-full items-center space-y-4'>
           <Button

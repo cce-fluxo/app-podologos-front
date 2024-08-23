@@ -14,9 +14,9 @@ export default function EditarPaciente() {
   const [userData, setUserData] = useState({
     first_name: '',
     last_name: '',
-    email: '',
     phone_number: '',
     cep: '',
+    email: '',
   });
 
   useEffect(() => {
@@ -78,12 +78,7 @@ export default function EditarPaciente() {
       placeholder: user.last_name,
       component: Input,
     },
-    {
-      name: 'email',
-      texto: 'Email',
-      placeholder: user.email,
-      component: Input,
-    },
+
     {
       name: 'phone_number',
       texto: 'Telefone',
@@ -94,6 +89,12 @@ export default function EditarPaciente() {
       name: 'cep',
       texto: 'CEP',
       placeholder: user.cep,
+      component: Input,
+    },
+    {
+      name: 'email',
+      texto: 'Email',
+      placeholder: user.email,
       component: Input,
     },
   ];
