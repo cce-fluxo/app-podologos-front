@@ -1,4 +1,11 @@
-import { SafeAreaView, ScrollView, Text, View, Image } from 'react-native';
+import {
+  SafeAreaView,
+  ScrollView,
+  Text,
+  View,
+  Image,
+  Alert,
+} from 'react-native';
 import { Button } from '../../../../components/Button';
 import { Entypo } from '@expo/vector-icons';
 import PerfilImage from '../../../../assets/PerfilImage.png';
@@ -59,6 +66,7 @@ export default function EditarPaciente({ navigation }) {
       } else {
         console.error('Erro inesperado, sem resposta da API:', err);
       }
+      Alert.alert('Erro na edição', 'Verifique os campos e tente novamente');
       Toast.error('Erro na edição', '');
     }
   }

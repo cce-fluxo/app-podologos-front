@@ -48,18 +48,19 @@ export function AuthProvider({ children }) {
   const [token, setToken] = useState('');
 
   async function signIn({ email, password }: SignInData) {
-    console.log('Iniciando signIn com:', { email, password });
-    const response = await auth.signIn({ email, password });
-    if (response && response.token) {
-      const token = response.token;
-      await AsyncStorage.setItem('@LIFE:token', token);
-      console.log('Token armazenado com sucesso:', token);
-      setToken(token);
-      await GetUser();
-      // setUser({ email }); // Ajuste conforme a lógica do seu aplicativo
-      //setUser(response.user);
-    } else {
-      console.log('Erro: Resposta da API não contém token');
+    try {
+      console.log('Iniciando signIn com:', { email, password });
+      const response = await auth.signIn({ email, password });
+      console.log('Testando token:', response.token);
+      if (response?.token) {
+        await AsyncStorage.setItem('@LIFE:token', response.token);
+        setToken(response.token);
+        await GetUser();
+      } else {
+        console.log('Erro: Resposta da API não contém token');
+      }
+    } catch (error) {
+      console.log('Erro durante o login:', error.message);
     }
   }
 
