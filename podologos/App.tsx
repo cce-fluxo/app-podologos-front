@@ -5,6 +5,7 @@ import { AuthProvider } from './src/context/AuthContext';
 import { NavigationContainer } from '@react-navigation/native';
 import TesteRoutes from './src/routes';
 import PodologosRoutes from './src/routes/podologo.routes';
+import SocialRoutes from './src/routes/social.routes';
 
 export default function App() {
   return (
@@ -12,7 +13,7 @@ export default function App() {
       <AuthProvider>
         <StatusBar style='auto' backgroundColor='white' />
         <NavigationContainer>
-          <MainRoutes />
+          <SocialRoutes />
         </NavigationContainer>
       </AuthProvider>
     </>

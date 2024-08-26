@@ -6,25 +6,16 @@ import { Button } from '../../../components/Button';
 import Checkbox from 'expo-checkbox';
 import { useState } from 'react';
 
-export default function DadosPessoais() {
+export default function Limitacoes() {
   const [isChecked, setIsChecked] = useState(Array(14).fill(false));
 
   const titulos = [
-    'Unha encravada',
-    'Micose na unha',
-    'Micose Plantar (pés)',
-    'Unha descolada',
-    'Manchas nas unhas',
-    'Bromidrose (chulé)',
-    'Sudorese',
-    'Psoríase',
-    'Onicocriptose (unha encravada)',
-    'Onicomicose (fungo na unha)',
-    'Onicogrifose (unha grossa)',
-    'Onicofose (unha fina)',
-    'Onicorrexe (unha quebradiça)',
-    'Onicose (unha fraca)',
-    'Onicólise (descolamento da unha)',
+    'Cadeirante',
+    'Muleta',
+    'Andador',
+    'Bengala',
+    'Acamado',
+    'Atendimento Domiciliar',
   ];
 
   const handleCheckboxChange = (index: number) => {
@@ -40,7 +31,7 @@ export default function DadosPessoais() {
       <ScrollView className='w-full'>
         <View className='flex items-center'>
           <Text className='mb-2 w-[90%] text-[20px] font-semibold text-titulo_anamnese'>
-            Motivo da visita
+            Limitações
           </Text>
           {Array.from({ length: titulos.length }).map((_, i) => (
             <View className='mb-2 flex w-[90%] flex-row justify-between p-4'>
@@ -55,7 +46,15 @@ export default function DadosPessoais() {
               />
             </View>
           ))}
-          <Button className='self-center' placeholder='Continuar'></Button>
+          <Button
+            className='self-center'
+            placeholder='Finalizar cadastro'
+          ></Button>
+          <Button
+            className='mb-6 mt-4 self-center border-[1px] border-azul bg-branco'
+            text='text-azul'
+            placeholder='Solicitar nova consulta'
+          ></Button>
         </View>
       </ScrollView>
     </SafeAreaView>

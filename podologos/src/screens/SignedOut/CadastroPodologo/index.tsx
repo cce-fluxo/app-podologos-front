@@ -1,8 +1,4 @@
-import {
-  SafeAreaView,
-  ScrollView,
-  View,
-} from 'react-native';
+import { SafeAreaView, ScrollView, View } from 'react-native';
 import { FormData } from '../../../components/FormData/Index';
 import { useState } from 'react';
 import Input from '../../../components/FormData/InputForm';
