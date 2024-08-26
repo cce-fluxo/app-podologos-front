@@ -11,7 +11,7 @@
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.24.0",
     "@react-native-community/checkbox": "^0.5.17",
-    "@react-native-picker/picker": "^2.7.5",
+    "@react-native-picker/picker": "^2.7.7",
     "@react-native/assets-registry": "^0.74.85",
     "@react-navigation/bottom-tabs": "^6.5.20",
     "@react-navigation/native": "^6.1.17",

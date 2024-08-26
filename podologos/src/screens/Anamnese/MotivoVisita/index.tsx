@@ -43,7 +43,10 @@ export default function DadosPessoais() {
             Motivo da visita
           </Text>
           {Array.from({ length: titulos.length }).map((_, i) => (
-            <View className='mb-2 flex w-[90%] flex-row justify-between p-4'>
+            <View
+              key={i}
+              className='mb-2 flex w-[90%] flex-row justify-between p-4'
+            >
               <Text className='text-[18px] text-titulo_anamnese'>
                 {titulos[i]}
               </Text>
