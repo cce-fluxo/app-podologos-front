@@ -8,7 +8,6 @@ import ToastManager from 'toastify-react-native';
 import { Formik } from 'formik';
 import { LoginSchema } from '../../../components/Schemas';
 import { useNavigation } from '@react-navigation/native';
-import Svg, { Path } from 'react-native-svg';
 import { Ionicons } from '@expo/vector-icons';
 
 function Login() {
@@ -25,25 +24,9 @@ function Login() {
       email: values.email,
       password: values.password,
     };
-    console.log('Logar');
     await signIn(userCredentials);
     console.log('Após chamada de signIn');
   }
-
-  const columns = [
-    {
-      type: 'email',
-      name: 'email',
-      placeholder: 'Email',
-      component: Input,
-    },
-    {
-      type: 'password',
-      name: 'password',
-      placeholder: 'Password',
-      component: Input,
-    },
-  ];
 
   return (
     <View className='flex-1 items-center justify-center gap-4 bg-white'>

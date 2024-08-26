@@ -33,14 +33,16 @@ function ConsultasRealizadas() {
       </View>
 
       <ScrollView className=''>
-        <Solicitacoes
-          onPress={() => navigation.navigate('InfoConsultasRealizadas')}
-        />
-        <Solicitacoes />
-        <Solicitacoes />
-        <Solicitacoes />
-        <Solicitacoes />
-        <Solicitacoes />
+        <View className='flex pb-6'>
+          <Solicitacoes
+            onPress={() => navigation.navigate('InfoConsultasRealizadas')}
+          />
+          <Solicitacoes />
+          <Solicitacoes />
+          <Solicitacoes />
+          <Solicitacoes />
+          <Solicitacoes />
+        </View>
       </ScrollView>
     </SafeAreaView>
   );

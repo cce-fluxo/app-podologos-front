@@ -6,7 +6,6 @@ import ProfileInfo from '../../../../components/ProfileInfo';
 import { Button } from '../../../../components/Button';
 import Avaliacao from '../../../../components/Avaliacao';
 import ModalSimNao from '../../../../components/PopUps/ModalSimNao';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from '../../../../services/axios';
 import AuthContext from '../../../../context/AuthContext';
 
@@ -32,6 +31,7 @@ function PerfilPaciente({ navigation }) {
     try {
       const response = await api.delete('/user');
       console.log('Resposta da API:', response.data);
+      signOut();
       return response.data;
     } catch (error) {
       console.log('Erro ao deletar usuário:', error);
@@ -41,7 +41,7 @@ function PerfilPaciente({ navigation }) {
   return (
     <SafeAreaView className='flex w-full bg-branco'>
       <ScrollView className=''>
-        <View className='flex items-center justify-center'>
+        <View className='flex items-center justify-center pt-5'>
           <Image className='' source={PerfilImage}></Image>
           <View className='mt-3 flex flex-row items-center justify-center space-x-2 rounded-md bg-zinc-100 p-1'>
             <Entypo name='star' size={20} color='black' />
@@ -52,11 +52,11 @@ function PerfilPaciente({ navigation }) {
           Ver anamnese
         </Text>
         <View className='ml-6 mt-10'>
-          <ProfileInfo label='Nome' text={user.nome}></ProfileInfo>
-          <ProfileInfo label='Sobrenome' text={user.sobrenome}></ProfileInfo>
-          <ProfileInfo label='Email' text={user.email}></ProfileInfo>
-          <ProfileInfo label='Telefone' text={user.telefone}></ProfileInfo>
+          <ProfileInfo label='Nome' text={user.first_name}></ProfileInfo>
+          <ProfileInfo label='Sobrenome' text={user.last_name}></ProfileInfo>
+          <ProfileInfo label='Telefone' text={user.phone_number}></ProfileInfo>
           <ProfileInfo label='Cep' text={user.cep}></ProfileInfo>
+          <ProfileInfo label='Email' text={user.email}></ProfileInfo>
         </View>
         <View className='mt-7 flex w-full items-center space-y-4'>
           <Button
@@ -81,7 +81,7 @@ function PerfilPaciente({ navigation }) {
             Avaliações:
           </Text>
         </View>
-        <View className='mb-24 flex w-full space-y-4'>
+        <View className='mb-14 flex w-full space-y-4'>
           {Array.from({ length: 5 }).map((_, i) => (
             <Avaliacao key={i}></Avaliacao>
           ))}

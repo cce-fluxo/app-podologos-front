@@ -1,4 +1,11 @@
-import { SafeAreaView, ScrollView, Text, View, Image } from 'react-native';
+import {
+  SafeAreaView,
+  ScrollView,
+  Text,
+  View,
+  Image,
+  Alert,
+} from 'react-native';
 import { Button } from '../../../../components/Button';
 import { Entypo } from '@expo/vector-icons';
 import PerfilImage from '../../../../assets/PerfilImage.png';
@@ -8,19 +15,29 @@ import { useContext, useEffect, useState } from 'react';
 import { Toast } from 'toastify-react-native';
 import api from '../../../../services/axios';
 import AuthContext from '../../../../context/AuthContext';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { EditPatientSchema } from '../../../../components/Schemas';
 
-export default function EditarPaciente() {
-  const { user } = useContext(AuthContext);
-  // const [userData, setUserData] = useState({
-  //   nome: '',
-  //   sobrenome: '',
-  //   email: '',
-  //   telefone: '',
-  //   cep: '',
-  // });
+export default function EditarPaciente({ navigation }) {
+  const { user, setUser } = useContext(AuthContext);
+  const [userData, setUserData] = useState({
+    first_name: user.first_name,
+    last_name: user.last_name,
+    phone_number: user.phone_number,
+    cep: user.cep,
+  });
 
-  async function EditProfile({ values }: any) {
+  useEffect(() => {
+    if (user) {
+      setUserData({
+        first_name: user.first_name || '',
+        last_name: user.last_name || '',
+        phone_number: user.phone_number || '',
+        cep: user.cep || '',
+      });
+    }
+  }, [user]);
+
+  async function EditProfile(values: any) {
     try {
       const data = {
         first_name: values.first_name,
@@ -28,67 +45,50 @@ export default function EditarPaciente() {
         phone_number: values.phone_number,
         cep: values.cep,
       };
-      //Toast.info("Aguarde...", "");
       console.log('dados enviados para edição:', data);
       const response = await api.patch('/patient/atualizar-perfil', data);
       console.log('Resposta da API:', response.data);
       Toast.success('Sucesso ao editar');
+      // Atualiza o contexto com os novos dados do usuário
+      setUser((prevUser: any) => ({
+        ...prevUser,
+        ...data,
+      }));
       return response.data;
     } catch (err: any) {
+      // Mais detalhes do erro para debug
+      console.error('Erro na edição:', err.message);
+      console.error('Resposta completa de erro da API:', err.response);
+      // Verifique se o erro é relacionado à requisição (e.g., falta de autenticação)
+      if (err.response) {
+        console.error('Erro no status da requisição:', err.response.status);
+        console.error('Dados de erro retornados pela API:', err.response.data);
+      } else {
+        console.error('Erro inesperado, sem resposta da API:', err);
+      }
+      Alert.alert('Erro na edição', 'Verifique os campos e tente novamente');
       Toast.error('Erro na edição', '');
-      console.error('Erro na edição:', err);
-      console.error('Resposta de erro da API:', err.response?.data);
     }
   }
-
-  // async function GetUser() {
-  //   try {
-  //     const token = await AsyncStorage.getItem('@LIFE:token');
-  //     if (!token) {
-  //       console.error('Token não encontrado');
-  //       return;
-  //     }
-  //     const response = await api.get('/user', {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     });
-  //     const data = response.data;
-  //     setUserData({
-  //       nome: data.first_name || '',
-  //       sobrenome: data.last_name || '',
-  //       email: data.email || '',
-  //       telefone: data.phone_number || '',
-  //       cep: data.cep || '',
-  //     });
-  //   } catch (error) {
-  //     console.log('Erro ao buscar dados do usuário:', error);
-  //   }
-  // }
 
   const column = [
     {
       name: 'first_name',
       texto: 'Nome',
-      placeholder: user.nome,
+      placeholder: user.first_name,
       component: Input,
     },
     {
       name: 'last_name',
       texto: 'Sobrenome',
-      placeholder: user.sobrenome,
+      placeholder: user.last_name,
       component: Input,
     },
-    {
-      name: 'email',
-      texto: 'Email',
-      placeholder: user.email,
-      component: Input,
-    },
+
     {
       name: 'phone_number',
       texto: 'Telefone',
-      placeholder: user.telefone,
+      placeholder: user.phone_number,
       component: Input,
     },
     {
@@ -96,6 +96,13 @@ export default function EditarPaciente() {
       texto: 'CEP',
       placeholder: user.cep,
       component: Input,
+    },
+    {
+      name: 'email',
+      texto: 'Email',
+      placeholder: user.email,
+      component: Input,
+      readOnly: true, // Campo somente leitura
     },
   ];
 
@@ -110,12 +117,13 @@ export default function EditarPaciente() {
           </View>
         </View>
         <Button
-          className='mt-8 self-center border-[1px] border-azul bg-branco'
+          className='mb-4 mt-8 self-center border-[1px] border-azul bg-branco'
           placeholder='Editar ficha de anamnese'
           text='text-azul'
         ></Button>
-
         <FormData.Root
+          // schema={EditPatientSchema}
+          initialValues={userData}
           onSubmit={(data) => {
             console.log('Dados recebidos para salvar:', data);
             EditProfile(data);
@@ -124,13 +132,14 @@ export default function EditarPaciente() {
           <FormData.Form
             retornavel={true}
             ButtonStyles={{
-              className: 'self-center mt-2 mb-10 w-[87%]',
+              className: 'self-center mt-2 mb-4 w-[87%]',
               placeholder: 'Salvar',
             }}
             columns={column}
             id='formQuestion'
           ></FormData.Form>
           <Button
+            onPress={() => navigation.navigate('PerfilPaciente')}
             className='self-center border-[1px] border-azul bg-branco'
             placeholder='Cancelar'
             text='text-azul'
