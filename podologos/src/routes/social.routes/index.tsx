@@ -7,7 +7,6 @@ import Email from '../../screens/SignedOut/ForgotPassword/Email';
 import Codigo from '../../screens/SignedOut/ForgotPassword/Codigo';
 import NovaSenha from '../../screens/SignedOut/ForgotPassword/NovaSenha';
 import FormacaoPodologo from '../../screens/SignedOut/FormacaoPodologo';
-import Avaliacao from '../../screens/Anamnese/Avaliacao';
 
 const Stack = createStackNavigator();
 
@@ -52,7 +51,7 @@ export default function SocialRoutes() {
       />
       <Stack.Screen
         name='CadastroPodologo'
-        component={Avaliacao}
+        component={CadastroPodologo}
         options={{
           headerBackTitleVisible: false,
           headerTintColor: '#0A284D',
