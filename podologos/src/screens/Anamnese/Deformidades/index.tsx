@@ -6,25 +6,15 @@ import { Button } from '../../../components/Button';
 import Checkbox from 'expo-checkbox';
 import { useState } from 'react';
 
-export default function DadosPessoais() {
+export default function Deformidades() {
   const [isChecked, setIsChecked] = useState(Array(14).fill(false));
 
   const titulos = [
-    'Unha encravada',
-    'Micose na unha',
-    'Micose Plantar (pés)',
-    'Unha descolada',
-    'Manchas nas unhas',
-    'Bromidrose (chulé)',
-    'Sudorese',
-    'Psoríase',
-    'Onicocriptose (unha encravada)',
-    'Onicomicose (fungo na unha)',
-    'Onicogrifose (unha grossa)',
-    'Onicofose (unha fina)',
-    'Onicorrexe (unha quebradiça)',
-    'Onicose (unha fraca)',
-    'Onicólise (descolamento da unha)',
+    'Dedos em Garra',
+    'Joanete',
+    'Dedos em Martelo',
+    'Amputações',
+    'Edema (inchaço nas pernas)',
   ];
 
   const handleCheckboxChange = (index: number) => {
@@ -40,7 +30,7 @@ export default function DadosPessoais() {
       <ScrollView className='w-full'>
         <View className='flex items-center'>
           <Text className='mb-2 w-[90%] text-[20px] font-semibold text-titulo_anamnese'>
-            Motivo da visita
+            Deformidades
           </Text>
           {Array.from({ length: titulos.length }).map((_, i) => (
             <View

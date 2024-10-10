@@ -72,13 +72,12 @@ export default function DadosPessoais() {
 
   return (
     <SafeAreaView className='flex h-full w-full flex-col items-center bg-branco'>
-      <Header text='Ficha de anamnese'></Header>
       <ScrollView className='w-full px-5'>
         <Text className='mb-2 text-[20px] font-semibold text-titulo_anamnese'>
           Dados pessoais
         </Text>
         <FormData.Root onSubmit={onSubmit}>
-          <FormData.Form columns={column} id='formQuestion'>
+          <FormData.Form retornavel={false} columns={column} id='formQuestion'>
             <Button
               className='mt-2 w-full self-center'
               placeholder='Continuar'
