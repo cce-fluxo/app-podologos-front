@@ -1,8 +1,19 @@
 import React from 'react';
 import { Text, TextInput, View } from 'react-native';
 import { styled } from 'nativewind';
+import MaskInput, { Masks, useMaskedInputProps } from 'react-native-mask-input';
 
-function InputStyled({ field, placeholder, texto, form, rightIcon, ...rest }) {
+function InputStyled({
+  field,
+  placeholder,
+  texto,
+  form,
+  rightIcon,
+  mascara,
+  ...rest
+}) {
+  const [value, setValue] = React.useState('');
+
   return (
     <View
       {...rest}
@@ -12,8 +23,13 @@ function InputStyled({ field, placeholder, texto, form, rightIcon, ...rest }) {
         {texto}
       </Text>
       <View className='flex-1 flex-row items-center'>
-        <TextInput
+        <MaskInput
+          value={value}
+          onChangeText={(masked, unmasked) => {
+            setValue(masked);
+          }}
           placeholder={placeholder}
+          mask={mascara}
           {...rest}
           className='mt-2 h-14 flex-1 rounded-[12px] bg-cinza/20 p-4 text-black'
         />

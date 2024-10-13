@@ -12,6 +12,7 @@ import ToastManager, { Toast } from 'toastify-react-native';
 import AuthContext from '../../../context/AuthContext';
 import api from '../../../services/axios';
 import { useNavigation } from '@react-navigation/native';
+import { regex } from '../../../components/ReGex';
 
 export default function CadastroPaciente() {
   const [isChecked, setIsChecked] = useState(false);
@@ -63,29 +64,13 @@ export default function CadastroPaciente() {
     {
       name: 'phone_number',
       placeholder: 'Telefone*',
-      mascara: [
-        '(',
-        /\d/,
-        /\d/,
-        ')',
-        ' ',
-        /\d/,
-        /\d/,
-        /\d/,
-        /\d/,
-        /\d/,
-        '-',
-        /\d/,
-        /\d/,
-        /\d/,
-        /\d/,
-      ],
+      mascara: regex['Telefone'],
       component: Input,
     },
     {
       name: 'cep',
       placeholder: 'CEP*',
-      mascara: [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/],
+      mascara: regex['CEP'],
       component: Input,
     },
     { name: 'password', placeholder: 'Senha*', component: Input },
