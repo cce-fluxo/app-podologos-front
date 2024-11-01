@@ -1,4 +1,4 @@
-import { SafeAreaView, ScrollView, View } from 'react-native';
+import { Alert, SafeAreaView, ScrollView, View } from 'react-native';
 import { FormData } from '../../../components/FormData/Index';
 import { useState, useContext } from 'react';
 import Input from '../../../components/FormData/InputForm';
@@ -10,12 +10,15 @@ import TermosCondicoes from '../../../components/TermosCondicoes';
 import * as ImagePicker from 'expo-image-picker';
 import ToastManager, { Toast } from 'toastify-react-native';
 import AuthContext from '../../../context/AuthContext';
-import { api } from '../../../services/api';
+import api from '../../../services/axios';
+import { useNavigation } from '@react-navigation/native';
+import { regex } from '../../../components/ReGex';
 
 export default function CadastroPaciente() {
   const [isChecked, setIsChecked] = useState(false);
   const [image, setImage] = useState(null);
-  const { signed, user } = useContext(AuthContext);
+  const { signed, user, signIn } = useContext(AuthContext);
+  const navigation = useNavigation();
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -24,19 +27,24 @@ export default function CadastroPaciente() {
       aspect: [4, 3],
       quality: 1,
     });
-
     console.log(result);
-
     if (!result.canceled) {
       setImage(result.assets[0].uri);
     }
   };
 
-  async function signUp(data: object) {
+  async function signUp(data: any) {
     try {
       //Toast.info("Aguarde...", "");
       const response = await api.post('/patient/registrar-paciente', data);
-      Toast.success('Sucesso ao cadastrar');
+      Toast.success('Sucesso ao cadastrar', '');
+      const userCredentials = {
+        email: data.email,
+        password: data.password,
+      };
+      await signIn(userCredentials);
+      console.log('Após chamada de signIn');
+
       return response.data;
     } catch (err: any) {
       Toast.error('Erro no cadastro', '');
@@ -45,17 +53,6 @@ export default function CadastroPaciente() {
       console.log(err.response.status);
     }
   }
-
-  // const [data, setData] = useState({
-  //   profile_picture: "",
-  //   first_name: "",
-  //   last_name: "",
-  //   email: "",
-  //   phone_number: "",
-  //   cep: "",
-  //   password: "",
-  // });
-
   const column = [
     {
       name: 'first_name',
@@ -64,8 +61,18 @@ export default function CadastroPaciente() {
     },
     { name: 'last_name', placeholder: 'Sobrenome*', component: Input },
     { name: 'email', placeholder: 'Email*', component: Input },
-    { name: 'phone_number', placeholder: 'Telefone*', component: Input },
-    { name: 'cep', placeholder: 'CEP*', component: Input },
+    {
+      name: 'phone_number',
+      placeholder: 'Telefone*',
+      mascara: regex['Telefone'],
+      component: Input,
+    },
+    {
+      name: 'cep',
+      placeholder: 'CEP*',
+      mascara: regex['CEP'],
+      component: Input,
+    },
     { name: 'password', placeholder: 'Senha*', component: Input },
     {
       name: 'confirmarSenha',
@@ -99,6 +106,13 @@ export default function CadastroPaciente() {
           }}
           onSubmit={(data) => {
             {
+              if (!isChecked) {
+                Alert.alert(
+                  'Erro',
+                  'Você deve aceitar os Termos e Condições para continuar.'
+                );
+                return;
+              }
               const { confirmarSenha, ...filteredData } = data;
               signUp(filteredData);
               console.log(filteredData);

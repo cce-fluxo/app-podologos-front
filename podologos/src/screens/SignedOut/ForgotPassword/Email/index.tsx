@@ -4,7 +4,7 @@ import { Button } from '../../../../components/Button';
 import { Formik } from 'formik';
 import React from 'react';
 import { EmailSchema } from '../../../../components/Schemas';
-import { api } from '../../../../services/api';
+import api from '../../../../services/axios';
 
 function Email({ navigation }) {
   let formikRef = React.useRef(null);

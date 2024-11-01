@@ -12,10 +12,6 @@ import { useNavigation } from '@react-navigation/native';
 
 function PreLogin() {
   const navigation = useNavigation();
-  // function openScreen() {
-  //   navigation.navigate("");
-  // }
-
   return (
     <SafeAreaView className='mt-14 flex h-screen w-screen'>
       <ImageBackground className='flex h-screen w-screen' source={FundoLogin}>

@@ -11,7 +11,7 @@ import InformacaoUsuario from '../../../../components/InformacaoUsuario';
 function InfoConsultasRealizadas() {
   return (
     <SafeAreaView className='flex h-full w-full bg-branco'>
-      <ScrollView className='flex space-y-4 px-5'>
+      <ScrollView className='flex space-y-4 px-5 pt-6'>
         <Image
           source={FotoPe}
           alt=''

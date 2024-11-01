@@ -9,14 +9,10 @@ import { createStackNavigator } from '@react-navigation/stack';
 const Stack = createStackNavigator();
 
 export default function MainRoutes() {
-  
-    //  const { token, user } = useAuth();
-    const { signed, signIn, user } = useContext(AuthContext);
-
-    if (signed && user) {
-      return (
-        <PacientesRoutes/>
-      );
-    } else return <SocialRoutes />;
-  }
-
+  const { signed, signIn, user } = useContext(AuthContext);
+  console.log('Estado do login (Main) :', signed);
+  if (signed && user) {
+    if (user.doctor_id) return <PodologosRoutes />;
+    else return <PacientesRoutes />;
+  } else return <SocialRoutes />;
+}

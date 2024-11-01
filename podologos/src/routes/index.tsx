@@ -4,10 +4,6 @@ import SocialRoutes from './social.routes';
 import PodologosRoutes from './podologo.routes';
 import PacientesRoutes from './paciente.routes';
 
-export default function Routes() {
-  return (
-   
-      <SocialRoutes />
- 
-  );
+export default function TesteRoutes() {
+  return <PodologosRoutes />;
 }

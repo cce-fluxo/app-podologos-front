@@ -3,7 +3,7 @@ import { Button } from '../../../../components/Button';
 import Header from '../../../../components/Header';
 import { Entypo } from '@expo/vector-icons';
 import PerfilImage from '../../../../assets/PerfilImage.png';
-import Input from '../../../../components/Inputs';
+import Input from '../../../../components/FormData/InputForm';
 import { FormData } from '../../../../components/FormData/Index';
 import { useState } from 'react';
 
@@ -74,26 +74,35 @@ export default function EditarPodologo() {
     },
   ];
   return (
-    <SafeAreaView className='flex w-full bg-branco'>
-      <Header text='Perfil'></Header>
+    <SafeAreaView className='flex w-full flex-1 bg-branco'>
       <ScrollView>
-        <View className='flex items-center justify-center'>
+        <View className='flex items-center justify-center pt-5'>
           <Image className='' source={PerfilImage}></Image>
-          <View className='mt-3 flex flex-row items-center justify-center rounded-md bg-zinc-200 p-1'>
+          <View className='mt-3 flex flex-row items-center justify-center rounded-md bg-zinc-100 p-1'>
             <Entypo name='star' size={20} color='black' />
             <Text className='font-semibold'>4.75</Text>
           </View>
         </View>
 
-        <FormData.Root onSubmit={onSubmit}>
-          <FormData.Form columns={column} id='formQuestion'>
-            <Button className='mt-2 self-center' placeholder='Salvar'></Button>
-            <Button
-              className='mb-20 mt-2 self-center border-[1px] border-azul bg-branco'
-              placeholder='Cancelar'
-              text='text-azul'
-            ></Button>
-          </FormData.Form>
+        <FormData.Root
+          onSubmit={(data) => {
+            console.log('Dados recebidos para salvar:', data);
+          }}
+        >
+          <FormData.Form
+            retornavel={true}
+            ButtonStyles={{
+              className: 'self-center mt-2 mb-10 w-[87%]',
+              placeholder: 'Salvar',
+            }}
+            columns={column}
+            id='formQuestion'
+          ></FormData.Form>
+          <Button
+            className='self-center border-[1px] border-azul bg-branco'
+            placeholder='Cancelar'
+            text='text-azul'
+          ></Button>
         </FormData.Root>
       </ScrollView>
     </SafeAreaView>

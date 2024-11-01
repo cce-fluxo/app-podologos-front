@@ -2,7 +2,6 @@ import React from 'react';
 import { Image, SafeAreaView, ScrollView, Text, View } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 import Header from '../../../../components/Header';
-import ProfileInfo from '../../../../components/ProfileInfo';
 import { Button } from '../../../../components/Button';
 import FotoPe from '../../../../assets/FotoPe.png';
 import UserIcon from '../../../../assets/UserIcon.png';

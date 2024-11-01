@@ -1,77 +1,149 @@
-import { SafeAreaView, ScrollView, Text, View, Image } from 'react-native';
+import {
+  SafeAreaView,
+  ScrollView,
+  Text,
+  View,
+  Image,
+  Alert,
+} from 'react-native';
 import { Button } from '../../../../components/Button';
-import Header from '../../../../components/Header';
 import { Entypo } from '@expo/vector-icons';
 import PerfilImage from '../../../../assets/PerfilImage.png';
-import Input from '../../../../components/Inputs';
+import Input from '../../../../components/FormData/InputForm';
 import { FormData } from '../../../../components/FormData/Index';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { Toast } from 'toastify-react-native';
+import api from '../../../../services/axios';
+import AuthContext from '../../../../context/AuthContext';
+import { EditPatientSchema } from '../../../../components/Schemas';
 
-export default function EditarPaciente() {
-  const [data, setData] = useState({
-    foto: '',
-    nome: '',
-    sobrenome: '',
-    email: '',
-    telefone: '',
-    cep: '',
+export default function EditarPaciente({ navigation }) {
+  const { user, setUser } = useContext(AuthContext);
+  const [userData, setUserData] = useState({
+    first_name: user.first_name,
+    last_name: user.last_name,
+    phone_number: user.phone_number,
+    cep: user.cep,
   });
 
-  const onSubmit = (data: any) => {};
+  useEffect(() => {
+    if (user) {
+      setUserData({
+        first_name: user.first_name || '',
+        last_name: user.last_name || '',
+        phone_number: user.phone_number || '',
+        cep: user.cep || '',
+      });
+    }
+  }, [user]);
+
+  async function EditProfile(values: any) {
+    try {
+      const data = {
+        first_name: values.first_name,
+        last_name: values.last_name,
+        phone_number: values.phone_number,
+        cep: values.cep,
+      };
+      console.log('dados enviados para edição:', data);
+      const response = await api.patch('/patient/atualizar-perfil', data);
+      console.log('Resposta da API:', response.data);
+      Toast.success('Sucesso ao editar');
+      // Atualiza o contexto com os novos dados do usuário
+      setUser((prevUser: any) => ({
+        ...prevUser,
+        ...data,
+      }));
+      return response.data;
+    } catch (err: any) {
+      // Mais detalhes do erro para debug
+      console.error('Erro na edição:', err.message);
+      console.error('Resposta completa de erro da API:', err.response);
+      // Verifique se o erro é relacionado à requisição (e.g., falta de autenticação)
+      if (err.response) {
+        console.error('Erro no status da requisição:', err.response.status);
+        console.error('Dados de erro retornados pela API:', err.response.data);
+      } else {
+        console.error('Erro inesperado, sem resposta da API:', err);
+      }
+      Alert.alert('Erro na edição', 'Verifique os campos e tente novamente');
+      Toast.error('Erro na edição', '');
+    }
+  }
 
   const column = [
     {
-      name: 'nome',
+      name: 'first_name',
       texto: 'Nome',
-      placeholder: 'João',
+      placeholder: user.first_name,
       component: Input,
     },
     {
-      name: 'sobrenome',
+      name: 'last_name',
       texto: 'Sobrenome',
-      placeholder: 'de Oliveira',
+      placeholder: user.last_name,
+      component: Input,
+    },
+
+    {
+      name: 'phone_number',
+      texto: 'Telefone',
+      placeholder: user.phone_number,
+      component: Input,
+    },
+    {
+      name: 'cep',
+      texto: 'CEP',
+      placeholder: user.cep,
       component: Input,
     },
     {
       name: 'email',
       texto: 'Email',
-      placeholder: 'giovannisouza@gmail.com',
+      placeholder: user.email,
       component: Input,
+      readOnly: true, // Campo somente leitura
     },
-    {
-      name: 'telefone',
-      texto: 'Telefone',
-      placeholder: '(21) 12345-6789',
-      component: Input,
-    },
-    { name: 'cep', texto: 'CEP', placeholder: '12345-678', component: Input },
   ];
+
   return (
-    <SafeAreaView className='flex w-full bg-branco'>
-      <Header text='Perfil'></Header>
+    <SafeAreaView className='flex w-full flex-1 bg-branco'>
       <ScrollView>
-        <View className='flex items-center justify-center'>
+        <View className='flex items-center justify-center pt-5'>
           <Image className='' source={PerfilImage}></Image>
-          <View className='mt-3 flex flex-row items-center justify-center rounded-md bg-zinc-200 p-1'>
+          <View className='mt-3 flex flex-row items-center justify-center rounded-md bg-zinc-100 p-1'>
             <Entypo name='star' size={20} color='black' />
             <Text className='font-semibold'>4.75</Text>
           </View>
         </View>
         <Button
-          className='mt-8 self-center border-[1px] border-azul bg-branco'
+          className='mb-4 mt-8 self-center border-[1px] border-azul bg-branco'
           placeholder='Editar ficha de anamnese'
           text='text-azul'
         ></Button>
-
-        <FormData.Root onSubmit={onSubmit}>
-          <FormData.Form columns={column} id='formQuestion'>
-            <Button className='mt-2 self-center' placeholder='Salvar'></Button>
-            <Button
-              className='mb-20 mt-2 self-center border-[1px] border-azul bg-branco'
-              placeholder='Cancelar'
-              text='text-azul'
-            ></Button>
-          </FormData.Form>
+        <FormData.Root
+          // schema={EditPatientSchema}
+          initialValues={userData}
+          onSubmit={(data) => {
+            console.log('Dados recebidos para salvar:', data);
+            EditProfile(data);
+          }}
+        >
+          <FormData.Form
+            retornavel={true}
+            ButtonStyles={{
+              className: 'self-center mt-2 mb-4 w-[87%]',
+              placeholder: 'Salvar',
+            }}
+            columns={column}
+            id='formQuestion'
+          ></FormData.Form>
+          <Button
+            onPress={() => navigation.navigate('PerfilPaciente')}
+            className='self-center border-[1px] border-azul bg-branco'
+            placeholder='Cancelar'
+            text='text-azul'
+          ></Button>
         </FormData.Root>
       </ScrollView>
     </SafeAreaView>
