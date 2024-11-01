@@ -7,6 +7,7 @@ import Checkbox from 'expo-checkbox';
 import { useState } from 'react';
 import Avaliacao from '../Avaliacao';
 import { titulos } from '../../../components/AnamneseData';
+import { regex } from '../../../components/ReGex';
 
 export default function AnamneseGeral() {
   const [isChecked, setIsChecked] = useState(Array(14).fill(false));
@@ -41,7 +42,10 @@ export default function AnamneseGeral() {
               titulos[paginaAtual][i] === 'Tipo de calçado mais usado' ||
               titulos[paginaAtual][i] === 'Grau de parentesco?' ||
               paginas[paginaAtual] === 'Dados Pessoais' ? (
-                <Input placeholder={titulos[paginaAtual][i]}></Input>
+                <Input
+                  placeholder={titulos[paginaAtual][i]}
+                  mascara={regex[titulos[paginaAtual][i]]}
+                ></Input>
               ) : (
                 <View className='mb-2 flex w-[90%] flex-row justify-between p-4'>
                   <Text className='text-[18px] text-titulo_anamnese'>
