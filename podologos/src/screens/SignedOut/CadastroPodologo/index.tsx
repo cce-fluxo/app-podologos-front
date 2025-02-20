@@ -11,6 +11,7 @@ import TermosCondicoes from '../../../components/TermosCondicoes';
 import api from '../../../services/axios';
 import { Toast } from 'toastify-react-native';
 import { useRoute } from '@react-navigation/native';
+import { regex } from '../../../components/ReGex';
 
 export type RouteParams = {
   institution?: string;
@@ -19,6 +20,7 @@ export type RouteParams = {
 };
 
 export default function CadastroPodologo({ navigation }: any) {
+  const [isLoadingLogin, setIsLoadingLogin] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const route = useRoute();
   const [formData, setFormData] = useState({
@@ -69,6 +71,7 @@ export default function CadastroPodologo({ navigation }: any) {
   // };
 
   async function signUp(data: object) {
+    setIsLoadingLogin(true);
     try {
       //Toast.info("Aguarde...", "");
       const response = await api.post('/doctor/register', data);
@@ -81,6 +84,7 @@ export default function CadastroPodologo({ navigation }: any) {
       console.log(err.response.data);
       console.log(err.response.status);
     }
+    setIsLoadingLogin(false);
   }
 
   const column = [
@@ -91,12 +95,13 @@ export default function CadastroPodologo({ navigation }: any) {
     },
     { name: 'last_name', placeholder: 'Sobrenome*', component: Input },
     { name: 'email', placeholder: 'Email*', component: Input },
-    { name: 'phone_number', placeholder: 'Telefone*', component: Input },
-    { name: 'cep', placeholder: 'CEP*', component: Input },
-    { name: 'password', placeholder: 'Senha*', component: Input },
+    { name: 'phone_number', placeholder: 'Telefone*', mascara: regex['Telefone'], component: Input },
+    { name: 'cep', placeholder: 'CEP*', mascara: regex['CEP'], component: Input },
+    { name: 'password', placeholder: 'Senha*', secureTextEntry: true, component: Input },
     {
       name: 'confirmarSenha',
       placeholder: 'Confirmar senha*',
+      secureTextEntry: true,
       component: Input,
     },
   ];
@@ -131,6 +136,8 @@ export default function CadastroPodologo({ navigation }: any) {
             ButtonStyles={{
               className: 'self-center mt-6 mb-10 w-[87%]',
               placeholder: 'Criar conta',
+              disabled: isLoadingLogin,
+              loading: isLoadingLogin,
             }}
             columns={column}
             id='formQuestion'
