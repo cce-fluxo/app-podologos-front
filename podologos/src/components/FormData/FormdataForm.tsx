@@ -45,12 +45,13 @@ function FormdataForm({
               type={col.type}
               placeholder={col.placeholder}
               options={col.options}
+              errors={errors[col.name]}
               // component={InputForm}
               // mask={col.mask}
               {...col}
             />
             {touched[col.name] && errors[col.name] && (
-              <Text className='ml-8 text-red-600'>{errors[col.name]}</Text>
+              <Text className='text-center text-[#FF0033]'>{errors[col.name]}</Text>
             )}
           </View>
         </View>
