@@ -78,10 +78,11 @@ export default function CadastroPaciente() {
       mascara: regex['CEP'],
       component: Input,
     },
-    { name: 'password', placeholder: 'Senha*', component: Input },
+    { name: 'password', placeholder: 'Senha*', secureTextEntry: true, component: Input },
     {
       name: 'confirmarSenha',
-      placeholder: 'Confirmar senha*',
+      placeholder: 'Confirmar senha*', 
+      secureTextEntry: true,
       component: Input,
     },
   ];
