@@ -10,7 +10,6 @@ const Stack = createStackNavigator();
 
 export default function MainRoutes() {
   const { signed, signIn, user } = useContext(AuthContext);
-  
   console.log('Estado do login (Main) :', signed);
   if (signed && user) {
     if (user.doctor_id) return <PodologosRoutes />;
