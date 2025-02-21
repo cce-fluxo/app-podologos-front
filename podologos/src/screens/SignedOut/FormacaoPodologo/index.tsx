@@ -5,7 +5,7 @@ import { Button } from '../../../components/Button';
 import { Formik } from 'formik';
 import { RouteParams } from '../CadastroPodologo';
 
-export default function FormacaoPodologo({ navigation }: any) {
+export default function FormacaoPodologo({ route, navigation }: any) {
   let formikRef = React.useRef(null);
   const [formacao, setformacao] = React.useState('');
 
@@ -17,11 +17,13 @@ export default function FormacaoPodologo({ navigation }: any) {
   };
 
   function handleFormSubmit(values: RouteParams) {
-    navigation.navigate('CadastroPodologo', {
-      institution: values.institution,
-      degree_year: values.degree_year,
-      degree_type: values.degree_type,
-    });
+    // navigation.navigate('CadastroPodologo', {
+    //   institution: values.institution,
+    //   degree_year: values.degree_year,
+    //   degree_type: values.degree_type,
+    // });
+    route.params.onGoBack(values);
+    navigation.goBack();
   }
 
   return (
@@ -31,11 +33,7 @@ export default function FormacaoPodologo({ navigation }: any) {
           <Formik
             innerRef={formikRef}
             // validationSchema={LoginSchema}
-            initialValues={{
-              institution: '',
-              degree_year: '',
-              degree_type: '',
-            }}
+            initialValues={route.params.infoFormacaoPodologo}
             onSubmit={(values) => {
               handleFormSubmit(values);
               console.log(values);

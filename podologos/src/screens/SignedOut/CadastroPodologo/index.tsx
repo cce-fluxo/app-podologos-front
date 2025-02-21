@@ -1,4 +1,4 @@
-import { Alert } from 'react-native';
+import { Alert, Text } from 'react-native';
 import { SafeAreaView, ScrollView, View } from 'react-native';
 import { FormData } from '../../../components/FormData/Index';
 import React, { useState } from 'react';
@@ -12,6 +12,8 @@ import api from '../../../services/axios';
 import { Toast } from 'toastify-react-native';
 import { useRoute } from '@react-navigation/native';
 import { regex } from '../../../components/ReGex';
+import { Formik } from 'formik';
+import ModalOk from '../../../components/PopUps/ModalOk';
 
 export type RouteParams = {
   institution?: string;
@@ -21,10 +23,16 @@ export type RouteParams = {
 
 export default function CadastroPodologo({ navigation }: any) {
   const [isLoadingLogin, setIsLoadingLogin] = useState(false);
+  const [visibilidadeCadastroComSucessoPopup, setVisibilidadeCadastroComSucessoPopup] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+  const [infoFormacao, setInfoFormacao] = useState({
+    institution: '',
+    degree_year: '',
+    degree_type: ''
+  });
   const route = useRoute();
   const [formData, setFormData] = useState({
-    profile_picture: '1',
+    profile_picture: 'ss',
     first_name: '',
     last_name: '',
     email: '',
@@ -32,52 +40,28 @@ export default function CadastroPodologo({ navigation }: any) {
     cep: '',
     password: '',
     confirmarSenha: '',
-    institution: '',
-    degree_year: '',
-    degree_type: '',
   });
 
-  React.useEffect(() => {
-    if (route.params) {
-      const { institution, degree_year, degree_type } =
-        route.params as RouteParams;
-      setFormData((prevData) => ({
-        ...prevData,
-        institution: institution || prevData.institution,
-        degree_year: degree_year || prevData.degree_year,
-        degree_type: degree_type || prevData.degree_type,
-      }));
-    }
-  }, [route.params]);
-
-  // const handleNavigateToFormacao = () => {
-  //   // Atualiza o estado local com os dados atuais do formulário
-  //   setFormData((prevData) => ({
-  //     ...prevData,
-  //     // Aqui, substituímos os valores pelos dados atuais dos campos preenchidos
-  //     first_name: prevData.first_name,
-  //     last_name: prevData.last_name,
-  //     email: prevData.email,
-  //     phone_number: prevData.phone_number,
-  //     cep: prevData.cep,
-  //     password: prevData.password,
-  //     confirmarSenha: prevData.confirmarSenha,
-  //   }));
-
-  //   // Navega para a tela de formação
-  //   navigation.navigate('FormacaoPodologo', {
-  //     ...formData, // Passa os dados já preenchidos para a tela de formação, se necessário
-  //   });
-  // };
+  const navigateToFormacao = () => {
+    navigation.navigate('FormacaoPodologo', {
+      onGoBack: (data) => {
+        // Callback function to handle data from ScreenB
+        setInfoFormacao(data);
+        console.log(data);
+      },
+      infoFormacaoPodologo: infoFormacao,
+    });
+  };
 
   async function signUp(data: object) {
     setIsLoadingLogin(true);
     try {
-      //Toast.info("Aguarde...", "");
-      const response = await api.post('/doctor/register', data);
+      const infoPod = {...data, ...infoFormacao};
+      console.log(infoPod);
+      const response = await api.post('/doctor/register', infoPod);
       Toast.success('Sucesso ao cadastrar');
       console.log(response.data);
-      return response.data;
+      setVisibilidadeCadastroComSucessoPopup(true);
     } catch (err: any) {
       Toast.error('Erro no cadastro', '');
       console.log(err);
@@ -87,7 +71,7 @@ export default function CadastroPodologo({ navigation }: any) {
     setIsLoadingLogin(false);
   }
 
-  const column = [
+  const inputsCadastro = [
     {
       name: 'first_name',
       placeholder: 'Nome*',
@@ -108,13 +92,18 @@ export default function CadastroPodologo({ navigation }: any) {
 
   return (
     <SafeAreaView className='flex h-full w-full flex-col items-center bg-branco'>
+      <ModalOk 
+      modalVisible={visibilidadeCadastroComSucessoPopup} 
+      mensagem='Seu cadastro está em análise, aguarde a confirmação para acessar sua conta' 
+      onOkClick={() => navigation.goBack()} 
+      />
       <ScrollView className='mb-4 w-full'>
         <Button
-          onPress={() => navigation.navigate('FormacaoPodologo')}
+          onPress={navigateToFormacao}
           className='mb-2 mt-2 w-[87%] self-center border-[1px] border-azul bg-branco'
           placeholder='Formação'
           text='text-azul'
-        ></Button>
+        />
         <FormData.Root
           schema={CadastroSchema}
           initialValues={formData}
@@ -127,8 +116,8 @@ export default function CadastroPodologo({ navigation }: any) {
               return;
             }
             const { confirmarSenha, ...filteredData } = values;
-            signUp(filteredData);
             console.log(filteredData);
+            signUp(filteredData);
           }}
         >
           <FormData.Form
@@ -139,7 +128,7 @@ export default function CadastroPodologo({ navigation }: any) {
               disabled: isLoadingLogin,
               loading: isLoadingLogin,
             }}
-            columns={column}
+            columns={inputsCadastro}
             id='formQuestion'
           >
             <Button
