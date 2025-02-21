@@ -13,8 +13,8 @@ import { useNavigation } from '@react-navigation/native';
 function PreLogin() {
   const navigation = useNavigation();
   return (
-    <SafeAreaView className='mt-14 flex h-screen w-screen'>
-      <ImageBackground className='flex h-screen w-screen' source={FundoLogin}>
+    <SafeAreaView className='flex-1 items-center justify-center'>
+      <ImageBackground resizeMode='cover' className='flex-1 w-full' source={FundoLogin}>
         <View className='flex h-full w-full items-center justify-around space-y-2'>
           <View></View>
 
