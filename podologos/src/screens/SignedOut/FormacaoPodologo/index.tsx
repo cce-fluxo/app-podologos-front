@@ -113,6 +113,8 @@ export default function FormacaoPodologo({ route, navigation }: any) {
                       fontSize: 14,
                     }}
                     selectedTextStyle={{color: "#000000", fontSize: 14}}
+                    itemContainerStyle={{backgroundColor: "#c3c5c733"}}
+                    containerStyle={{borderRadius: 16}}
                     data={tiposFormacao}
                     maxHeight={300}
                     labelField="label"
