@@ -9,6 +9,7 @@ import {
 import SolicitacaoPaciente from '../../../../components/SolicitacaoPaciente';
 import api from '../../../../services/axios';
 import AuthContext from '../../../../context/AuthContext';
+import Header from '../../../../components/Header';
 
 export default function MinhasSolicitacoes() {
   const { user } = useContext(AuthContext);
@@ -32,13 +33,14 @@ export default function MinhasSolicitacoes() {
 
   return (
     <SafeAreaView className='flex w-screen flex-1 items-center space-y-8 bg-branco'>
-      <View className='flex w-screen items-center space-y-8 px-5'>
-        <View className='mt-4 w-full justify-center'>
+      <View className='flex w-screen items-center space-y-8'>
+        {/* <View className='mt-4 w-full justify-center'>
           <Text className='text-[25px] text-azul_escuro'>Bem vindo,</Text>
           <Text className='text-[25px] text-azul_escuro'>
             {user.first_name}
           </Text>
-        </View>
+        </View> */}
+        <Header bemVindo />
 
         <Text className='text-[25px] font-semibold text-[#46555A]'>
           Minhas solicitações
