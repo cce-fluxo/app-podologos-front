@@ -98,7 +98,7 @@ function PerfilPaciente({ navigation }) {
         modalVisible={modalSair}
         mensagem='Tem certeza que deseja sair?'
         onNoClick={closeSairModal}
-      ></ModalSimNao>
+      />
     </SafeAreaView>
   );
 }

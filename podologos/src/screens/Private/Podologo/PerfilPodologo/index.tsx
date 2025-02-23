@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { Image, SafeAreaView, ScrollView, Text, View } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 import PerfilImage from '../../../../assets/PerfilImage.png';
@@ -8,15 +8,25 @@ import { Button } from '../../../../components/Button';
 import Avaliacao from '../../../../components/Avaliacao';
 import { useNavigation } from '@react-navigation/native';
 import ModalSimNao from '../../../../components/PopUps/ModalSimNao';
+import AuthContext from '../../../../context/AuthContext';
 
 function PerfilPodologo() {
+  const { signOut, user } = useContext(AuthContext);
   const [modalVisible, setModalVisible] = React.useState(false);
+  const [modalSair, setModalSair] = useState(false);
 
   function closeModal() {
     setModalVisible(false);
   }
   function openModal() {
     setModalVisible(true);
+  }
+
+  function closeSairModal() {
+    setModalSair(false);
+  }
+  function openSairModal() {
+    setModalSair(true);
   }
 
   const navigation = useNavigation();
@@ -59,7 +69,8 @@ function PerfilPodologo() {
             className='border-2 border-azul bg-white'
             text='text-azul text-[16px]'
             placeholder='Sair'
-          ></Button>
+            onPress={openSairModal}
+          />
           <Button
             onPress={openModal}
             className='border-2 border-azul bg-white'
@@ -82,7 +93,13 @@ function PerfilPodologo() {
         modalVisible={modalVisible}
         mensagem='Tem certeza que deseja excluir sua conta?'
         onNoClick={closeModal}
-      ></ModalSimNao>
+      />
+      <ModalSimNao
+        onYesClick={signOut}
+        modalVisible={modalSair}
+        mensagem='Tem certeza que deseja sair?'
+        onNoClick={closeSairModal}
+      />
     </SafeAreaView>
   );
 }
