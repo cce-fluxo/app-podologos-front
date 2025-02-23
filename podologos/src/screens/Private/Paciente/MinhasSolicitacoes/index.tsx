@@ -8,11 +8,9 @@ import {
 } from 'react-native';
 import SolicitacaoPaciente from '../../../../components/SolicitacaoPaciente';
 import api from '../../../../services/axios';
-import AuthContext from '../../../../context/AuthContext';
 import Header from '../../../../components/Header';
 
 export default function MinhasSolicitacoes({ navigation }: any) {
-  const { user } = useContext(AuthContext);
   const [consultas, setConsultas] = useState([]);
   const [loading, setLoading] = useState(true);
 
