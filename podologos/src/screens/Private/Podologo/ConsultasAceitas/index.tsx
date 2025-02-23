@@ -30,14 +30,14 @@ function ConsultasAceitas() {
 
       <ScrollView className=''>
         <View className='flex pb-6'>
-          <Solicitacoes
+          {/* <Solicitacoes
             onPress={() => navigation.navigate('InfoConsultasAceitas')}
           />
           <Solicitacoes />
           <Solicitacoes />
           <Solicitacoes />
           <Solicitacoes />
-          <Solicitacoes />
+          <Solicitacoes /> */}
         </View>
       </ScrollView>
     </SafeAreaView>

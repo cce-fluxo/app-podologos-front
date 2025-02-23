@@ -1,12 +1,16 @@
-import React, { useContext } from 'react';
-import { SafeAreaView, ScrollView, Text, View } from 'react-native';
+import React, { useContext, useEffect, useState } from 'react';
+import { ActivityIndicator, SafeAreaView, ScrollView, Text, View } from 'react-native';
 import Solicitacoes from '../../../../components/Solicitacoes';
 import { useNavigation } from '@react-navigation/native';
 import AuthContext from '../../../../context/AuthContext';
 import Header from '../../../../components/Header';
+import api from '../../../../services/axios';
 
 function Home() {
   const { signed, user } = useContext(AuthContext);
+  const [consultas, setConsultas] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   const navigation = useNavigation();
 
   console.log(user);
@@ -17,6 +21,24 @@ function Home() {
       ? console.log('Usuário é um podólogo (Home)')
       : console.log('Usuário é um paciente (Home)');
   }
+
+  
+
+  useEffect(() => {
+    async function fetchConsultas() {
+      try {
+        const response = await api.get('/appointment/consultas-aceitaveis-medico');
+        setConsultas(response.data);
+        console.log(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Erro ao buscar consultas:', error);
+        setLoading(false);
+      }
+    }
+
+    fetchConsultas();
+  }, []);
 
   return (
     <SafeAreaView className='flex w-screen flex-1 items-center space-y-10 bg-white'>
@@ -30,8 +52,22 @@ function Home() {
         Solicitações
       </Text>
 
-      <ScrollView className=''>
-        <View className='flex pb-6'>
+      <ScrollView className='flex w-[90%]'>
+      {loading ? (
+          <ActivityIndicator size='large' color='#2087ED' /> // Indicador de carregamento
+        ) : consultas.length > 0 ? (
+          consultas.map((consulta) => (
+            <Solicitacoes
+              key={consulta.appointment_id}
+              consulta={consulta}
+            />
+          ))
+        ) : (
+          <Text className='text-center text-gray-500'>
+            Nenhuma solicitação encontrada.
+          </Text>
+        )}
+        {/* <View className='flex pb-6'>
           <Solicitacoes
             onPress={() => navigation.navigate('InfoSolicitacaoConsulta')}
           />
@@ -40,7 +76,7 @@ function Home() {
           <Solicitacoes />
           <Solicitacoes />
           <Solicitacoes />
-        </View>
+        </View> */}
       </ScrollView>
     </SafeAreaView>
   );
