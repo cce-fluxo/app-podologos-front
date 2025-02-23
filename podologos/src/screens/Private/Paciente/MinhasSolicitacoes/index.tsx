@@ -11,7 +11,7 @@ import api from '../../../../services/axios';
 import AuthContext from '../../../../context/AuthContext';
 import Header from '../../../../components/Header';
 
-export default function MinhasSolicitacoes() {
+export default function MinhasSolicitacoes({ navigation }: any) {
   const { user } = useContext(AuthContext);
   const [consultas, setConsultas] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -21,6 +21,7 @@ export default function MinhasSolicitacoes() {
       try {
         const response = await api.get('/appointment/consultas-usuario');
         setConsultas(response.data);
+        console.log(response.data);
         setLoading(false);
       } catch (error) {
         console.error('Erro ao buscar consultas:', error);
@@ -55,6 +56,13 @@ export default function MinhasSolicitacoes() {
             <SolicitacaoPaciente
               key={consulta.appointment_id}
               consulta={consulta}
+              onPress={
+                () => {
+                  navigation.navigate('InfoConsulta', {
+                    idSolicitacao: consulta.appointment_id,
+                  });
+                }
+              }
             />
           ))
         ) : (

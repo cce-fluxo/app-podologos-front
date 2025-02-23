@@ -2,16 +2,19 @@ import React from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 
-function SolicitacaoPaciente({ consulta }) {
+function SolicitacaoPaciente({ consulta, onPress = () => {} }) {
   return (
-    <TouchableOpacity className='mt-4 flex justify-center space-y-4 rounded-2xl bg-branco p-4 shadow-md'
+    <TouchableOpacity 
+    className='mt-4 flex justify-center space-y-4 rounded-2xl bg-branco p-4 shadow-md'
     style={{
       shadowColor: 'black',
       shadowOffset: { width: 0, height: 4 }, // Sombra apenas embaixo
       shadowOpacity: 0.2, // Opacidade da sombra
       shadowRadius: 3, // Difusão da sombra
       elevation: 3, // Para suportar Android
-    }}>
+    }}
+    onPress={onPress}
+    >
       <View className='flex flex-row items-center justify-between'>
         <Text className='text-[16px]'>
           Você fez uma solicitação em:{'  '}
