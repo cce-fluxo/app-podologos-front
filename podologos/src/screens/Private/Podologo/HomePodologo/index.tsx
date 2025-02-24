@@ -6,12 +6,10 @@ import AuthContext from '../../../../context/AuthContext';
 import Header from '../../../../components/Header';
 import api from '../../../../services/axios';
 
-function Home() {
+function Home({ navigation }: any) {
   const { signed, user } = useContext(AuthContext);
   const [consultas, setConsultas] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  const navigation = useNavigation();
 
   console.log(user);
   console.log('Estado signed mudou (HomeP):', signed);
@@ -60,6 +58,11 @@ function Home() {
             <Solicitacoes
               key={consulta.appointment_id}
               consulta={consulta}
+              onPress={() => {
+                navigation.navigate('InfoSolicitacaoConsulta', {
+                  idSolicitacao: consulta.appointment_id,
+                });
+              }}
             />
           ))
         ) : (

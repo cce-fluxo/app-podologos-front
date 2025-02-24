@@ -2,7 +2,7 @@ import { Image, Text, TouchableOpacity, View } from 'react-native';
 import UserIcon from '../../assets/UserIcon.png';
 import { useNavigation } from '@react-navigation/native';
 
-export default function InformacaoUsuario() {
+export default function InformacaoUsuario({nome = "Desconhecido", celular = "Não encontrado", cep = "Não encontrado"}) {
   const navigation = useNavigation();
 
   return (
@@ -10,10 +10,10 @@ export default function InformacaoUsuario() {
       <Image source={UserIcon}></Image>
       <View className='flex justify-evenly'>
         <Text className='text-[18px] font-semibold text-texto_cinza'>
-          João de Oliveira
+          {nome}
         </Text>
-        <Text className='text-texto_cinza_claro'>(21) 12345-6789</Text>
-        <Text className='text-texto_cinza_claro'>00000-000</Text>
+        <Text className='text-texto_cinza_claro'>{celular}</Text>
+        <Text className='text-texto_cinza_claro'>{cep}</Text>
         <TouchableOpacity
           onPress={() => {
             navigation.navigate('PerfilDoPaciente');
