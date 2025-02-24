@@ -90,6 +90,8 @@ function InfoSolicitacaoConsulta({ route, navigation }: any) {
           nome={dadosSolicitacao.patient_name} 
           celular={dadosSolicitacao.patient_phone_number} 
           cep={dadosSolicitacao.patient_cep} 
+          navigation={navigation}
+          userId={dadosSolicitacao.user_id}
         />
         <View className='w-[80%] self-center border-b-[1px] opacity-10'></View>
         <Text className='text-[18px] font-semibold text-texto_cinza'>

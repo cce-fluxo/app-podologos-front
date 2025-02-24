@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
+  ActivityIndicator,
   Image,
   SafeAreaView,
   ScrollView,
@@ -15,9 +16,13 @@ import { Button } from '../../../../components/Button';
 import Avaliacao from '../../../../components/Avaliacao';
 import Input from '../../../../components/Inputs';
 import { useNavigation } from '@react-navigation/native';
+import api from '../../../../services/axios';
 
-function PerfilDoPaciente() {
-  const navigation = useNavigation();
+function PerfilDoPaciente({route, navigation}) {
+  const [isLoading, setIsLoading] = useState(true);
+  const [dadosPaciente, setDadosPaciente] = useState({});
+  const [requestError, setRequestError] = useState();
+
   const [notas, setNotas] = useState<Array<'star' | 'star-outlined'>>([
     'star-outlined',
     'star-outlined',
@@ -38,27 +43,60 @@ function PerfilDoPaciente() {
     setNotas(novasNotas);
   }
 
+  const buscarDadosPaciente = async () => {
+    setIsLoading(true);
+      try {
+          const response = await api.get(`/user/${route.params.userId}`);
+          setDadosPaciente(response.data);
+          console.log(response.data);
+        } catch (error) {
+          console.error('Erro ao buscar o paciente:', error);
+          setRequestError(error);
+        }
+      setIsLoading(false);
+  };
+
+  useEffect(() => {
+      buscarDadosPaciente();
+    }, []);
+
+  if(isLoading) {
+      return (
+      <SafeAreaView className='flex h-full w-full bg-branco'>
+          <ActivityIndicator className='m-auto' size={80} color="#2087ED" /> 
+      </SafeAreaView>
+      );
+  }
+
+  if (requestError) {
+    return(
+        <SafeAreaView className='flex h-full w-full bg-branco'>
+            <Text className='m-auto text-[16px] text-azul'>Erro ao obter dados do paciente.</Text>
+        </SafeAreaView>
+    );
+  }
+
   return (
     <SafeAreaView className='flex w-full bg-branco'>
       <ScrollView className='flex space-y-5 px-5'>
         <View className='flex items-center justify-center pt-5'>
-          <Image className='' source={PerfilImage}></Image>
+          <Image className='' source={PerfilImage} />
           <View className='mt-3 flex flex-row items-center justify-center space-x-2 rounded-md bg-zinc-100 p-1'>
             <Entypo name='star' size={20} color='black' />
-            <Text className='font-semibold'>4.75</Text>
+            <Text className='font-semibold'>{dadosPaciente.avg.rating}</Text>
           </View>
         </View>
         <View className='flex space-y-6'>
-          <ProfileInfo label='Nome' text='Giovanni'></ProfileInfo>
-          <ProfileInfo label='Sobrenome' text='Souza'></ProfileInfo>
+          <ProfileInfo label='Nome' text={dadosPaciente.first_name} />
+          <ProfileInfo label='Sobrenome' text={dadosPaciente.last_name} />
           <ProfileInfo
             label='Email'
-            text='giovannisouza@gmail.com'
+            text={dadosPaciente.email}
           ></ProfileInfo>
-          <ProfileInfo label='Telefone' text='(21) 12345-6789'></ProfileInfo>
-          <ProfileInfo label='Cep' text='12345-678'></ProfileInfo>
+          <ProfileInfo label='Telefone' text={dadosPaciente.phone_number} />
+          <ProfileInfo label='Cep' text={dadosPaciente.cep} />
         </View>
-        <View className='w-[80%] self-center border-b-[1px] opacity-10'></View>
+        <View className='w-[80%] self-center border-b-[1px] opacity-10' />
         <View className='flex w-[75%] flex-row justify-between self-center'>
           <TouchableOpacity onPress={() => novaNota(1)}>
             <Entypo name={notas[0]} size={30} color='black' />
@@ -86,7 +124,7 @@ function PerfilDoPaciente() {
           ></Button>
         </View>
         <View className='mb-24 flex w-full space-y-4'>
-          {Array.from({ length: 10 }).map((_, i) => (
+          {/* {Array.from({ length: 10 }).map((_, i) => (
             <View
               key={i}
               className='flex w-full space-y-3 rounded-2xl bg-branco p-4 shadow-md shadow-black'
@@ -107,7 +145,34 @@ function PerfilDoPaciente() {
                 nulla distinctio quos ullam illum.
               </Text>
             </View>
-          ))}
+          ))} */}
+          {/* Mapeando todas as avaliações do usuário */}
+          {dadosPaciente.user_reviews 
+          ?
+          dadosPaciente.user_reviews.map((item, index) => (
+            <View
+              key={index}
+              className='flex w-full space-y-3 rounded-2xl bg-branco p-4 shadow-md shadow-black'
+            >
+              <View className='flex flex-row items-center justify-between'>
+                <Text className='text-[18px] font-semibold text-texto_cinza'>
+                  Larissa Oliveira
+                </Text>
+                <View className='flex flex-row items-center space-x-1 rounded-md bg-cinza p-1'>
+                  <Entypo name='star' size={12} color='black' />
+                  <Text className='font-semibold'>{item.rating}</Text>
+                </View>
+              </View>
+              <Text className='text-texto_cinza_claro'>
+                {item.comment}
+              </Text>
+            </View>
+          ))
+          :
+          <Text className='text-center text-gray-500'>
+            Nenhuma solicitação encontrada.
+          </Text>
+          }
         </View>
       </ScrollView>
     </SafeAreaView>
