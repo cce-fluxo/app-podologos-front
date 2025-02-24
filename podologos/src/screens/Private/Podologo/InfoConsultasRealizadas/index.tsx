@@ -1,5 +1,5 @@
-import React from 'react';
-import { Image, SafeAreaView, ScrollView, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, Image, SafeAreaView, ScrollView, Text, View } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 import Header from '../../../../components/Header';
 import ProfileInfo from '../../../../components/ProfileInfo';
@@ -7,8 +7,48 @@ import { Button } from '../../../../components/Button';
 import FotoPe from '../../../../assets/FotoPe.png';
 import UserIcon from '../../../../assets/UserIcon.png';
 import InformacaoUsuario from '../../../../components/InformacaoUsuario';
+import api from '../../../../services/axios';
 
-function InfoConsultasRealizadas() {
+function InfoConsultasRealizadas({route, navigation}) {
+  const [isLoading, setIsLoading] = useState(true);
+  const [dadosConsulta, setDadosConsulta] = useState({});
+  const [requestError, setRequestError] = useState();
+
+  const data = dadosConsulta.CreatedAt ? new Date(dadosConsulta.CreatedAt).toLocaleDateString("pt-BR"): "Data desconhecida";
+
+  const buscarDadosSolicitacao = async () => {
+    setIsLoading(true);
+      try {
+          const response = await api.get(`/appointment/consulta/${route.params.idConsulta}`);
+          setDadosConsulta(response.data);
+          console.log(response.data);
+        } catch (error) {
+          console.error('Erro ao buscar consultas:', error);
+          setRequestError(error);
+        }
+        setIsLoading(false);
+  };
+
+  useEffect(() => {
+      buscarDadosSolicitacao();
+    }, []);
+
+  if(isLoading) {
+      return (
+      <SafeAreaView className='flex h-full w-full bg-branco'>
+          <ActivityIndicator className='m-auto' size={80} color="#2087ED" /> 
+      </SafeAreaView>
+      );
+  }
+
+  if (requestError) {
+      return(
+          <SafeAreaView className='flex h-full w-full bg-branco'>
+              <Text className='m-auto text-[16px] text-azul'>Erro ao obter dados da consulta.</Text>
+          </SafeAreaView>
+      );
+  }
+
   return (
     <SafeAreaView className='flex h-full w-full bg-branco'>
       <ScrollView className='flex space-y-4 px-5 pt-6'>
@@ -20,10 +60,14 @@ function InfoConsultasRealizadas() {
         <Text className='text-[18px] font-semibold text-texto_cinza'>
           Informações do paciente
         </Text>
-        <InformacaoUsuario />
+        <InformacaoUsuario 
+          nome={dadosConsulta.patient_name} 
+          celular={dadosConsulta.patient_phone_number} 
+          cep={dadosConsulta.patient_cep} 
+        />
         <View className='w-[80%] self-center border-b-[1px] opacity-10'></View>
         <Text className='self-center text-[16px] text-azul'>
-          Realizada em 01/02/2024
+          Realizada em {data}
         </Text>
         <View className='w-[80%] self-center border-b-[1px] opacity-10'></View>
         <Text className='text-[18px] font-semibold text-texto_cinza'>
@@ -39,10 +83,7 @@ function InfoConsultasRealizadas() {
           Observações
         </Text>
         <Text className='mb-8 text-texto_cinza_claro'>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis
-          officia expedita quisquam unde nihil placeat repellendus. Recusandae
-          fuga inventore blanditiis maxime explicabo excepturi corporis, natus
-          repellat, eveniet perspiciatis dicta similique?
+          {dadosConsulta.obs ? dadosConsulta.obs : "Sem observações."}
         </Text>
       </ScrollView>
     </SafeAreaView>

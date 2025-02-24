@@ -63,7 +63,7 @@ function ConsultasRealizadas({navigation}) {
                   jaAceita
                   onPress={() => {
                     navigation.navigate('InfoConsultasRealizadas', {
-                      idSolicitacao: consulta.appointment_id,
+                      idConsulta: consulta.appointment_id,
                     });
                   }}
                 />
