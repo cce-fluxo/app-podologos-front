@@ -124,49 +124,28 @@ function PerfilDoPaciente({route, navigation}) {
           ></Button>
         </View>
         <View className='mb-24 flex w-full space-y-4'>
-          {/* {Array.from({ length: 10 }).map((_, i) => (
-            <View
-              key={i}
-              className='flex w-full space-y-3 rounded-2xl bg-branco p-4 shadow-md shadow-black'
-            >
-              <View className='flex flex-row items-center justify-between'>
-                <Text className='text-[18px] font-semibold text-texto_cinza'>
-                  Larissa Oliveira
-                </Text>
-                <View className='flex flex-row items-center space-x-1 rounded-md bg-cinza p-1'>
-                  <Entypo name='star' size={12} color='black' />
-                  <Text className='font-semibold'>4.75</Text>
-                </View>
-              </View>
-              <Text className='text-texto_cinza_claro'>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Praesentium doloremque porro obcaecati suscipit et sunt rem
-                quasi! Sit perferendis nisi quia. Cum, veritatis. Ea praesentium
-                nulla distinctio quos ullam illum.
-              </Text>
-            </View>
-          ))} */}
           {/* Mapeando todas as avaliações do usuário */}
           {dadosPaciente.user_reviews 
           ?
           dadosPaciente.user_reviews.map((item, index) => (
-            <View
-              key={index}
-              className='flex w-full space-y-3 rounded-2xl bg-branco p-4 shadow-md shadow-black'
-            >
-              <View className='flex flex-row items-center justify-between'>
-                <Text className='text-[18px] font-semibold text-texto_cinza'>
-                  Larissa Oliveira
-                </Text>
-                <View className='flex flex-row items-center space-x-1 rounded-md bg-cinza p-1'>
-                  <Entypo name='star' size={12} color='black' />
-                  <Text className='font-semibold'>{item.rating}</Text>
-                </View>
-              </View>
-              <Text className='text-texto_cinza_claro'>
-                {item.comment}
-              </Text>
-            </View>
+            // <View
+            //   key={index}
+            //   className='flex w-full space-y-3 rounded-2xl bg-branco p-4 shadow-md shadow-black'
+            // >
+            //   <View className='flex flex-row items-center justify-between'>
+            //     <Text className='text-[18px] font-semibold text-texto_cinza'>
+            //       Larissa Oliveira
+            //     </Text>
+            //     <View className='flex flex-row items-center space-x-1 rounded-md bg-cinza p-1'>
+            //       <Entypo name='star' size={12} color='black' />
+            //       <Text className='font-semibold'>{item.rating}</Text>
+            //     </View>
+            //   </View>
+            //   <Text className='text-texto_cinza_claro'>
+            //     {item.comment}
+            //   </Text>
+            // </View>
+            <Avaliacao key={index} nome="Vasco" comentario={item.comment} nota={item.rating} />
           ))
           :
           <Text className='text-center text-gray-500'>
