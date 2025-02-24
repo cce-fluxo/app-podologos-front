@@ -12,7 +12,7 @@ import ModalOk from '../../../../components/PopUps/ModalOk';
 import api from '../../../../services/axios';
 
 function InfoSolicitacaoConsulta({ route, navigation }: any) {
-  const [modalVisible, setModalVisible] = React.useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isLoadingAceitar, setIsLoadingAceitar] = useState(true);
   const [dadosSolicitacao, setDadosSolicitacao] = useState({});
