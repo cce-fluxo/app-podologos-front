@@ -13,32 +13,47 @@ import api from '../../../../services/axios';
 
 function InfoSolicitacaoConsulta({ route, navigation }: any) {
   const [modalVisible, setModalVisible] = React.useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingAceitar, setIsLoadingAceitar] = useState(true);
+  const [dadosSolicitacao, setDadosSolicitacao] = useState({});
+  const [requestError, setRequestError] = useState();
+  const [requestErrorAceitar, setRequestErrorAceitar] = useState();
 
   function closeModal() {
     setModalVisible(false);
+    navigation.goBack();
   }
   function openModal() {
+    aceitarConsulta();
     setModalVisible(true);
   }
-
-  const [isLoading, setIsLoading] = useState(true);
-  const [dadosSolicitacao, setDadosSolicitacao] = useState({});
-  const [requestError, setRequestError] = useState();
 
   console.log('parametros!', route.params);
 
   const buscarDadosSolicitacao = async () => {
+    setIsLoading(true);
       try {
           const response = await api.get(`/appointment/consulta/${route.params.idSolicitacao}`);
           setDadosSolicitacao(response.data);
           console.log(response.data);
-          setIsLoading(false);
         } catch (error) {
           console.error('Erro ao buscar consultas:', error);
           setRequestError(error);
-          setIsLoading(false);
         }
+        setIsLoading(false);
   };
+
+  const aceitarConsulta = async () => {
+    setIsLoadingAceitar(true);
+    try {
+        const response = await api.patch(`/appointment/aceitar-consulta/${route.params.idSolicitacao}`);
+        console.log(response.data);
+      } catch (error) {
+        console.error('Erro ao buscar consultas:', error);
+        setRequestErrorAceitar(error);
+      }
+    setIsLoadingAceitar(false);
+};
 
   useEffect(() => {
       buscarDadosSolicitacao();
@@ -108,6 +123,8 @@ function InfoSolicitacaoConsulta({ route, navigation }: any) {
         modalVisible={modalVisible}
         mensagem='Você aceitou essa consulta!'
         onOkClick={closeModal}
+        loading={isLoadingAceitar}
+        erro={requestErrorAceitar}
       />
     </SafeAreaView>
   );
