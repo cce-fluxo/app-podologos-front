@@ -20,8 +20,6 @@ function Home({ navigation }: any) {
       : console.log('Usuário é um paciente (Home)');
   }
 
-  
-
   useEffect(() => {
     async function fetchConsultas() {
       try {
@@ -51,35 +49,27 @@ function Home({ navigation }: any) {
       </Text>
 
       <ScrollView className='flex w-[90%]'>
-      {loading ? (
-          <ActivityIndicator size='large' color='#2087ED' /> // Indicador de carregamento
-        ) : consultas.length > 0 ? (
-          consultas.map((consulta) => (
-            <Solicitacoes
-              key={consulta.appointment_id}
-              consulta={consulta}
-              onPress={() => {
-                navigation.navigate('InfoSolicitacaoConsulta', {
-                  idSolicitacao: consulta.appointment_id,
-                });
-              }}
-            />
-          ))
-        ) : (
-          <Text className='text-center text-gray-500'>
-            Nenhuma solicitação encontrada.
-          </Text>
-        )}
-        {/* <View className='flex pb-6'>
-          <Solicitacoes
-            onPress={() => navigation.navigate('InfoSolicitacaoConsulta')}
-          />
-          <Solicitacoes />
-          <Solicitacoes />
-          <Solicitacoes />
-          <Solicitacoes />
-          <Solicitacoes />
-        </View> */}
+        <View className='flex pb-6 w-full'>
+          {loading ? (
+            <ActivityIndicator size='large' color='#2087ED' /> // Indicador de carregamento
+          ) : consultas.length > 0 ? (
+            consultas.map((consulta) => (
+              <Solicitacoes
+                key={consulta.appointment_id}
+                consulta={consulta}
+                onPress={() => {
+                  navigation.navigate('InfoSolicitacaoConsulta', {
+                    idSolicitacao: consulta.appointment_id,
+                  });
+                }}
+              />
+            ))
+          ) : (
+            <Text className='text-center text-gray-500'>
+              Nenhuma solicitação encontrada.
+            </Text>
+          )}
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
