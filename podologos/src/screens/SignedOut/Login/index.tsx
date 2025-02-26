@@ -14,18 +14,21 @@ function Login() {
   const navigation = useNavigation();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const { signed, signIn } = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     console.log('Estado signed mudou (Login):', signed);
   }, [signed]);
 
   async function handleSignIn(values: any) {
+    setIsLoading(true);
     const userCredentials = {
       email: values.email,
       password: values.password,
     };
     await signIn(userCredentials);
     console.log('Após chamada de signIn');
+    setIsLoading(false);
   }
 
   return (
@@ -98,6 +101,8 @@ function Login() {
                   className='items-center'
                   placeholder='Entrar'
                   onPress={handleSubmit}
+                  loading={isLoading}
+                  disabled={isLoading}
                 />
               </View>
             </View>
