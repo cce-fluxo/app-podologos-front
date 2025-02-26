@@ -12,7 +12,6 @@ export default function FormacaoPodologo({ route, navigation }: any) {
   const [formacaoValue, setFormacaoValue] = useState(route.params.infoFormacaoPodologo.degree_type);
   const [dropdownIsFocus, setDropdownIsFocus] = useState(false);
 
-
   const handleSubmit = () => {
     if (formikRef.current) {
       // propriedade submitForm fornecida pelo Formik para disparar a submissão do formulário quando o botão for pressionado
@@ -86,20 +85,6 @@ export default function FormacaoPodologo({ route, navigation }: any) {
                     </Text>
                   )}
                 </View>
-                {/* <View className='mb-2 w-full'>
-                  <Input
-                    onChangeText={handleChange('degree_type')}
-                    onBlur={handleBlur('degree_type')}
-                    value={values.degree_type}
-                    placeholder='Tipo de formação'
-                    keyboardType='default'
-                  />
-                  {touched.degree_type && errors.degree_type && (
-                    <Text className='ml-8 text-red-600'>
-                      {errors.degree_type}
-                    </Text>
-                  )}
-                </View> */}
                 <View className='mb-4 w-[90%] text-gr'>
                   <Dropdown
                     style={{
@@ -146,7 +131,7 @@ export default function FormacaoPodologo({ route, navigation }: any) {
           className='mb-10 self-center'
           placeholder='Continuar'
           onPress={handleSubmit}
-        ></Button>
+        />
       </View>
     </SafeAreaView>
   );

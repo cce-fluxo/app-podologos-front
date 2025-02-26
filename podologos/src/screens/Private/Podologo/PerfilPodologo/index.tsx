@@ -116,7 +116,7 @@ function PerfilPodologo({navigation}) {
         </View>
         <View className='mt-7 flex w-full items-center space-y-4'>
           <Button
-            onPress={() => navigation.navigate('EditarPodologo')}
+            onPress={() => navigation.navigate('EditarPodologo', {dadosUsuario: dadosUsuario})}
             text='text-branco text-[16px]'
             placeholder='Editar perfil'
           ></Button>

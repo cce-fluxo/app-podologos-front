@@ -5,74 +5,81 @@ import { Entypo } from '@expo/vector-icons';
 import PerfilImage from '../../../../assets/PerfilImage.png';
 import Input from '../../../../components/FormData/InputForm';
 import { FormData } from '../../../../components/FormData/Index';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import { Dropdown } from 'react-native-element-dropdown';
 
-export default function EditarPodologo() {
-  const [data, setData] = useState({
-    foto: '',
-    nome: '',
-    sobrenome: '',
-    email: '',
-    telefone: '',
-    cep: '',
-    formacao: '',
-    instituicao: '',
-    anoConclusao: '',
-    tipoFormacao: '',
-  });
+export default function EditarPodologo({route, navigation}) {
+  let formikRef = useRef(null);
+  const [formacaoValue, setFormacaoValue] = useState(route.params.dadosUsuario.degree_type);
+  const [dropdownIsFocus, setDropdownIsFocus] = useState(false);
+  const tiposFormacao = [
+    { label: 'Superior', value: 'Superior' },
+    { label: 'Técnico', value: 'Tecnico' },
+  ];
 
-  const onSubmit = (data: any) => {};
+  const handleSubmit = () => {
+    if (formikRef.current) {
+      // propriedade submitForm fornecida pelo Formik para disparar a submissão do formulário quando o botão for pressionado
+      formikRef.current.submitForm();
+    }
+  };
+
+  function handleFormSubmit(values) {
+    // navigation.navigate('CadastroPodologo', {
+    //   institution: values.institution,
+    //   degree_year: values.degree_year,
+    //   degree_type: values.degree_type,
+    // });
+    // route.params.onGoBack({...values, degree_type: formacaoValue});
+    // navigation.goBack();
+  }
+
+  console.log('dados usuario', route.params.dadosUsuario);
 
   const column = [
     {
-      name: 'nome',
+      name: 'first_name',
       texto: 'Nome',
-      placeholder: 'João',
+      placeholder: route.params.dadosUsuario.first_name,
       component: Input,
     },
     {
-      name: 'sobrenome',
+      name: 'last_name',
       texto: 'Sobrenome',
-      placeholder: 'de Oliveira',
+      placeholder: route.params.dadosUsuario.last_name,
       component: Input,
     },
     {
       name: 'email',
       texto: 'Email',
-      placeholder: 'giovannisouza@gmail.com',
+      placeholder: route.params.dadosUsuario.email,
       component: Input,
     },
     {
-      name: 'telefone',
+      name: 'phone_number',
       texto: 'Telefone',
-      placeholder: '(21) 12345-6789',
+      placeholder: route.params.dadosUsuario.phone_number,
       component: Input,
     },
-    { name: 'cep', texto: 'CEP', placeholder: '12345-678', component: Input },
-    {
-      name: 'formacao',
-      texto: 'Formação',
-      placeholder: 'Podologia',
-      component: Input,
+    { name: 'cep', 
+      texto: 'CEP', 
+      placeholder: route.params.dadosUsuario.cep, 
+      component: Input 
     },
     {
-      name: 'instituicao',
+      name: 'institution',
       texto: 'Instituição',
-      placeholder: 'UFRJ',
+      placeholder: route.params.dadosUsuario.doctor.institution,
       component: Input,
     },
     {
-      name: 'anoConclusao',
+      name: 'degree_year',
       texto: 'Ano de conclusão',
-      placeholder: '2022',
-      component: Input,
-    },
-    {
-      name: 'tipoFormacao',
-      placeholder: 'Superior',
+      placeholder: route.params.dadosUsuario.doctor.degree_year,
       component: Input,
     },
   ];
+
   return (
     <SafeAreaView className='flex w-full flex-1 bg-branco'>
       <ScrollView>
@@ -80,29 +87,67 @@ export default function EditarPodologo() {
           <Image className='' source={PerfilImage}></Image>
           <View className='mt-3 flex flex-row items-center justify-center rounded-md bg-zinc-100 p-1'>
             <Entypo name='star' size={20} color='black' />
-            <Text className='font-semibold'>4.75</Text>
+            <Text className='font-semibold'>{route.params.dadosUsuario.avg.rating}</Text>
           </View>
         </View>
 
         <FormData.Root
-          onSubmit={(data) => {
-            console.log('Dados recebidos para salvar:', data);
+          innerRef={formikRef}
+          onSubmit={(values) => {
+            handleFormSubmit(values);
+            console.log(values);
           }}
         >
           <FormData.Form
-            retornavel={true}
+            retornavel={false}
             ButtonStyles={{
               className: 'self-center mt-2 mb-10 w-[87%]',
               placeholder: 'Salvar',
             }}
             columns={column}
             id='formQuestion'
-          ></FormData.Form>
+          />
+          <View className='mb-4 w-[87%] text-gr mx-auto mt-2'>
+            <Dropdown
+              style={{
+                backgroundColor: '#c3c5c733',
+                padding: 16,
+                height: 56,
+                borderRadius: 12,
+              }}
+              placeholderStyle={{
+                color: "#4b5563dc",
+                fontSize: 14,
+              }}
+              selectedTextStyle={{color: "#000000", fontSize: 14}}
+              itemContainerStyle={{backgroundColor: "#c3c5c733"}}
+              containerStyle={{borderRadius: 16}}
+              data={tiposFormacao}
+              maxHeight={300}
+              labelField="label"
+              valueField="value"
+              placeholder={route.params.dadosUsuario.doctor.degree_type}
+              searchPlaceholder="Search..."
+              value={formacaoValue}
+              onFocus={() => setDropdownIsFocus(true)}
+              onBlur={() => setDropdownIsFocus(false)}
+              onChange={item => {
+                setFormacaoValue(item.value);
+                setDropdownIsFocus(false);
+              }}
+            />
+          </View>
           <Button
-            className='self-center border-[1px] border-azul bg-branco'
+            className='mb-2 self-center w-[87%]'
+            placeholder='Salvar'
+            onPress={handleSubmit}
+          />
+          <Button
+            className='mb-4 self-center border-[1px] w-[87%] border-azul bg-branco'
             placeholder='Cancelar'
             text='text-azul'
-          ></Button>
+            onPress={() => navigation.goBack()}
+          />
         </FormData.Root>
       </ScrollView>
     </SafeAreaView>
