@@ -7,11 +7,15 @@ import Input from '../../../../components/FormData/InputForm';
 import { FormData } from '../../../../components/FormData/Index';
 import { useRef, useState } from 'react';
 import { Dropdown } from 'react-native-element-dropdown';
+import { Toast } from 'toastify-react-native';
+import api from '../../../../services/axios';
+import { regex } from '../../../../components/ReGex';
 
 export default function EditarPodologo({route, navigation}) {
   let formikRef = useRef(null);
-  const [formacaoValue, setFormacaoValue] = useState(route.params.dadosUsuario.degree_type);
+  const [formacaoValue, setFormacaoValue] = useState(null);
   const [dropdownIsFocus, setDropdownIsFocus] = useState(false);
+  const [loading, setIsLoading] = useState(false);
   const tiposFormacao = [
     { label: 'Superior', value: 'Superior' },
     { label: 'Técnico', value: 'Tecnico' },
@@ -24,17 +28,29 @@ export default function EditarPodologo({route, navigation}) {
     }
   };
 
-  function handleFormSubmit(values) {
-    // navigation.navigate('CadastroPodologo', {
-    //   institution: values.institution,
-    //   degree_year: values.degree_year,
-    //   degree_type: values.degree_type,
-    // });
-    // route.params.onGoBack({...values, degree_type: formacaoValue});
-    // navigation.goBack();
+  async function handleFormSubmit(values) {
+    setIsLoading(true);
+    try {
+      const dadosUsuario = {...values, degree_type: formacaoValue};
+      console.log('dados do usuario', dadosUsuario);
+      for (let key in dadosUsuario) {
+        if (dadosUsuario[key] === null) {
+            delete dadosUsuario[key];
+        }
+      }
+      console.log('dados do usuario filtrados', dadosUsuario);
+      const response = await api.patch('/doctor/atualizar-perfil', dadosUsuario);
+      Toast.success('Sucesso ao editar perfil');
+      console.log(response.data);
+      navigation.goBack();
+    } catch (err: any) {
+      Toast.error('Erro ao editar perfil', '');
+      console.log(err);
+      console.log(err.response.data);
+      console.log(err.response.status);
+    }
+    setIsLoading(false);
   }
-
-  console.log('dados usuario', route.params.dadosUsuario);
 
   const column = [
     {
@@ -59,12 +75,14 @@ export default function EditarPodologo({route, navigation}) {
       name: 'phone_number',
       texto: 'Telefone',
       placeholder: route.params.dadosUsuario.phone_number,
+      mascara: regex['Telefone'],
       component: Input,
     },
     { name: 'cep', 
       texto: 'CEP', 
       placeholder: route.params.dadosUsuario.cep, 
-      component: Input 
+      mascara: regex['CEP'],
+      component: Input,
     },
     {
       name: 'institution',
@@ -95,7 +113,6 @@ export default function EditarPodologo({route, navigation}) {
           innerRef={formikRef}
           onSubmit={(values) => {
             handleFormSubmit(values);
-            console.log(values);
           }}
         >
           <FormData.Form
@@ -141,6 +158,8 @@ export default function EditarPodologo({route, navigation}) {
             className='mb-2 self-center w-[87%]'
             placeholder='Salvar'
             onPress={handleSubmit}
+            loading={loading}
+            disabled={loading}
           />
           <Button
             className='mb-4 self-center border-[1px] w-[87%] border-azul bg-branco'
