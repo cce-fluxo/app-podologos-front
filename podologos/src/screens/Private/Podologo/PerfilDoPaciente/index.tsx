@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
+  Alert,
   Image,
   SafeAreaView,
   ScrollView,
@@ -17,9 +18,12 @@ import Avaliacao from '../../../../components/Avaliacao';
 import Input from '../../../../components/Inputs';
 import { useNavigation } from '@react-navigation/native';
 import api from '../../../../services/axios';
+import { Formik } from 'formik';
 
 function PerfilDoPaciente({route, navigation}) {
+  let formikRef = React.useRef(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingReview, setIsLoadingReview] = useState(false);
   const [dadosPaciente, setDadosPaciente] = useState({});
   const [requestError, setRequestError] = useState();
 
@@ -41,7 +45,38 @@ function PerfilDoPaciente({route, navigation}) {
     });
 
     setNotas(novasNotas);
+    console.log(novasNotas);
   }
+
+  const handleSubmit = () => {
+    if (formikRef.current) {
+      // propriedade submitForm fornecida pelo Formik para disparar a submissão do formulário quando o botão for pressionado
+      formikRef.current.submitForm();
+    }
+  };
+
+  async function handleFormSubmit(values) {
+      setIsLoadingReview(true);
+      let rating = 0;
+      for (const star in notas) {
+        if (star === "star") {
+          rating += 1;
+        }
+      }
+      try {
+        const response = await api.post(`/review/create/${route.params.userId}`, {comment: values.comment, rating});
+        console.log(response.data);
+        Alert.alert(
+          'Sucesso!',
+          'Review realizada com sucesso!'
+        );
+        navigation.goBack();
+      } catch (error) {
+        console.error('Erro ao realizar review:', error);
+        setRequestError(error);
+      }
+      setIsLoadingReview(true);
+    }
 
   const buscarDadosPaciente = async () => {
     setIsLoading(true);
@@ -97,54 +132,72 @@ function PerfilDoPaciente({route, navigation}) {
           <ProfileInfo label='Cep' text={dadosPaciente.cep} />
         </View>
         <View className='w-[80%] self-center border-b-[1px] opacity-10' />
-        <View className='flex w-[75%] flex-row justify-between self-center'>
-          <TouchableOpacity onPress={() => novaNota(1)}>
-            <Entypo name={notas[0]} size={30} color='black' />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => novaNota(2)}>
-            <Entypo name={notas[1]} size={30} color='black' />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => novaNota(3)}>
-            <Entypo name={notas[2]} size={30} color='black' />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => novaNota(4)}>
-            <Entypo name={notas[3]} size={30} color='black' />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => novaNota(5)}>
-            <Entypo name={notas[4]} size={30} color='black' />
-          </TouchableOpacity>
-        </View>
-        <Input className='w-[100%]' placeholder='Avaliação'></Input>
-        <View className='flex w-full items-center space-y-4'>
-          <Button className='w-full' placeholder='Avaliar'></Button>
-          <Button
-            onPress={() => navigation.navigate('DenunciaPaciente')}
-            className='w-full'
-            placeholder='Denunciar'
-          ></Button>
-        </View>
+        {route.params.consultaConcluida &&
+        <View className='flex space-y-5'>
+          <View className='flex w-[75%] flex-row justify-between self-center'>
+            <TouchableOpacity onPress={() => novaNota(1)}>
+              <Entypo name={notas[0]} size={30} color='black' />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => novaNota(2)}>
+              <Entypo name={notas[1]} size={30} color='black' />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => novaNota(3)}>
+              <Entypo name={notas[2]} size={30} color='black' />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => novaNota(4)}>
+              <Entypo name={notas[3]} size={30} color='black' />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => novaNota(5)}>
+              <Entypo name={notas[4]} size={30} color='black' />
+            </TouchableOpacity>
+          </View>
+
+          <Formik
+            innerRef={formikRef}
+            initialValues={{
+              comment: '',
+            }}
+            onSubmit={(values) => {
+              if (notas[0] === "star-outlined") {
+                Alert.alert(
+                  'Erro',
+                  'Você deve fornecer uma nota para a avaliação.'
+                );
+                return;
+              }
+              handleFormSubmit(values);
+              console.log(values);
+            }}
+          >
+            {({
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              values,
+              errors,
+              touched,
+            }) => (
+            <Input className='w-[100%] py-4' 
+            placeholder='Avaliação' 
+            onChangeText={handleChange('comment')}
+            onBlur={handleBlur('comment')}
+            value={values.comment} />
+            )}
+          </Formik>
+          <View className='flex w-full items-center space-y-4'>
+            <Button className='w-full' placeholder='Avaliar' onPress={handleSubmit} loading={isLoadingReview} disabled={isLoadingReview} />
+            <Button
+              onPress={() => navigation.navigate('DenunciaPaciente')}
+              className='w-full'
+              placeholder='Denunciar'
+            />
+          </View>
+        </View>}
         <View className='mb-24 flex w-full space-y-4'>
           {/* Mapeando todas as avaliações do usuário */}
           {dadosPaciente.user_reviews 
           ?
           dadosPaciente.user_reviews.map((item, index) => (
-            // <View
-            //   key={index}
-            //   className='flex w-full space-y-3 rounded-2xl bg-branco p-4 shadow-md shadow-black'
-            // >
-            //   <View className='flex flex-row items-center justify-between'>
-            //     <Text className='text-[18px] font-semibold text-texto_cinza'>
-            //       Larissa Oliveira
-            //     </Text>
-            //     <View className='flex flex-row items-center space-x-1 rounded-md bg-cinza p-1'>
-            //       <Entypo name='star' size={12} color='black' />
-            //       <Text className='font-semibold'>{item.rating}</Text>
-            //     </View>
-            //   </View>
-            //   <Text className='text-texto_cinza_claro'>
-            //     {item.comment}
-            //   </Text>
-            // </View>
             <Avaliacao key={index} nome="Vasco" comentario={item.comment} nota={item.rating} />
           ))
           :

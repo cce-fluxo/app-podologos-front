@@ -66,6 +66,7 @@ function InfoConsultasRealizadas({route, navigation}) {
           cep={dadosConsulta.patient_cep}
           navigation={navigation}
           userId={dadosConsulta.user_id}
+          consultaConcluida
         />
         <View className='w-[80%] self-center border-b-[1px] opacity-10'></View>
         <Text className='self-center text-[16px] text-azul'>
