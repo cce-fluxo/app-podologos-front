@@ -19,11 +19,14 @@ import Input from '../../../../components/Inputs';
 import { useNavigation } from '@react-navigation/native';
 import api from '../../../../services/axios';
 import { Formik } from 'formik';
+import ModalOk from '../../../../components/PopUps/ModalOk';
 
 function PerfilDoPaciente({route, navigation}) {
   let formikRef = React.useRef(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isLoadingReview, setIsLoadingReview] = useState(false);
+  const [visibilidadeAvaliacaoCriada, setVisibilidadeAvaliacaoCriada] = useState(false);
+  const [visibilidadeErroAoCriarAvaliacao, setVisibilidadeErroAoCriarAvaliacao] = useState(false);
   const [dadosPaciente, setDadosPaciente] = useState({});
   const [requestError, setRequestError] = useState();
 
@@ -55,28 +58,42 @@ function PerfilDoPaciente({route, navigation}) {
     }
   };
 
+  async function contarRating() {
+    let rating = 0;
+    // for (const star in notas) {
+    //   console.log(star);
+    //   if (star === "star") {
+    //     rating += 1;
+    //   }
+    // }
+    notas.forEach((element) => {
+      console.log(element);
+      if (element === "star") {
+        rating += 1;
+      }
+    });
+    return rating;
+  }
+
   async function handleFormSubmit(values) {
       setIsLoadingReview(true);
-      let rating = 0;
-      for (const star in notas) {
-        if (star === "star") {
-          rating += 1;
-        }
-      }
+      const rating = await contarRating();
       try {
-        const response = await api.post(`/review/create/${route.params.userId}`, {comment: values.comment, rating});
+        console.log('rating', rating);
+        const response = await api.post(`/review/create/${dadosPaciente.user_id}`, {comment: values.comment, rating: rating});
         console.log(response.data);
-        Alert.alert(
-          'Sucesso!',
-          'Review realizada com sucesso!'
-        );
-        navigation.goBack();
+        console.log(response);
+        setVisibilidadeAvaliacaoCriada(true);
       } catch (error) {
         console.error('Erro ao realizar review:', error);
-        setRequestError(error);
+        setVisibilidadeErroAoCriarAvaliacao(true);
       }
-      setIsLoadingReview(true);
+      setIsLoadingReview(false);
     }
+
+  const okModalAvaliacaoCriada = async () => {
+    navigation.goBack();
+  }
 
   const buscarDadosPaciente = async () => {
     setIsLoading(true);
@@ -207,6 +224,16 @@ function PerfilDoPaciente({route, navigation}) {
           }
         </View>
       </ScrollView>
+      <ModalOk 
+        modalVisible={visibilidadeAvaliacaoCriada} 
+        mensagem='Avaliação enviada com sucesso!' 
+        onOkClick={okModalAvaliacaoCriada} 
+      />
+      <ModalOk 
+        modalVisible={visibilidadeErroAoCriarAvaliacao} 
+        mensagem='Você já fez uma avaliação para esse usuário!' 
+        onOkClick={() => setVisibilidadeErroAoCriarAvaliacao(false)} 
+      />
     </SafeAreaView>
   );
 }

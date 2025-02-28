@@ -7,12 +7,13 @@ import Header from '../../../../components/Header';
 import api from '../../../../services/axios';
 
 function Home({ navigation }: any) {
-  const { signed, user } = useContext(AuthContext);
+  const { signed, user, token } = useContext(AuthContext);
   const [consultas, setConsultas] = useState([]);
   const [loading, setLoading] = useState(true);
 
   console.log(user);
   console.log('Estado signed mudou (HomeP):', signed);
+  console.log('token', token);
 
   {
     !!user.doctor_id
