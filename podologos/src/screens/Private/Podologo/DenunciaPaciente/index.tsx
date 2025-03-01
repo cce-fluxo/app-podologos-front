@@ -10,59 +10,80 @@ import Header from '../../../../components/Header';
 import { Button } from '../../../../components/Button';
 import CustomRadioButton from '../../../../components/RadioButton';
 import ModalOk from '../../../../components/PopUps/ModalOk';
+import { RadioButton } from 'react-native-radio-buttons-group';
+import api from '../../../../services/axios';
+import ModalDenuncia from '../../../../components/PopUps/ModalDenuncia';
 
-function DenunciaPaciente() {
-  const [modalVisible, setModalVisible] = React.useState(false);
-
-  function closeModal() {
-    setModalVisible(false);
-  }
-  function openModal() {
-    setModalVisible(true);
-  }
+function DenunciaPaciente({route, navigation}) {
+  const [modalDenunciaComSucessoVisivel, setModalDenunciaComSucessoVisivel] = useState(false);
+  const [modalDenunciaCustomizadaVisivel, setModalDenunciaCustomizadaVisivel] = useState(false);
+  const [isLoadingDenuncia, setIsLoadingDenuncia] = useState(false);
   const [selectedId, setSelectedId] = useState<string | undefined>('first');
+
+  function closeModalDenunciaCustomizada() {
+    setModalDenunciaCustomizadaVisivel(false);
+  }
+
+  function openModalDenunciaCustomizada() {
+    setModalDenunciaCustomizadaVisivel(true);
+  }
+
+  function closeModalDenunciaComSucesso() {
+    setModalDenunciaComSucessoVisivel(false);
+    navigation.goBack();
+  }
+  function openModalDenunciaComSucesso() {
+    setModalDenunciaComSucessoVisivel(true);
+  }
+
+  const encontrarDenunciaPredefinidaPeloId = async () => {
+    radioButtons.forEach((element) => {
+      if (element.id === selectedId) {
+        return element.value;
+      }
+    });
+  }
+
+  const denunciaPredefinida = async () => {
+    setIsLoadingDenuncia(true);
+    try {
+      const denuncia = await encontrarDenunciaPredefinidaPeloId;
+      const response = await api.post(`/review/create/${route.params.userId}`, {reason: denuncia});
+      console.log(response.data);
+      console.log(response);
+      openModalDenunciaComSucesso();
+    } catch (error) {
+      console.error('Erro ao realizar review:', error);
+    }
+    setIsLoadingDenuncia(false);
+  }
 
   const radioButtons = useMemo(
     () => [
       {
         id: '1',
-        label: 'Higiene Inadequada',
-        value: 'option1',
+        label: 'Falta de Pagamento',
+        value: 'Falta de Pagamento',
       },
       {
         id: '2',
-        label: 'Equipamento Danificado',
-        value: 'option2',
+        label: 'Comportamento Inapropriado',
+        value: 'Comportamento Inapropriado',
       },
       {
         id: '3',
-        label: 'Lesões Físicas',
-        value: 'option2',
+        label: 'Falta de Colaboração',
+        value: 'Falta de Colaboração',
       },
       {
         id: '4',
         label: 'Atraso ou Não Comparecimento',
-        value: 'option2',
+        value: 'Atraso ou Não Comparecimento',
       },
       {
         id: '5',
-        label: 'Falta de Profissionalismo',
-        value: 'option2',
-      },
-      {
-        id: '6',
-        label: 'Diagnóstico Errôneo',
-        value: 'option2',
-      },
-      {
-        id: '7',
-        label: 'Cobrança Indevida',
-        value: 'option2',
-      },
-      {
-        id: '8',
-        label: 'Outro',
-        value: 'option2',
+        label: 'Desistência de Última Hora',
+        value: 'Desistência de Última Hora',
       },
     ],
     []
@@ -80,23 +101,36 @@ function DenunciaPaciente() {
                 onPress={() => setSelectedId(radio.id)}
                 selected={selectedId === radio.id}
               />
-              <View className='mb-4 w-[90%] self-center border-b-[1px] opacity-10'></View>
+              <View className='mb-4 w-[90%] self-center border-b-[1px] opacity-10' />
             </View>
           ))}
+          {/* Botão outro */}
+          <View className='flex items-start justify-center space-y-4 px-4'>
+            <TouchableOpacity
+              onPress={openModalDenunciaCustomizada}
+              style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 4 }}
+            >
+              <RadioButton id='' />
+              <Text style={{ marginLeft: 8 }}>Outro</Text>
+            </TouchableOpacity>
+          </View>
         </View>
+        {/* Outros botões (confirmar e cancelar) */}
         <View className='mb-14 flex w-full items-center space-y-4'>
-          <Button onPress={openModal} placeholder='Confirmar denúncia'></Button>
+          <Button onPress={denunciaPredefinida} placeholder='Confirmar denúncia' disabled={isLoadingDenuncia} loading={isLoadingDenuncia} />
           <Button
             className='border-2 border-azul bg-white'
             text='text-azul text-[16px]'
             placeholder='Cancelar'
-          ></Button>
+            onPress={() => navigation.goBack()}
+          />
         </View>
       </ScrollView>
+      <ModalDenuncia modalVisible={modalDenunciaCustomizadaVisivel} onNoClick={closeModalDenunciaCustomizada} onSucesso={openModalDenunciaComSucesso} userId={route.params.userId} />
       <ModalOk
-        modalVisible={modalVisible}
+        modalVisible={modalDenunciaComSucessoVisivel}
         mensagem='Denúncia feita com sucesso!'
-        onOkClick={closeModal}
+        onOkClick={closeModalDenunciaComSucesso}
       />
     </SafeAreaView>
   );

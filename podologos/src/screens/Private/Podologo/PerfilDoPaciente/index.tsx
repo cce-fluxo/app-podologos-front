@@ -204,7 +204,7 @@ function PerfilDoPaciente({route, navigation}) {
           <View className='flex w-full items-center space-y-4'>
             <Button className='w-full' placeholder='Avaliar' onPress={handleSubmit} loading={isLoadingReview} disabled={isLoadingReview} />
             <Button
-              onPress={() => navigation.navigate('DenunciaPaciente')}
+              onPress={() => navigation.navigate('DenunciaPaciente', { userId: dadosPaciente.user_id })}
               className='w-full'
               placeholder='Denunciar'
             />
