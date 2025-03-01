@@ -10,6 +10,7 @@ function InputStyled({
   form,
   rightIcon,
   mascara,
+  errors,
   ...rest
 }) {
   const [value, setValue] = React.useState('');
@@ -29,9 +30,10 @@ function InputStyled({
             setValue(masked);
           }}
           placeholder={placeholder}
+          placeholderTextColor={errors && "#FF0033"}
           mask={mascara}
           {...rest}
-          className='mt-2 h-14 flex-1 rounded-[12px] bg-cinza/20 p-4 text-black'
+          className={errors ? 'mt-2 h-14 flex-1 rounded-[12px] bg-[#FF949433] p-4 text-[#FF0033]' : 'mt-2 h-14 flex-1 rounded-[12px] bg-cinza/20 p-4 text-black'}
         />
         {rightIcon && <View className='absolute right-4'>{rightIcon}</View>}
       </View>

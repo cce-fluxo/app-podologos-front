@@ -62,9 +62,10 @@ function Login() {
                   value={values.email}
                   placeholder='Email*'
                   keyboardType='default'
+                  errors={touched.email && errors.email}
                 />
                 {touched.email && errors.email && (
-                  <Text className='ml-8 text-red-600'>{errors.email}</Text>
+                  <Text className='text-[#FF0033] text-center'>{errors.email}</Text>
                 )}
               </View>
               <View className='w-full'>
@@ -76,6 +77,7 @@ function Login() {
                   placeholder='Senha*'
                   secureTextEntry={!isPasswordVisible}
                   keyboardType='default'
+                  errors={touched.password && errors.password}
                   rightIcon={
                     <TouchableOpacity
                       onPress={() => setIsPasswordVisible(!isPasswordVisible)}
@@ -89,7 +91,7 @@ function Login() {
                   }
                 />
                 {touched.password && errors.password && (
-                  <Text className='ml-8 text-red-600'>{errors.password}</Text>
+                  <Text className='text-[#FF0033] text-center'>{errors.password}</Text>
                 )}
               </View>
               <View className='w-full items-center space-y-2'>
