@@ -18,7 +18,7 @@ function InfoConsultasAceitas({route, navigation}) {
   const [requestError, setRequestError] = useState();
   const [requestErrorMarcarRealizada, setRequestErrorMarcarRealizada] = useState();
 
-  const data = dadosConsulta.CreatedAt ? new Date(dadosConsulta.CreatedAt).toLocaleDateString("pt-BR"): "Data desconhecida";
+  const data = dadosConsulta.lastUpdate ? new Date(dadosConsulta.lastUpdate).toLocaleDateString("pt-BR"): "Data desconhecida";
 
   async function onYesModal() {
     await marcarRealizadaConsulta();
@@ -55,7 +55,7 @@ function InfoConsultasAceitas({route, navigation}) {
         setRequestErrorMarcarRealizada(error);
       }
     setIsLoadingMarcarRealizada(false);
-};
+  };
 
   useEffect(() => {
       buscarDadosSolicitacao();

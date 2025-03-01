@@ -14,7 +14,7 @@ function InfoConsultasRealizadas({route, navigation}) {
   const [dadosConsulta, setDadosConsulta] = useState({});
   const [requestError, setRequestError] = useState();
 
-  const data = dadosConsulta.CreatedAt ? new Date(dadosConsulta.CreatedAt).toLocaleDateString("pt-BR"): "Data desconhecida";
+  const data = dadosConsulta.lastUpdate ? new Date(dadosConsulta.lastUpdate).toLocaleDateString("pt-BR"): "Data desconhecida";
 
   const buscarDadosSolicitacao = async () => {
     setIsLoading(true);

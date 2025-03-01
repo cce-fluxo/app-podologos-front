@@ -48,7 +48,7 @@ function DenunciaPaciente({route, navigation}) {
     setIsLoadingDenuncia(true);
     try {
       const denuncia = await encontrarDenunciaPredefinidaPeloId;
-      const response = await api.post(`/review/create/${route.params.userId}`, {reason: denuncia});
+      const response = await api.post(`/report/create/${route.params.userId}`, {reason: denuncia});
       console.log(response.data);
       console.log(response);
       openModalDenunciaComSucesso();
