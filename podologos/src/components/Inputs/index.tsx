@@ -35,7 +35,7 @@ function InputStyled({
           {...rest}
           className={errors ? 'mt-2 h-14 flex-1 rounded-[12px] bg-[#FF949433] p-4 text-[#FF0033]' : 'mt-2 h-14 flex-1 rounded-[12px] bg-cinza/20 p-4 text-black'}
         />
-        {rightIcon && <View className='absolute right-4'>{rightIcon}</View>}
+        {rightIcon && <View className='absolute right-4 top-1/3'>{rightIcon}</View>}
       </View>
     </View>
   );
