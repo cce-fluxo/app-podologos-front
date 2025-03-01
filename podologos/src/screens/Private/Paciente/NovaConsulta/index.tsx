@@ -12,14 +12,14 @@ export default function NovaConsulta() {
           <Button
             className='mt-8 w-full self-center border-[1px] border-azul bg-branco'
             text='text-azul'
-            placeholder='Adicionar foto de perfil'
+            placeholder='Adicionar foto do pé'
           >
             <MaterialIcons name='add' size={20} color='#2087ED' />
           </Button>
           <Text className='text-[23px] font-semibold text-[#46555A]'>
             Observações
           </Text>
-          <Input className='w-full' placeholder='Lorem Ipsum'></Input>
+          <Input className='w-full' placeholder='Observação para a consulta.'></Input>
           <Text className='text-[23px] font-semibold text-[#46555A]'>
             Formulário médico
           </Text>
