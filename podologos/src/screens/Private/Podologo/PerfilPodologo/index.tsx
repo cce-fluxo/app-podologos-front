@@ -12,7 +12,7 @@ import AuthContext from '../../../../context/AuthContext';
 import api from '../../../../services/axios';
 
 function PerfilPodologo({navigation}) {
-  const { signOut, user } = useContext(AuthContext);
+  const { signOut } = useContext(AuthContext);
   const [modalVisible, setModalVisible] = React.useState(false);
   const [modalSair, setModalSair] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -149,7 +149,7 @@ function PerfilPodologo({navigation}) {
           ))
           :
           <Text className='text-center text-gray-500'>
-            Nenhuma solicitação encontrada.
+            Nenhuma avaliação encontrada.
           </Text>
           }
         </View>
