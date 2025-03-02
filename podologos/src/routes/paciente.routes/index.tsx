@@ -20,7 +20,7 @@ function PacientesRoutes() {
         options={{
           headerBackTitleVisible: false,
           headerTintColor: '#0A284D',
-          title: 'Perfil do paciente',
+          title: 'Perfil do podólogo',
           headerTitleAlign: 'center',
           headerStyle: {
             backgroundColor: '#FBFBFB',

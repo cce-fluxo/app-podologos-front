@@ -215,11 +215,11 @@ function PerfilDoPaciente({route, navigation}) {
           {dadosPaciente.user_reviews 
           ?
           dadosPaciente.user_reviews.map((item, index) => (
-            <Avaliacao key={index} nome="Vasco" comentario={item.comment} nota={item.rating} />
+            <Avaliacao key={index} nome={item.first_name + " " + item.last_name} comentario={item.comment} nota={item.rating} />
           ))
           :
           <Text className='text-center text-gray-500'>
-            Nenhuma solicitação encontrada.
+            Nenhuma avaliação encontrada.
           </Text>
           }
         </View>
