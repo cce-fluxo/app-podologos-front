@@ -25,7 +25,12 @@ function SolicitacaoPaciente({ consulta, onPress = () => {} }) {
 
       <View className='flex flex-row justify-between'>
         <View className='flex flex-row items-center space-x-1'>
-          <Feather name='clock' size={16} color='#2087ED' />
+          {consulta.status === "Aguardando"
+            ?
+            <Feather name='clock' size={16} color='#2087ED' />
+            :
+            <Feather name='check' size={16} color='#2087ED' />
+          }
           <Text className='text-[16px] text-azul'>{consulta.status}</Text>
         </View>
       </View>

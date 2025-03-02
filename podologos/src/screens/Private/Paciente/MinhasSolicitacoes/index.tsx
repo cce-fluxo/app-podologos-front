@@ -14,8 +14,25 @@ export default function MinhasSolicitacoes({ navigation }: any) {
   const [consultas, setConsultas] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    async function fetchConsultas() {
+  const mandarParaPaginaDoTipoDaConsulta = async (tipo, id) => {
+    if (tipo === "Concluida") {
+      navigation.navigate('InfoConsultaRealizada', {
+        idSolicitacao: id,
+      });
+    } 
+    else if (tipo === "Aceita") {
+      navigation.navigate('InfoConsultaAceita', {
+        idSolicitacao: id,
+      });
+    }
+    else {
+      navigation.navigate('InfoConsulta', {
+        idSolicitacao: id,
+      });
+    }
+  }
+
+  async function fetchConsultas() {
       try {
         const response = await api.get('/appointment/consultas-usuario');
         setConsultas(response.data);
@@ -27,6 +44,7 @@ export default function MinhasSolicitacoes({ navigation }: any) {
       }
     }
 
+  useEffect(() => {
     fetchConsultas();
   }, []);
 
@@ -56,9 +74,10 @@ export default function MinhasSolicitacoes({ navigation }: any) {
               consulta={consulta}
               onPress={
                 () => {
-                  navigation.navigate('InfoConsulta', {
-                    idSolicitacao: consulta.appointment_id,
-                  });
+                  mandarParaPaginaDoTipoDaConsulta(consulta.status, consulta.appointment_id);
+                  // navigation.navigate('InfoConsulta', {
+                  //   idSolicitacao: consulta.appointment_id,
+                  // });
                 }
               }
             />

@@ -5,7 +5,6 @@ import { Button } from '../../../../components/Button';
 import api from '../../../../services/axios';
 
 export default function InfoConsulta({ route, navigation }: any) {
-
     const [isLoading, setIsLoading] = useState(true);
     const [dadosSolicitacao, setDadosSolicitacao] = useState({});
     const [requestError, setRequestError] = useState();
