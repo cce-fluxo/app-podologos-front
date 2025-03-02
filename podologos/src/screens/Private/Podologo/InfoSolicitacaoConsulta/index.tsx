@@ -88,10 +88,10 @@ function InfoSolicitacaoConsulta({ route, navigation }: any) {
         </Text>
         <InformacaoUsuario 
           nome={dadosSolicitacao.patient_name} 
-          celular={dadosSolicitacao.patient_phone_number} 
-          cep={dadosSolicitacao.patient_cep} 
+          celular={dadosSolicitacao.patient.phone_number} 
+          cep={dadosSolicitacao.patient.cep} 
           navigation={navigation}
-          userId={dadosSolicitacao.user_id}
+          userId={dadosSolicitacao.patient.user_id}
         />
         <View className='w-[80%] self-center border-b-[1px] opacity-10'></View>
         <Text className='text-[18px] font-semibold text-texto_cinza'>

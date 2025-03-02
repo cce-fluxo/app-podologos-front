@@ -62,10 +62,10 @@ function InfoConsultasRealizadas({route, navigation}) {
         </Text>
         <InformacaoUsuario 
           nome={dadosConsulta.patient_name} 
-          celular={dadosConsulta.patient_phone_number} 
-          cep={dadosConsulta.patient_cep}
+          celular={dadosConsulta.patient.phone_number} 
+          cep={dadosConsulta.patient.cep}
           navigation={navigation}
-          userId={dadosConsulta.user_id}
+          userId={dadosConsulta.patient.user_id}
           consultaConcluida
         />
         <View className='w-[80%] self-center border-b-[1px] opacity-10'></View>
