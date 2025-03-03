@@ -4,6 +4,7 @@ import MinhasSolicitacoes from '../../screens/Private/Paciente/MinhasSolicitacoe
 import InfoConsultaRealizada from '../../screens/Private/Paciente/InfoConsultaRealizada';
 import InfoConsultaAceita from '../../screens/Private/Paciente/InfoConsultaAceita';
 import InfoConsultaSolicitada from '../../screens/Private/Paciente/InfoConsultaSolicitada';
+import InfoConsulta from '../../screens/Private/Paciente/infoConsulta';
 
 const Stack = createStackNavigator();
 
@@ -69,6 +70,24 @@ function ConsultasPacientesStack() {
           },
         }}
       ></Stack.Screen>
+      <Stack.Screen
+        name='InfoConsulta'
+        component={InfoConsulta}
+        options={{
+          headerBackTitleVisible: false,
+          headerTintColor: '#0A284D',
+          title: 'Informações',
+          headerTitleAlign: 'center',
+          headerStyle: {
+            backgroundColor: '#FBFBFB',
+            height: 110,
+          },
+          headerTitleStyle: {
+            fontSize: 23,
+            fontWeight: 'medium',
+          },
+        }}
+      />
     </Stack.Navigator>
   );
 }

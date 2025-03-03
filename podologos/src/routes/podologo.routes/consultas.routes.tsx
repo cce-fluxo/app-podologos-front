@@ -33,6 +33,7 @@ function ConsultasStack() {
         component={ConsultasRealizadas}
         options={{
           headerBackTitleVisible: false,
+          headerLeft: () => null,
           headerTintColor: '#0A284D',
           title: 'Consultas',
           headerTitleAlign: 'center',

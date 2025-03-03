@@ -3,7 +3,7 @@ import { styled } from 'nativewind';
 import MaskInput, { Masks, useMaskedInputProps } from 'react-native-mask-input';
 import { useState } from 'react';
 
-function InputStyled({ field, placeholder, texto, form, mascara, ...rest }) {
+function InputStyled({ field, placeholder, texto, form, mascara, errors, ...rest }) {
   return (
     <View
       {...rest}
@@ -19,7 +19,8 @@ function InputStyled({ field, placeholder, texto, form, mascara, ...rest }) {
         placeholder={placeholder}
         {...rest}
         mask={mascara}
-        className='mt-2 h-14 rounded-[12px] bg-cinza/20 p-4 text-black'
+        placeholderTextColor={errors && "#FF0033"}
+        className={errors ? 'mt-2 h-14 rounded-[12px] bg-[#FF949433] p-4 text-[#FF0033]' : 'mt-2 h-14 rounded-[12px] bg-cinza/20 p-4 text-black'}
       ></MaskInput>
     </View>
   );

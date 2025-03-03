@@ -1,5 +1,5 @@
-import React from 'react';
-import { Image, SafeAreaView, ScrollView, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, Image, SafeAreaView, ScrollView, Text, View } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 import Header from '../../../../components/Header';
 import ProfileInfo from '../../../../components/ProfileInfo';
@@ -9,17 +9,70 @@ import UserIcon from '../../../../assets/UserIcon.png';
 import InformacaoUsuario from '../../../../components/InformacaoUsuario';
 import { useNavigation } from '@react-navigation/native';
 import ModalOk from '../../../../components/PopUps/ModalOk';
+import api from '../../../../services/axios';
 
-function InfoSolicitacaoConsulta({}) {
-  const navigation = useNavigation();
-
-  const [modalVisible, setModalVisible] = React.useState(false);
+function InfoSolicitacaoConsulta({ route, navigation }: any) {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingAceitar, setIsLoadingAceitar] = useState(true);
+  const [dadosSolicitacao, setDadosSolicitacao] = useState({});
+  const [requestError, setRequestError] = useState();
+  const [requestErrorAceitar, setRequestErrorAceitar] = useState();
 
   function closeModal() {
     setModalVisible(false);
+    navigation.goBack();
   }
   function openModal() {
+    aceitarConsulta();
     setModalVisible(true);
+  }
+
+  console.log('parametros!', route.params);
+
+  const buscarDadosSolicitacao = async () => {
+    setIsLoading(true);
+      try {
+          const response = await api.get(`/appointment/consulta/${route.params.idSolicitacao}`);
+          setDadosSolicitacao(response.data);
+          console.log(response.data);
+        } catch (error) {
+          console.error('Erro ao buscar consultas:', error);
+          setRequestError(error);
+        }
+        setIsLoading(false);
+  };
+
+  const aceitarConsulta = async () => {
+    setIsLoadingAceitar(true);
+    try {
+        const response = await api.patch(`/appointment/aceitar-consulta/${route.params.idSolicitacao}`);
+        console.log(response.data);
+      } catch (error) {
+        console.error('Erro ao buscar consultas:', error);
+        setRequestErrorAceitar(error);
+      }
+    setIsLoadingAceitar(false);
+};
+
+  useEffect(() => {
+      buscarDadosSolicitacao();
+    }, []);
+
+  if(isLoading) {
+      return (
+      <SafeAreaView className='flex h-full w-full bg-branco'>
+          <ActivityIndicator className='m-auto' size={80} color="#2087ED" /> 
+      </SafeAreaView>
+      );
+  }
+
+  if (requestError) {
+      return(
+          <SafeAreaView className='flex h-full w-full bg-branco'>
+              <Text className='m-auto text-[16px] text-azul'>Erro ao obter dados da solicitação.</Text>
+          </SafeAreaView>
+      );
   }
 
   return (
@@ -33,7 +86,13 @@ function InfoSolicitacaoConsulta({}) {
         <Text className='text-[18px] font-semibold text-texto_cinza'>
           Informações do paciente
         </Text>
-        <InformacaoUsuario></InformacaoUsuario>
+        <InformacaoUsuario 
+          nome={dadosSolicitacao.patient_name} 
+          celular={dadosSolicitacao.patient.phone_number} 
+          cep={dadosSolicitacao.patient.cep} 
+          navigation={navigation}
+          userId={dadosSolicitacao.patient.user_id}
+        />
         <View className='w-[80%] self-center border-b-[1px] opacity-10'></View>
         <Text className='text-[18px] font-semibold text-texto_cinza'>
           Informações médicas
@@ -48,28 +107,27 @@ function InfoSolicitacaoConsulta({}) {
           Observações
         </Text>
         <Text className='text-texto_cinza_claro'>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis
-          officia expedita quisquam unde nihil placeat repellendus. Recusandae
-          fuga inventore blanditiis maxime explicabo excepturi corporis, natus
-          repellat, eveniet perspiciatis dicta similique?
+          {dadosSolicitacao.obs ? dadosSolicitacao.obs : "Sem observações."}
         </Text>
         <Button
           onPress={openModal}
           placeholder='Aceitar e enviar contato'
           className='w-full self-center'
-        ></Button>
+        />
         <Button
-          onPress={() => navigation.navigate('HomePodologo')}
+          onPress={() => navigation.goBack()}
           placeholder='Voltar'
           className='mb-8 w-full self-center border-[1px] border-azul bg-branco'
           text='text-azul'
-        ></Button>
+        />
       </ScrollView>
       <ModalOk
         modalVisible={modalVisible}
         mensagem='Você aceitou essa consulta!'
         onOkClick={closeModal}
-      ></ModalOk>
+        loading={isLoadingAceitar}
+        erro={requestErrorAceitar}
+      />
     </SafeAreaView>
   );
 }

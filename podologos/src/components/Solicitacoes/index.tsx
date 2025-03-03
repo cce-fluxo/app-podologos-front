@@ -5,8 +5,14 @@ import { useNavigation } from '@react-navigation/native';
 
 type socilitacoesProps = {
   onPress?: any;
+  consulta?: object;
+  jaAceita?: boolean;
 };
-function Solicitacoes({ onPress }: socilitacoesProps) {
+
+function Solicitacoes({ onPress, consulta, jaAceita = false }: socilitacoesProps) {
+
+  const data = consulta.CreatedAt ? new Date(consulta.CreatedAt).toLocaleDateString("pt-BR"): "Data desconhecida";
+
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -19,14 +25,14 @@ function Solicitacoes({ onPress }: socilitacoesProps) {
         elevation: 3, // Para suportar Android
       }}
     >
-      <Text>João da Silva fez uma solicitação perto de você</Text>
+      <Text>{consulta.patient_name} {!jaAceita && "fez uma solicitação perto de você"}</Text>
 
       <View className='flex flex-row justify-between'>
         <View className='flex flex-row'>
           <EvilIcons name='location' size={24} color='black' />
-          <Text>Tijuca</Text>
+          <Text>{consulta.locationName}</Text>
         </View>
-        <Text>01/01/2024</Text>
+        <Text>{data}</Text>
       </View>
     </TouchableOpacity>
   );

@@ -15,6 +15,7 @@ import { useNavigation } from '@react-navigation/native';
 import { regex } from '../../../components/ReGex';
 
 export default function CadastroPaciente() {
+  const [isLoadingLogin, setIsLoadingLogin] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [image, setImage] = useState(null);
   const { signed, user, signIn } = useContext(AuthContext);
@@ -34,6 +35,7 @@ export default function CadastroPaciente() {
   };
 
   async function signUp(data: any) {
+    setIsLoadingLogin(true);
     try {
       //Toast.info("Aguarde...", "");
       const response = await api.post('/patient/registrar-paciente', data);
@@ -52,7 +54,10 @@ export default function CadastroPaciente() {
       console.log(err.response.data);
       console.log(err.response.status);
     }
+    setIsLoadingLogin(false);
   }
+
+
   const column = [
     {
       name: 'first_name',
@@ -73,10 +78,11 @@ export default function CadastroPaciente() {
       mascara: regex['CEP'],
       component: Input,
     },
-    { name: 'password', placeholder: 'Senha*', component: Input },
+    { name: 'password', placeholder: 'Senha*', secureTextEntry: true, component: Input },
     {
       name: 'confirmarSenha',
-      placeholder: 'Confirmar senha*',
+      placeholder: 'Confirmar senha*', 
+      secureTextEntry: true,
       component: Input,
     },
   ];
@@ -124,6 +130,8 @@ export default function CadastroPaciente() {
             ButtonStyles={{
               className: 'self-center mt-2 mb-10 w-[87%]',
               placeholder: 'Criar conta',
+              disabled: isLoadingLogin,
+              loading: isLoadingLogin,
             }}
             columns={column}
             id='formQuestion'

@@ -1,13 +1,16 @@
 import { SafeAreaView, Text, View } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import Input from '../../../components/Inputs';
 import { Button } from '../../../components/Button';
 import { Formik } from 'formik';
 import { RouteParams } from '../CadastroPodologo';
+import { Dropdown } from 'react-native-element-dropdown';
 
-export default function FormacaoPodologo({ navigation }: any) {
+export default function FormacaoPodologo({ route, navigation }: any) {
   let formikRef = React.useRef(null);
-  const [formacao, setformacao] = React.useState('');
+  const [formacao, setformacao] = useState('');
+  const [formacaoValue, setFormacaoValue] = useState(route.params.infoFormacaoPodologo.degree_type);
+  const [dropdownIsFocus, setDropdownIsFocus] = useState(false);
 
   const handleSubmit = () => {
     if (formikRef.current) {
@@ -17,12 +20,19 @@ export default function FormacaoPodologo({ navigation }: any) {
   };
 
   function handleFormSubmit(values: RouteParams) {
-    navigation.navigate('CadastroPodologo', {
-      institution: values.institution,
-      degree_year: values.degree_year,
-      degree_type: values.degree_type,
-    });
+    // navigation.navigate('CadastroPodologo', {
+    //   institution: values.institution,
+    //   degree_year: values.degree_year,
+    //   degree_type: values.degree_type,
+    // });
+    route.params.onGoBack({...values, degree_type: formacaoValue});
+    navigation.goBack();
   }
+
+  const tiposFormacao = [
+    { label: 'Superior', value: 'Superior' },
+    { label: 'Técnico', value: 'Tecnico' },
+  ];
 
   return (
     <SafeAreaView className='flex w-full flex-1 items-center bg-branco'>
@@ -31,11 +41,7 @@ export default function FormacaoPodologo({ navigation }: any) {
           <Formik
             innerRef={formikRef}
             // validationSchema={LoginSchema}
-            initialValues={{
-              institution: '',
-              degree_year: '',
-              degree_type: '',
-            }}
+            initialValues={route.params.infoFormacaoPodologo}
             onSubmit={(values) => {
               handleFormSubmit(values);
               console.log(values);
@@ -65,7 +71,7 @@ export default function FormacaoPodologo({ navigation }: any) {
                     </Text>
                   )}
                 </View>
-                <View className='w-full'>
+                <View className='mb-2 w-full'>
                   <Input
                     onChangeText={handleChange('degree_year')}
                     onBlur={handleBlur('degree_year')}
@@ -79,19 +85,35 @@ export default function FormacaoPodologo({ navigation }: any) {
                     </Text>
                   )}
                 </View>
-                <View className='mb-4 w-full'>
-                  <Input
-                    onChangeText={handleChange('degree_type')}
-                    onBlur={handleBlur('degree_type')}
-                    value={values.degree_type}
-                    placeholder='Tipo de formação'
-                    keyboardType='default'
+                <View className='mb-4 w-[90%] text-gr'>
+                  <Dropdown
+                    style={{
+                      backgroundColor: '#c3c5c733',
+                      padding: 16,
+                      height: 56,
+                      borderRadius: 12,
+                    }}
+                    placeholderStyle={{
+                      color: "#4b5563dc",
+                      fontSize: 14,
+                    }}
+                    selectedTextStyle={{color: "#000000", fontSize: 14}}
+                    itemContainerStyle={{backgroundColor: "#c3c5c733"}}
+                    containerStyle={{borderRadius: 16}}
+                    data={tiposFormacao}
+                    maxHeight={300}
+                    labelField="label"
+                    valueField="value"
+                    placeholder={!dropdownIsFocus ? 'Tipo de formação' : '...'}
+                    searchPlaceholder="Search..."
+                    value={formacaoValue}
+                    onFocus={() => setDropdownIsFocus(true)}
+                    onBlur={() => setDropdownIsFocus(false)}
+                    onChange={item => {
+                      setFormacaoValue(item.value);
+                      setDropdownIsFocus(false);
+                    }}
                   />
-                  {touched.degree_type && errors.degree_type && (
-                    <Text className='ml-8 text-red-600'>
-                      {errors.degree_type}
-                    </Text>
-                  )}
                 </View>
                 <View className='w-full items-center'>
                   <Button
@@ -109,7 +131,7 @@ export default function FormacaoPodologo({ navigation }: any) {
           className='mb-10 self-center'
           placeholder='Continuar'
           onPress={handleSubmit}
-        ></Button>
+        />
       </View>
     </SafeAreaView>
   );

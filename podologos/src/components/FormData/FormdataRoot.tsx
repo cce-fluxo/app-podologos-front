@@ -8,6 +8,7 @@ interface FormDataProps {
   children: React.ReactNode | React.ReactNode[];
   className?: string;
   schema?: any;
+  innerRef?: any;
 }
 
 function FormDataRoot({
@@ -16,11 +17,13 @@ function FormDataRoot({
   onSubmit,
   initialValues = {},
   schema,
+  innerRef,
 }: FormDataProps) {
   const childrenArray = Array.isArray(children) ? children : [children];
   return (
     <View id='select' className='flex h-full w-full'>
       <Formik
+        innerRef={innerRef}
         enableReinitialize
         initialValues={initialValues}
         onSubmit={(data: any) => {

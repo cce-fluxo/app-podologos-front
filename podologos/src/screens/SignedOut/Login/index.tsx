@@ -14,18 +14,21 @@ function Login() {
   const navigation = useNavigation();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const { signed, signIn } = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     console.log('Estado signed mudou (Login):', signed);
   }, [signed]);
 
   async function handleSignIn(values: any) {
+    setIsLoading(true);
     const userCredentials = {
       email: values.email,
       password: values.password,
     };
     await signIn(userCredentials);
     console.log('Após chamada de signIn');
+    setIsLoading(false);
   }
 
   return (
@@ -59,9 +62,10 @@ function Login() {
                   value={values.email}
                   placeholder='Email*'
                   keyboardType='default'
+                  errors={touched.email && errors.email}
                 />
                 {touched.email && errors.email && (
-                  <Text className='ml-8 text-red-600'>{errors.email}</Text>
+                  <Text className='text-[#FF0033] text-center'>{errors.email}</Text>
                 )}
               </View>
               <View className='w-full'>
@@ -73,6 +77,7 @@ function Login() {
                   placeholder='Senha*'
                   secureTextEntry={!isPasswordVisible}
                   keyboardType='default'
+                  errors={touched.password && errors.password}
                   rightIcon={
                     <TouchableOpacity
                       onPress={() => setIsPasswordVisible(!isPasswordVisible)}
@@ -86,7 +91,7 @@ function Login() {
                   }
                 />
                 {touched.password && errors.password && (
-                  <Text className='ml-8 text-red-600'>{errors.password}</Text>
+                  <Text className='text-[#FF0033] text-center'>{errors.password}</Text>
                 )}
               </View>
               <View className='w-full items-center space-y-2'>
@@ -98,6 +103,8 @@ function Login() {
                   className='items-center'
                   placeholder='Entrar'
                   onPress={handleSubmit}
+                  loading={isLoading}
+                  disabled={isLoading}
                 />
               </View>
             </View>

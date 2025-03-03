@@ -1,43 +1,73 @@
-import React from 'react';
-import { Image, SafeAreaView, ScrollView, Text, View } from 'react-native';
-import { Entypo } from '@expo/vector-icons';
-import Header from '../../../../components/Header';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, Image, SafeAreaView, ScrollView, Text, View } from 'react-native';
 import { Button } from '../../../../components/Button';
-import FotoPe from '../../../../assets/FotoPe.png';
 import UserIcon from '../../../../assets/UserIcon.png';
-import InformacaoUsuario from '../../../../components/InformacaoUsuario';
+import api from '../../../../services/axios';
+import InformacaoUsuarioPodologo from '../../../../components/InformacaoUsuarioPodologo';
 
-export default function InfoConsultaRealizada() {
+export default function InfoConsultaRealizada({ route, navigation }: any) {
+  const [isLoading, setIsLoading] = useState(true);
+  const [dadosSolicitacao, setDadosSolicitacao] = useState({});
+  const [requestError, setRequestError] = useState();
+
+  const data = dadosSolicitacao.lastUpdate ? new Date(dadosSolicitacao.lastUpdate).toLocaleDateString("pt-BR"): "Data desconhecida";
+
+  const buscarDadosSolicitacao = async () => {
+    try {
+        const response = await api.get(`/appointment/consulta/${route.params.idSolicitacao}`);
+        setDadosSolicitacao(response.data);
+        console.log(response.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Erro ao buscar a consulta:', error);
+        setRequestError(error);
+        setIsLoading(false);
+      }
+};
+
+useEffect(() => {
+    buscarDadosSolicitacao();
+  }, []);
+
+if(isLoading) {
+    return (
+    <SafeAreaView className='flex h-full w-full bg-branco'>
+        <ActivityIndicator className='m-auto' size={80} color="#2087ED" /> 
+    </SafeAreaView>
+    );
+}
+
+if (requestError) {
+    return(
+        <SafeAreaView className='flex h-full w-full bg-branco'>
+            <Text className='m-auto text-[16px] text-azul'>Erro ao obter dados da solicitação.</Text>
+        </SafeAreaView>
+    );
+}
+
   return (
     <SafeAreaView className='flex h-full w-full bg-branco'>
-      <Header text='Informações'></Header>
       <ScrollView className='flex space-y-4 px-5'>
         <Text className='text-[18px] font-semibold text-texto_cinza'>
           Consultado por
         </Text>
-        <View className='flex flex-row space-x-2'>
-          <Image source={UserIcon}></Image>
-          <View className='flex justify-center space-y-1'>
-            <Text className='text-[18px] font-semibold text-texto_cinza'>
-              João de Oliveira
-            </Text>
-            <Text className='text-texto_cinza_claro'>(21) 12345-6789</Text>
-            <Text className='text-azul underline'>Ver mais</Text>
-          </View>
-        </View>
+        <InformacaoUsuarioPodologo 
+          nome={dadosSolicitacao.doctor_name} 
+          celular={dadosSolicitacao.doctor.phone_number}
+          navigation={navigation}
+          userId={dadosSolicitacao.doctor.user_id}
+          consultaConcluida
+        />
         <View className='w-[80%] self-center border-b-[1px] opacity-10'></View>
         <Text className='self-center text-[16px] text-azul'>
-          Concluida em 01/02/2024
+          Concluida em {data}
         </Text>
         <View className='w-[80%] self-center border-b-[1px] opacity-10'></View>
         <Text className='text-[18px] font-semibold text-texto_cinza'>
           Observações
         </Text>
         <Text className='text-texto_cinza_claro'>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis
-          officia expedita quisquam unde nihil placeat repellendus. Recusandae
-          fuga inventore blanditiis maxime explicabo excepturi corporis, natus
-          repellat, eveniet perspiciatis dicta similique?
+          {dadosSolicitacao.obs}
         </Text>
         <Text className='text-[18px] font-semibold text-texto_cinza'>
           Informações médicas

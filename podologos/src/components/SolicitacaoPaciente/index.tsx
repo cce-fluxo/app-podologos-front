@@ -2,9 +2,19 @@ import React from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 
-function SolicitacaoPaciente({ consulta }) {
+function SolicitacaoPaciente({ consulta, onPress = () => {} }) {
   return (
-    <TouchableOpacity className='mt-4 flex justify-center space-y-4 rounded-2xl bg-branco p-4 shadow-md'>
+    <TouchableOpacity 
+    className='mt-4 flex justify-center space-y-4 rounded-2xl bg-branco p-4 shadow-md'
+    style={{
+      shadowColor: 'black',
+      shadowOffset: { width: 0, height: 4 }, // Sombra apenas embaixo
+      shadowOpacity: 0.2, // Opacidade da sombra
+      shadowRadius: 3, // Difusão da sombra
+      elevation: 3, // Para suportar Android
+    }}
+    onPress={onPress}
+    >
       <View className='flex flex-row items-center justify-between'>
         <Text className='text-[16px]'>
           Você fez uma solicitação em:{'  '}
@@ -15,7 +25,12 @@ function SolicitacaoPaciente({ consulta }) {
 
       <View className='flex flex-row justify-between'>
         <View className='flex flex-row items-center space-x-1'>
-          <Feather name='clock' size={16} color='#2087ED' />
+          {consulta.status === "Aguardando"
+            ?
+            <Feather name='clock' size={16} color='#2087ED' />
+            :
+            <Feather name='check' size={16} color='#2087ED' />
+          }
           <Text className='text-[16px] text-azul'>{consulta.status}</Text>
         </View>
       </View>
