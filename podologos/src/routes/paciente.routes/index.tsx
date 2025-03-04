@@ -1,8 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack';
-import PerfilDoPaciente from '../../screens/Private/Podologo/PerfilDoPaciente';
-import DenunciaPaciente from '../../screens/Private/Podologo/DenunciaPaciente';
 import PacienteTabRoutes from './pacienteTab.routes';
 import PerfilDoPodologo from '../../screens/Private/Paciente/PerfilDoPodologo';
+import DenunciaPodologo from '../../screens/Private/Paciente/DenunciaPodologo';
 
 const Stack = createStackNavigator();
 
@@ -33,8 +32,8 @@ function PacientesRoutes() {
         }}
       ></Stack.Screen>
       <Stack.Screen
-        name='DenunciaPaciente'
-        component={DenunciaPaciente}
+        name='DenunciaPodologo'
+        component={DenunciaPodologo}
         options={{
           headerBackTitleVisible: false,
           headerTintColor: '#0A284D',
