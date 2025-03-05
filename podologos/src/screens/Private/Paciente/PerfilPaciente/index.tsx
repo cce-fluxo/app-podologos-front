@@ -115,7 +115,11 @@ function PerfilPaciente({ navigation }) {
         <View className='mt-7 flex w-full items-center space-y-4'>
           <Button
             placeholder='Editar perfil '
-            onPress={() => navigation.navigate('EditarPaciente')}
+            onPress={() => navigation.navigate('EditarPaciente',
+               {
+                profile_picture: dadosUsuario.profile_picture, 
+                avg: dadosUsuario.avg.rating }
+              )}
           ></Button>
           <Button
             className='border-[1px] border-azul bg-white'

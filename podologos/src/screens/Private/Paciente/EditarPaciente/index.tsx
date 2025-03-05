@@ -19,9 +19,14 @@ import api from '../../../../services/axios';
 import AuthContext from '../../../../context/AuthContext';
 import { EditPatientSchema } from '../../../../components/Schemas';
 import Svg, { Path, Rect } from 'react-native-svg';
+import ModalAdicionarFoto from '../../../../components/PopUps/ModalAdicionarFoto';
+import * as ImagePicker from "expo-image-picker";
 
-export default function EditarPaciente({ navigation }) {
+export default function EditarPaciente({ route, navigation }) {
+  const imageFormData = global.FormData;
   const { user, setUser } = useContext(AuthContext);
+  const [userPhoto, setUserPhoto] = useState(route.params.profile_picture ? route.params.profile_picture : null);
+  const [modalAdicionarFotoVisivel, setModalAdicionarFotoVisivel] = useState(false);
   const [userData, setUserData] = useState({
     first_name: user.first_name,
     last_name: user.last_name,
@@ -40,6 +45,80 @@ export default function EditarPaciente({ navigation }) {
     }
   }, [user]);
 
+  //função de upload pela câmera
+  const uploadCamera = async (modo) => {
+    try {
+      let result = {};
+      if (modo === "galeria") {
+        await ImagePicker.requestCameraPermissionsAsync();
+        result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.Images,
+          allowsEditing: true,
+          aspect: [1, 1],
+          quality: 1,
+        });
+      } else {
+        await ImagePicker.requestCameraPermissionsAsync();
+        result = await ImagePicker.launchCameraAsync({
+          cameraType: ImagePicker.CameraType.front,
+          allowsEditing: true,
+          aspect: [1, 1],
+          quality: 1,
+        });
+      }
+
+      if (!result.canceled) {
+        //salvamos a imagem aqui
+        await salvarImagemPerfil(result.assets[0].uri);
+      }
+
+      console.log("IMAGEM TIRADA COM SUCESSO E SALVA");
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+      setModalAdicionarFotoVisivel(false);
+    }
+  };
+
+  //função para remover a foto do perfil
+  const removerImagem = async () => {
+    try {
+      const response = await api.delete("upload");
+      console.log("foto removida com sucesso!");
+      salvarImagemPerfil(undefined);
+    } catch (error) {
+      console.log(error);
+      setModalAdicionarFotoVisivel(false);
+    }
+  };
+
+  //função para salvar imagem de perfil
+  const salvarImagemPerfil = async (imagem) => {
+    try {
+      setModalAdicionarFotoVisivel(false);
+
+      //mandando a imagem para o back
+      const formData = new imageFormData();
+      formData.append("file", {
+        name: "foto-perfil",
+        type: "image/jpeg",
+        uri: imagem,
+      });
+      const response = await api.post("/upload", formData, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+        transformRequest: (data: unknown) => data,
+      });
+      console.log(response.data);
+      // atualizar a imagem que será mostrada
+      setUserPhoto(imagem);
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  // Função para editar o perfil
   async function EditProfile(values: any) {
     try {
       const data = {
@@ -113,8 +192,10 @@ export default function EditarPaciente({ navigation }) {
     <SafeAreaView className='flex w-full flex-1 bg-branco'>
       <ScrollView>
         <View className='flex items-center justify-center pt-5'>
-          <ImageBackground className='w-24 h-24 flex justify-end items-end' source={PerfilImage}>
-            <TouchableOpacity className='bg-white rounded-full shadow-md shadow-black p-2'>
+          <ImageBackground className='w-24 h-24 flex justify-end items-end rounded-full'
+          imageStyle={{ borderRadius: 9999}}
+          source={userPhoto ? { uri: userPhoto } : PerfilImage}>
+            <TouchableOpacity onPress={() => setModalAdicionarFotoVisivel(true)} className='bg-white rounded-full shadow-md shadow-black p-2'>
               <Svg
                 width={20}
                 height={20}
@@ -133,7 +214,7 @@ export default function EditarPaciente({ navigation }) {
           
           <View className='mt-3 flex flex-row items-center justify-center rounded-md bg-zinc-100 p-1'>
             <Entypo name='star' size={20} color='black' />
-            <Text className='font-semibold'>4.75</Text>
+            <Text className='font-semibold'>{route.params.avg}</Text>
           </View>
         </View>
         <Button
@@ -166,6 +247,15 @@ export default function EditarPaciente({ navigation }) {
           ></Button>
         </FormData.Root>
       </ScrollView>
+
+      <ModalAdicionarFoto 
+      mensagem='Adicionar foto de perfil'
+      modalVisible={modalAdicionarFotoVisivel}
+      onFecharModalClick={() => setModalAdicionarFotoVisivel(false)}
+      fotoApagavel
+      onCameraClick={() => uploadCamera("camera")}
+      onGaleriaClick={() => uploadCamera("galeria")}
+      />
     </SafeAreaView>
   );
 }
