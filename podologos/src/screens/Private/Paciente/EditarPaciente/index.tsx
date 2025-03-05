@@ -5,6 +5,8 @@ import {
   View,
   Image,
   Alert,
+  TouchableOpacity,
+  ImageBackground,
 } from 'react-native';
 import { Button } from '../../../../components/Button';
 import { Entypo } from '@expo/vector-icons';
@@ -16,6 +18,7 @@ import { Toast } from 'toastify-react-native';
 import api from '../../../../services/axios';
 import AuthContext from '../../../../context/AuthContext';
 import { EditPatientSchema } from '../../../../components/Schemas';
+import Svg, { Path, Rect } from 'react-native-svg';
 
 export default function EditarPaciente({ navigation }) {
   const { user, setUser } = useContext(AuthContext);
@@ -110,7 +113,24 @@ export default function EditarPaciente({ navigation }) {
     <SafeAreaView className='flex w-full flex-1 bg-branco'>
       <ScrollView>
         <View className='flex items-center justify-center pt-5'>
-          <Image className='' source={PerfilImage}></Image>
+          <ImageBackground className='w-24 h-24 flex justify-end items-end' source={PerfilImage}>
+            <TouchableOpacity className='bg-white rounded-full shadow-md shadow-black p-2'>
+              <Svg
+                width={20}
+                height={20}
+                viewBox="0 0 20 20"
+                fill="none"
+              >
+                <Rect width={20} height={20} rx={10} fill="#fff" />
+                <Path
+                  d="M2.499 17.501h3.125l9.217-9.217-3.125-3.125-9.217 9.217v3.125zm1.667-2.433l7.55-7.55.766.766-7.55 7.55h-.766v-.766zM15.307 2.743a.83.83 0 00-1.175 0l-1.525 1.525 3.125 3.125 1.525-1.525a.83.83 0 000-1.175l-1.95-1.95z"
+                  fill="#000"
+                />
+              </Svg>
+            </TouchableOpacity>
+          </ImageBackground>
+          
+          
           <View className='mt-3 flex flex-row items-center justify-center rounded-md bg-zinc-100 p-1'>
             <Entypo name='star' size={20} color='black' />
             <Text className='font-semibold'>4.75</Text>

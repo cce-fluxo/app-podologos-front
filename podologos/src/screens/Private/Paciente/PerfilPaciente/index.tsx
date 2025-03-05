@@ -99,7 +99,7 @@ function PerfilPaciente({ navigation }) {
     <SafeAreaView className='flex w-full bg-branco'>
       <ScrollView className=''>
         <View className='flex items-center justify-center pt-5'>
-          <Image className='' source={PerfilImage}></Image>
+          <Image className='h-24 w-24 rounded-full' source={dadosUsuario.profile_picture ? { uri: dadosUsuario.profile_picture } : PerfilImage} />
           <View className='mt-3 flex flex-row items-center justify-center space-x-2 rounded-md bg-zinc-100 p-1'>
             <Entypo name='star' size={20} color='black' />
             <Text className='font-semibold'>{dadosUsuario.avg.rating}</Text>
