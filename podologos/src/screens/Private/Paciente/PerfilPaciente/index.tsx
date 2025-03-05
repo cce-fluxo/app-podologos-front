@@ -56,8 +56,16 @@ function PerfilPaciente({ navigation }) {
   };
 
   useEffect(() => {
-      buscarDadosUsuario();
-    }, []);
+      const atualizarDados = navigation.addListener('focus', () => {
+        console.log("buscando dados do usuário");
+        buscarDadosUsuario();
+        // The screen is focused
+        // Call any action
+      });
+  
+      // Return the function to unsubscribe from the event so it gets removed on unmount
+      return atualizarDados;
+    }, [navigation]);
 
   if(isLoading) {
       return (
