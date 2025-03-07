@@ -47,8 +47,16 @@ function PerfilPodologo({navigation}) {
   };
 
   useEffect(() => {
-      buscarDadosUsuario();
-    }, []);
+        const atualizarDados = navigation.addListener('focus', () => {
+          console.log("buscando dados do usuário");
+          buscarDadosUsuario();
+          // The screen is focused
+          // Call any action
+        });
+    
+        // Return the function to unsubscribe from the event so it gets removed on unmount
+        return atualizarDados;
+      }, [navigation]);
 
   if(isLoading) {
       return (
@@ -90,7 +98,7 @@ function PerfilPodologo({navigation}) {
     <SafeAreaView className='flex w-full bg-white'>
       <ScrollView>
         <View className='flex items-center justify-center pt-4'>
-          <Image className='' source={PerfilImage}></Image>
+          <Image className='h-24 w-24 rounded-full' source={dadosUsuario.profile_picture ? { uri: dadosUsuario.profile_picture } : PerfilImage} />
           <View className='mt-3 flex flex-row items-center justify-center space-x-1 rounded-md bg-zinc-100 p-1'>
             <Entypo name='star' size={20} color='black' />
             <Text className='font-semibold'>{dadosUsuario.avg.rating}</Text>

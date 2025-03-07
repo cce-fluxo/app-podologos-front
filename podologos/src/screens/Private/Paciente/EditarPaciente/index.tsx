@@ -7,6 +7,7 @@ import {
   Alert,
   TouchableOpacity,
   ImageBackground,
+  ActivityIndicator,
 } from 'react-native';
 import { Button } from '../../../../components/Button';
 import { Entypo } from '@expo/vector-icons';
@@ -17,7 +18,6 @@ import { useContext, useEffect, useState } from 'react';
 import { Toast } from 'toastify-react-native';
 import api from '../../../../services/axios';
 import AuthContext from '../../../../context/AuthContext';
-import { EditPatientSchema } from '../../../../components/Schemas';
 import Svg, { Path, Rect } from 'react-native-svg';
 import ModalAdicionarFoto from '../../../../components/PopUps/ModalAdicionarFoto';
 import * as ImagePicker from "expo-image-picker";
@@ -33,6 +33,7 @@ export default function EditarPaciente({ route, navigation }) {
     phone_number: user.phone_number,
     cep: user.cep,
   });
+  const [loadingFoto, setLoadingFoto] = useState(true);
 
   useEffect(() => {
     if (user) {
@@ -67,11 +68,13 @@ export default function EditarPaciente({ route, navigation }) {
         });
       }
 
+      setLoadingFoto(true);
       if (!result.canceled) {
         //salvamos a imagem aqui
         await salvarImagemPerfil(result.assets[0].uri);
       }
 
+      setLoadingFoto(false);
       console.log("IMAGEM TIRADA COM SUCESSO E SALVA");
       console.log(result);
     } catch (error) {
@@ -192,6 +195,10 @@ export default function EditarPaciente({ route, navigation }) {
     <SafeAreaView className='flex w-full flex-1 bg-branco'>
       <ScrollView>
         <View className='flex items-center justify-center pt-5'>
+          {loadingFoto 
+          ?
+            <ActivityIndicator className='m-auto' size={96} color="#2087ED" /> 
+          :
           <ImageBackground className='w-24 h-24 flex justify-end items-end rounded-full'
           imageStyle={{ borderRadius: 9999}}
           source={userPhoto ? { uri: userPhoto } : PerfilImage}>
@@ -209,7 +216,7 @@ export default function EditarPaciente({ route, navigation }) {
                 />
               </Svg>
             </TouchableOpacity>
-          </ImageBackground>
+          </ImageBackground>}
           
           
           <View className='mt-3 flex flex-row items-center justify-center rounded-md bg-zinc-100 p-1'>
