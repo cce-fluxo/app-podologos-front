@@ -6,10 +6,16 @@ import Input from '../../../../components/Inputs';
 import { useRef, useState } from 'react';
 import api from '../../../../services/axios';
 import { Formik } from 'formik';
+import ButtonEnviarFoto from '../../../../components/ButtonEnviarFoto';
+import * as ImagePicker from "expo-image-picker";
+import ModalAdicionarFoto from '../../../../components/PopUps/ModalAdicionarFoto';
 
 export default function NovaConsulta({ navigation }) {
+  const imageFormData = global.FormData;
   let formikRef = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [userPhoto, setUserPhoto] = useState();
+  const [modalAdicionarFotoVisivel, setModalAdicionarFotoVisivel] = useState(false);
   
   const handleSubmit = () => {
     if (formikRef.current) {
@@ -43,17 +49,58 @@ export default function NovaConsulta({ navigation }) {
     setIsLoading(false);
   }
 
+  //função de upload pela câmera
+  const uploadCamera = async (modo) => {
+    try {
+      let result = {};
+      if (modo === "galeria") {
+        await ImagePicker.requestCameraPermissionsAsync();
+        result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.Images,
+          allowsEditing: true,
+          aspect: [1, 1],
+          quality: 1,
+        });
+      } else {
+        await ImagePicker.requestCameraPermissionsAsync();
+        result = await ImagePicker.launchCameraAsync({
+          cameraType: ImagePicker.CameraType.front,
+          allowsEditing: true,
+          aspect: [1, 1],
+          quality: 1,
+        });
+      }
+
+      if (!result.canceled) {
+        //salvamos a imagem aqui
+        setUserPhoto(result.assets[0].uri);
+      }
+      setModalAdicionarFotoVisivel(false);
+
+      console.log("IMAGEM TIRADA COM SUCESSO E SALVA");
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+      setModalAdicionarFotoVisivel(false);
+    }
+  };
+
+  //função para remover a foto do perfil
+  const removerImagem = async () => {
+    try {
+      setUserPhoto(undefined);
+    } catch (error) {
+      console.log(error);
+      setModalAdicionarFotoVisivel(false);
+    }
+  };
+
   return (
     <SafeAreaView className='flex h-full w-full bg-branco'>
       <View className='flex h-full justify-between px-5'>
         <View className='flex space-y-4'>
-          <Button
-            className='mt-8 w-full self-center border-[1px] border-azul bg-branco'
-            text='text-azul'
-            placeholder='Adicionar foto do pé'
-          >
-            <MaterialIcons name='add' size={20} color='#2087ED' />
-          </Button>
+          <ButtonEnviarFoto texto='Adicionar foto do pé' foto={userPhoto} onPressComFoto={removerImagem} onPress={() => setModalAdicionarFotoVisivel(true)} />
+
           <Text className='text-[23px] font-semibold text-[#46555A]'>
             Observações
           </Text>
@@ -103,6 +150,16 @@ export default function NovaConsulta({ navigation }) {
 
         <Button className='mb-8 w-full' placeholder='Enviar' onPress={handleSubmit} loading={isLoading} disabled={isLoading} />
       </View>
+
+      <ModalAdicionarFoto 
+      mensagem='Adicionar foto de perfil'
+      modalVisible={modalAdicionarFotoVisivel}
+      onFecharModalClick={() => setModalAdicionarFotoVisivel(false)}
+      fotoApagavel={false}
+      onCameraClick={() => uploadCamera("camera")}
+      onGaleriaClick={() => uploadCamera("galeria")}
+      onRemoverFotoClick={() => removerImagem()}
+      />
     </SafeAreaView>
   );
 }

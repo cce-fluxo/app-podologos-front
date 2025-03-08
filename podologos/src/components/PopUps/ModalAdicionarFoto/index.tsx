@@ -26,7 +26,7 @@ function ModalAdicionarFoto({
   return (
     <Modal transparent={true} visible={modalVisible}>
       <TouchableOpacity onPress={onFecharModalClick} className='fixed inset-0 z-50 flex h-screen w-screen items-center justify-end bg-black-transparent'>
-        <TouchableOpacity className='w-[85vw] items-center justify-center rounded-t-2xl bg-white p-4 shadow-md shadow-black'>
+        <TouchableOpacity className='w-full items-center justify-center rounded-t-2xl bg-white p-4 shadow-md shadow-black'>
           <Text className='mb-2 p-2 text-center text-base font-bold text-zinc-500'>
             {mensagem}
           </Text>
