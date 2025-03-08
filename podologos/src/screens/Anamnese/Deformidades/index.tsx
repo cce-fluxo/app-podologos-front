@@ -4,26 +4,45 @@ import { FormData } from '../../../components/FormData/Index';
 import Input from '../../../components/Inputs';
 import { Button } from '../../../components/Button';
 import Checkbox from 'expo-checkbox';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import { Formik } from 'formik';
+import InputCheckbox from '../../../components/InputCheckbox';
+import { Dropdown } from 'react-native-element-dropdown';
 
-export default function Deformidades() {
-  const [isChecked, setIsChecked] = useState(Array(14).fill(false));
+export default function Deformidades({ route, navigation }) {
+  let formikRef = useRef(null);
 
-  const titulos = [
-    'Dedos em Garra',
-    'Joanete',
-    'Dedos em Martelo',
-    'Amputações',
-    'Edema (inchaço nas pernas)',
-  ];
-
-  const handleCheckboxChange = (index: number) => {
-    setIsChecked((prevState) => {
-      const newCheckedState = [...prevState];
-      newCheckedState[index] = !newCheckedState[index];
-      return newCheckedState;
-    });
+  const handleSubmit = () => {
+    if (formikRef.current) {
+      // propriedade submitForm fornecida pelo Formik para disparar a submissão do formulário quando o botão for pressionado
+      formikRef.current.submitForm();
+    }
   };
+
+  function handleFormSubmit(values) {
+    const infoDeformidades = values;
+    navigation.navigate('Limitacoes', { 
+      infoDadosPessoais: route.params.infoDadosPessoais, 
+      infoAvaliacao: route.params.infoAvaliacao, 
+      infoMotivoVisita: route.params.infoMotivoVisita,
+      infoDeformidades });
+  }
+
+  const initialValues = {
+    claw_toes: false,
+    bunion: false,
+    hammer_toes: false,
+    amputation: false,
+    edema: false,
+  };
+
+  const checkboxes = [
+    { nome: "Dedos em Garra", valueName: "claw_toes" },
+    { nome: "Joanete", valueName: "bunion" },
+    { nome: "Dedos em Martelo", valueName: "hammer_toes" },
+    { nome: "Amputações", valueName: "amputation" },
+    { nome: "Edema (inchaço nas pernas)", valueName: "edema" }
+];
 
   return (
     <SafeAreaView className='flex h-full w-full flex-col items-center bg-branco'>
@@ -32,23 +51,41 @@ export default function Deformidades() {
           <Text className='mb-2 w-[90%] text-[20px] font-semibold text-titulo_anamnese'>
             Deformidades
           </Text>
-          {Array.from({ length: titulos.length }).map((_, i) => (
-            <View
-              key={i}
-              className='mb-2 flex w-[90%] flex-row justify-between p-4'
+
+          <View className='w-full'>
+            <Formik
+              innerRef={formikRef}
+              // validationSchema={LoginSchema}
+              initialValues={initialValues}
+              onSubmit={(values) => {
+                handleFormSubmit(values);
+                console.log(values);
+              }}
             >
-              <Text className='text-[18px] text-titulo_anamnese'>
-                {titulos[i]}
-              </Text>
-              <Checkbox
-                className='ml-4'
-                value={isChecked[i]}
-                onValueChange={() => handleCheckboxChange(i)}
-                color={isChecked ? '#0A284D' : undefined}
-              />
-            </View>
-          ))}
-          <Button className='self-center' placeholder='Continuar'></Button>
+              {({
+                handleChange,
+                handleBlur,
+                handleSubmit,
+                values,
+                errors,
+                touched,
+                setFieldValue
+              }) => (
+                <View className='mt-3 flex w-full items-center justify-center space-y-2'>
+                  {checkboxes.map((item, index) => 
+                    <InputCheckbox
+                      key={index}
+                      texto={item.nome} 
+                      value={values[item.valueName]} 
+                      onValueChange={(value) => setFieldValue(item.valueName, value)} 
+                    />
+                  )}
+                </View>
+              )}
+            </Formik>
+          </View>
+
+          <Button className='self-center mb-4' placeholder='Continuar' onPress={handleSubmit} />
         </View>
       </ScrollView>
     </SafeAreaView>

@@ -9,12 +9,8 @@ import { Formik } from 'formik';
 import InputCheckbox from '../../../components/InputCheckbox';
 import { Dropdown } from 'react-native-element-dropdown';
 
-export default function Avaliacao() {
+export default function Avaliacao({ route, navigation }) {
   let formikRef = useRef(null);
-  const [isChecked, setIsChecked] = useState(Array(14).fill(false));
-  const [atividadeFisica, setAtividadeFisica] = useState(false);
-  
-  const [tipoCalcadoValue, setTipoCalcadoValue] = useState();
   const [dropdownIsFocus, setDropdownIsFocus] = useState(false);
 
   const handleSubmit = () => {
@@ -25,16 +21,9 @@ export default function Avaliacao() {
   };
 
   function handleFormSubmit(values) {
-
+    const infoAvaliacao = values;
+    navigation.navigate('MotivoVisita', { infoDadosPessoais: route.params.infoDadosPessoais, infoAvaliacao });
   }
-
-  const handleCheckboxChange = (index: number) => {
-    setIsChecked((prevState) => {
-      const newCheckedState = [...prevState];
-      newCheckedState[index] = !newCheckedState[index];
-      return newCheckedState;
-    });
-  };
 
   const valoresDropdown = [
     { label: 'Aberto', value: 'Aberto' },
@@ -61,27 +50,6 @@ export default function Avaliacao() {
           <Text className='mb-2 w-[90%] text-[20px] font-semibold text-titulo_anamnese'>
             Avaliação
           </Text>
-          {/* {Array.from({ length: titulos.length }).map((_, i) => (
-            <View key={i}>
-              {titulos[i] === 'Qual?' ||
-              titulos[i] === 'Tipo de calçado mais usado' ||
-              titulos[i] === 'Grau de parentesco?' ? (
-                <Input placeholder={titulos[i]} />
-              ) : (
-                <View className='mb-2 flex w-[90%] flex-row justify-between p-4'>
-                  <Text className='text-[18px] text-titulo_anamnese'>
-                    {titulos[i]}
-                  </Text>
-                  <Checkbox
-                    className='ml-4'
-                    value={isChecked[i]}
-                    onValueChange={() => handleCheckboxChange(i)}
-                    color={isChecked ? '#0A284D' : undefined}
-                  />
-                </View>
-              )}
-            </View>
-          ))} */}
 
           <View className='w-full'>
             <Formik
@@ -217,7 +185,7 @@ export default function Avaliacao() {
             </Formik>
           </View>
 
-          <Button className='self-center mb-4' placeholder='Continuar' />
+          <Button className='self-center mb-4' placeholder='Continuar' onPress={handleSubmit} />
         </View>
       </ScrollView>
     </SafeAreaView>

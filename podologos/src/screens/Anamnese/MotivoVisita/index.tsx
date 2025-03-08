@@ -4,36 +4,59 @@ import { FormData } from '../../../components/FormData/Index';
 import Input from '../../../components/Inputs';
 import { Button } from '../../../components/Button';
 import Checkbox from 'expo-checkbox';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import { Formik } from 'formik';
+import InputCheckbox from '../../../components/InputCheckbox';
+import { Dropdown } from 'react-native-element-dropdown';
 
-export default function DadosPessoais() {
-  const [isChecked, setIsChecked] = useState(Array(14).fill(false));
+export default function MotivoVisita({ route, navigation }) {
+  let formikRef = useRef(null);
 
-  const titulos = [
-    'Unha encravada',
-    'Micose na unha',
-    'Micose Plantar (pés)',
-    'Unha descolada',
-    'Manchas nas unhas',
-    'Bromidrose (chulé)',
-    'Sudorese',
-    'Psoríase',
-    'Onicocriptose (unha encravada)',
-    'Onicomicose (fungo na unha)',
-    'Onicogrifose (unha grossa)',
-    'Onicofose (unha fina)',
-    'Onicorrexe (unha quebradiça)',
-    'Onicose (unha fraca)',
-    'Onicólise (descolamento da unha)',
-  ];
-
-  const handleCheckboxChange = (index: number) => {
-    setIsChecked((prevState) => {
-      const newCheckedState = [...prevState];
-      newCheckedState[index] = !newCheckedState[index];
-      return newCheckedState;
-    });
+  const handleSubmit = () => {
+    if (formikRef.current) {
+      // propriedade submitForm fornecida pelo Formik para disparar a submissão do formulário quando o botão for pressionado
+      formikRef.current.submitForm();
+    }
   };
+
+  function handleFormSubmit(values) {
+    const infoMotivoVisita = values;
+    navigation.navigate('Deformidades', { infoDadosPessoais: route.params.infoDadosPessoais, infoAvaliacao: route.params.infoAvaliacao, infoMotivoVisita });
+  }
+
+  const initialValues = {
+    ingrown_nail: false,
+    nail_mycosis: false,
+    plantar_mycosis: false,
+    detached_nail: false,
+    nail_stains: false,
+    bromhidrosis: false,
+    sudoresis: false,
+    psoariasis: false,
+    dry_feet: false,
+    cracky_feet: false,
+    wart: false,
+    callosity: false,
+    callus: false,
+    chillblains: false,
+  };
+
+  const checkboxes = [
+    { nome: "Unha encravada", valueName: "ingrown_nail" },
+    { nome: "Micose na unha", valueName: "nail_mycosis" },
+    { nome: "Micose plantar (pés)", valueName: "plantar_mycosis" },
+    { nome: "Unha descolada", valueName: "detached_nail" },
+    { nome: "Manchas na unha", valueName: "nail_stains" },
+    { nome: "Bromidrose (chulé)", valueName: "bromhidrosis" },
+    { nome: "Sudorese", valueName: "sudoresis" },
+    { nome: "Psoríase", valueName: "psoariasis" },
+    { nome: "Ressecamento", valueName: "dry_feet" },
+    { nome: "Rachadura", valueName: "cracky_feet" },
+    { nome: "Verruga", valueName: "wart" },
+    { nome: "Calosidade", valueName: "callosity" },
+    { nome: "Calo", valueName: "callus" },
+    { nome: "Frieiras", valueName: "chillblains" }
+];
 
   return (
     <SafeAreaView className='flex h-full w-full flex-col items-center bg-branco'>
@@ -42,23 +65,41 @@ export default function DadosPessoais() {
           <Text className='mb-2 w-[90%] text-[20px] font-semibold text-titulo_anamnese'>
             Motivo da visita
           </Text>
-          {Array.from({ length: titulos.length }).map((_, i) => (
-            <View
-              key={i}
-              className='mb-2 flex w-[90%] flex-row justify-between p-4'
+
+          <View className='w-full'>
+            <Formik
+              innerRef={formikRef}
+              // validationSchema={LoginSchema}
+              initialValues={initialValues}
+              onSubmit={(values) => {
+                handleFormSubmit(values);
+                console.log(values);
+              }}
             >
-              <Text className='text-[18px] text-titulo_anamnese'>
-                {titulos[i]}
-              </Text>
-              <Checkbox
-                className='ml-4'
-                value={isChecked[i]}
-                onValueChange={() => handleCheckboxChange(i)}
-                color={isChecked ? '#0A284D' : undefined}
-              />
-            </View>
-          ))}
-          <Button className='self-center' placeholder='Continuar'></Button>
+              {({
+                handleChange,
+                handleBlur,
+                handleSubmit,
+                values,
+                errors,
+                touched,
+                setFieldValue
+              }) => (
+                <View className='mt-3 flex w-full items-center justify-center space-y-2'>
+                  {checkboxes.map((item, index) => 
+                    <InputCheckbox
+                      key={index}
+                      texto={item.nome} 
+                      value={values[item.valueName]} 
+                      onValueChange={(value) => setFieldValue(item.valueName, value)} 
+                    />
+                  )}
+                </View>
+              )}
+            </Formik>
+          </View>
+
+          <Button className='self-center mb-4' placeholder='Continuar' onPress={handleSubmit} />
         </View>
       </ScrollView>
     </SafeAreaView>
