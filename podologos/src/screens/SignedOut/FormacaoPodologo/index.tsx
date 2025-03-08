@@ -66,7 +66,7 @@ export default function FormacaoPodologo({ route, navigation }: any) {
                     keyboardType='default'
                   />
                   {touched.institution && errors.institution && (
-                    <Text className='ml-8 text-red-600'>
+                    <Text className='ml-8 text-[#FF0033]'>
                       {errors.institution}
                     </Text>
                   )}
@@ -80,7 +80,7 @@ export default function FormacaoPodologo({ route, navigation }: any) {
                     keyboardType='default'
                   />
                   {touched.degree_year && errors.degree_year && (
-                    <Text className='ml-8 text-red-600'>
+                    <Text className='ml-8 text-[#FF0033]'>
                       {errors.degree_year}
                     </Text>
                   )}

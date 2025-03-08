@@ -2,6 +2,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import PacienteTabRoutes from './pacienteTab.routes';
 import PerfilDoPodologo from '../../screens/Private/Paciente/PerfilDoPodologo';
 import DenunciaPodologo from '../../screens/Private/Paciente/DenunciaPodologo';
+import AnamneseRoutes from './anamnese.routes';
 
 const Stack = createStackNavigator();
 
@@ -12,7 +13,7 @@ function PacientesRoutes() {
         name='TabRoutes'
         component={PacienteTabRoutes}
         options={{ headerShown: false }}
-      ></Stack.Screen>
+      />
       <Stack.Screen
         name='PerfilDoPodologo'
         component={PerfilDoPodologo}
@@ -30,7 +31,7 @@ function PacientesRoutes() {
             fontWeight: 'medium',
           },
         }}
-      ></Stack.Screen>
+      />
       <Stack.Screen
         name='DenunciaPodologo'
         component={DenunciaPodologo}
@@ -48,7 +49,25 @@ function PacientesRoutes() {
             fontWeight: 'medium',
           },
         }}
-      ></Stack.Screen>
+      />
+      <Stack.Screen
+        name='Anamnese'
+        component={AnamneseRoutes}
+        options={{
+          headerBackTitleVisible: false,
+          headerTintColor: '#0A284D',
+          title: 'Ficha de anamnese',
+          headerTitleAlign: 'center',
+          headerStyle: {
+            backgroundColor: '#FBFBFB',
+            height: 110,
+          },
+          headerTitleStyle: {
+            fontSize: 23,
+            fontWeight: 'medium',
+          },
+        }}
+      />
     </Stack.Navigator>
   );
 }

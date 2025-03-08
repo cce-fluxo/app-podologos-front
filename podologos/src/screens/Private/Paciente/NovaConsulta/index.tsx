@@ -4,7 +4,7 @@ import { Button } from '../../../../components/Button';
 import { MaterialIcons } from '@expo/vector-icons';
 import Input from '../../../../components/Inputs';
 
-export default function NovaConsulta() {
+export default function NovaConsulta({ navigation }) {
   return (
     <SafeAreaView className='flex h-full w-full bg-branco'>
       <View className='flex h-full justify-between px-5'>
@@ -27,7 +27,8 @@ export default function NovaConsulta() {
             className='w-full self-center border-[1px] border-azul bg-branco'
             text='text-azul'
             placeholder='Editar ficha de anamnese'
-          ></Button>
+            onPress={() => navigation.navigate('Anamnese')}
+          />
         </View>
 
         <Button className='mb-8 w-full' placeholder='Enviar'></Button>
