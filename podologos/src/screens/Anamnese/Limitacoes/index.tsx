@@ -53,7 +53,7 @@ export default function Limitacoes({ route, navigation }) {
       console.log(response);
       setModalAnamnesePreenchidaVisivel(true);
     } catch (error) {
-      console.error('Erro ao realizar review:', error);
+      console.error('Erro ao atualizar anamnese:', error);
     }
 
     setIsLoading(false);

@@ -1,10 +1,31 @@
-import { SafeAreaView, Text, View } from 'react-native';
+import { Alert, SafeAreaView, Text, View } from 'react-native';
 import Header from '../../../../components/Header';
 import { Button } from '../../../../components/Button';
 import { MaterialIcons } from '@expo/vector-icons';
 import Input from '../../../../components/Inputs';
+import { useState } from 'react';
+import api from '../../../../services/axios';
 
 export default function NovaConsulta({ navigation }) {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const solicitarNovaConsulta = async () => {
+    setIsLoading(true);
+    try {
+      const response = await api.post(`/appointment/registrar-consulta`, { picture: "1", obs: "observacao" });
+      console.log(response.data);
+      console.log(response);
+    } catch (error) {
+      console.error('Erro ao realizar solicitar consulta:', error);
+      console.log(error.response.data.message)
+      Alert.alert(
+        'Erro',
+        error.response.data.message
+      );
+    }
+    setIsLoading(false);
+  }
+
   return (
     <SafeAreaView className='flex h-full w-full bg-branco'>
       <View className='flex h-full justify-between px-5'>
@@ -19,7 +40,7 @@ export default function NovaConsulta({ navigation }) {
           <Text className='text-[23px] font-semibold text-[#46555A]'>
             Observações
           </Text>
-          <Input className='w-full' placeholder='Observação para a consulta.'></Input>
+          <Input className='w-full' placeholder='Observação para a consulta.' />
           <Text className='text-[23px] font-semibold text-[#46555A]'>
             Formulário médico
           </Text>
@@ -31,7 +52,7 @@ export default function NovaConsulta({ navigation }) {
           />
         </View>
 
-        <Button className='mb-8 w-full' placeholder='Enviar'></Button>
+        <Button className='mb-8 w-full' placeholder='Enviar' onPress={() => solicitarNovaConsulta()} loading={isLoading} disabled={isLoading} />
       </View>
     </SafeAreaView>
   );
