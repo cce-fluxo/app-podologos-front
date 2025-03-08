@@ -33,7 +33,7 @@ export default function EditarPaciente({ route, navigation }) {
     phone_number: user.phone_number,
     cep: user.cep,
   });
-  const [loadingFoto, setLoadingFoto] = useState(true);
+  const [loadingFoto, setLoadingFoto] = useState(false);
 
   useEffect(() => {
     if (user) {
