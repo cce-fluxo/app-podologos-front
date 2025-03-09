@@ -10,7 +10,7 @@ export default function InfoConsultaRealizada({ route, navigation }: any) {
   const [dadosSolicitacao, setDadosSolicitacao] = useState({});
   const [requestError, setRequestError] = useState();
 
-  const data = dadosSolicitacao.lastUpdate ? new Date(dadosSolicitacao.lastUpdate).toLocaleDateString("pt-BR"): "Data desconhecida";
+  const data = dadosSolicitacao.date_finished ? new Date(dadosSolicitacao.date_finished).toLocaleDateString("pt-BR"): "Data desconhecida";
 
   const buscarDadosSolicitacao = async () => {
     try {
@@ -56,6 +56,7 @@ if (requestError) {
           celular={dadosSolicitacao.doctor.phone_number}
           navigation={navigation}
           userId={dadosSolicitacao.doctor.user_id}
+          image={dadosSolicitacao.doctor.profile_picture}
           consultaConcluida
         />
         <View className='w-[80%] self-center border-b-[1px] opacity-10'></View>

@@ -1,7 +1,7 @@
 import { SafeAreaView, ScrollView, Text, View } from 'react-native';
 import Header from '../../../components/Header';
 import { FormData } from '../../../components/FormData/Index';
-import Input from '../../../components/Inputs';
+import Input from '../../../components/FormData/InputForm';
 import { Button } from '../../../components/Button';
 import { Dropdown } from 'react-native-element-dropdown';
 import { useRef, useState } from 'react';
@@ -21,8 +21,10 @@ export default function DadosPessoais({ navigation }) {
 
   const onSubmit = (data: any) => {
     console.log(data);
+    const dataSeparada = data.birth_date.split('/')
+    const dataFormatada = (new Date(dataSeparada[2], dataSeparada[1], dataSeparada[0])).toISOString();
     const infoDadosPessoais = {
-      birth_date: data.birth_date,
+      birth_date: dataFormatada,
       profession: data.profession,
       sex: sexoValue,
     };
@@ -115,7 +117,9 @@ export default function DadosPessoais({ navigation }) {
         </Text>
 
         <View className='w-full'>
-          <FormData.Root initialValues={initialValues} onSubmit={onSubmit} innerRef={formikRef}>
+          <FormData.Root initialValues={initialValues} onSubmit={(values) => {
+            onSubmit(values);
+          }} innerRef={formikRef}>
             <FormData.Form retornavel={false} columns={column} id='formQuestion'>
 
               <View className='w-full my-4 text-gr'>

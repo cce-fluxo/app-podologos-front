@@ -50,7 +50,6 @@ export default function Limitacoes({ route, navigation }) {
     try {
       const response = await api.patch(`/patient/atualizar-anamnese`, dadosAnamnese);
       console.log(response.data);
-      console.log(response);
       setModalAnamnesePreenchidaVisivel(true);
     } catch (error) {
       console.error('Erro ao atualizar anamnese:', error);

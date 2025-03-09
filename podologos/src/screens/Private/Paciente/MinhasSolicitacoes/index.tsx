@@ -33,20 +33,28 @@ export default function MinhasSolicitacoes({ navigation }: any) {
   }
 
   async function fetchConsultas() {
-      try {
+    setLoading(true);
+    try {
         const response = await api.get('/appointment/consultas-usuario');
         setConsultas(response.data);
         console.log(response.data);
-        setLoading(false);
       } catch (error) {
         console.error('Erro ao buscar consultas:', error);
-        setLoading(false);
       }
+      setLoading(false);
     }
 
   useEffect(() => {
-    fetchConsultas();
-  }, []);
+        const atualizarDados = navigation.addListener('focus', () => {
+          console.log("buscando solicitações");
+          fetchConsultas();
+          // The screen is focused
+          // Call any action
+        });
+    
+        // Return the function to unsubscribe from the event so it gets removed on unmount
+        return atualizarDados;
+      }, [navigation]);
 
   return (
     <SafeAreaView className='flex w-screen flex-1 items-center space-y-8 bg-branco'>

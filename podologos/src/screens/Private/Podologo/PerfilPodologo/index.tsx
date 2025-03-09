@@ -38,6 +38,7 @@ function PerfilPodologo({navigation}) {
       try {
           const response = await api.get(`/user/`);
           setDadosUsuario(response.data);
+          setRequestError(null);
           console.log(response.data);
         } catch (error) {
           console.error('Erro ao buscar o Usuario:', error);

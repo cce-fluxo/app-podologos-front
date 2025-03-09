@@ -129,7 +129,7 @@ export default function PerfilDoPodologo({route, navigation}) {
     <SafeAreaView className='flex w-full bg-branco'>
       <ScrollView className='flex space-y-5 px-5'>
         <View className='flex items-center justify-center pt-5'>
-          <Image className='' source={PerfilImage} />
+          <Image className='h-24 w-24 rounded-full' source={dadosPodologo.profile_picture ? { uri: dadosPodologo.profile_picture } : PerfilImage} />
           <View className='mt-3 flex flex-row items-center justify-center space-x-2 rounded-md bg-zinc-100 p-1'>
             <Entypo name='star' size={20} color='black' />
             <Text className='font-semibold'>{dadosPodologo.avg.rating}</Text>
