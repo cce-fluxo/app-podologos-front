@@ -9,13 +9,15 @@ import { Formik } from 'formik';
 import ButtonEnviarFoto from '../../../../components/ButtonEnviarFoto';
 import * as ImagePicker from "expo-image-picker";
 import ModalAdicionarFoto from '../../../../components/PopUps/ModalAdicionarFoto';
+import ModalOk from '../../../../components/PopUps/ModalOk';
 
 export default function NovaConsulta({ navigation }) {
-  const imageFormData = global.FormData;
+  const requestFormData = global.FormData;
   let formikRef = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [userPhoto, setUserPhoto] = useState();
+  const [fotoDoPe, setFotoDoPe] = useState();
   const [modalAdicionarFotoVisivel, setModalAdicionarFotoVisivel] = useState(false);
+  const [modalSolicitacaoComSucesso, setModalSolicitacaoComSucesso] = useState(false);
   
   const handleSubmit = () => {
     if (formikRef.current) {
@@ -23,6 +25,12 @@ export default function NovaConsulta({ navigation }) {
       formikRef.current.submitForm();
     }
   };
+
+  const fecharModalSolicitacaoComSucesso = async () => {
+    await removerImagem();
+    formikRef.current?.resetForm();
+    setModalSolicitacaoComSucesso(false);
+  }
 
   const solicitarNovaConsulta = async (observacao) => {
     setIsLoading(true);
@@ -34,8 +42,32 @@ export default function NovaConsulta({ navigation }) {
       setIsLoading(false);
       return;
     }
+    if (!fotoDoPe) {
+      Alert.alert(
+        'Erro',
+        'Envie alguma foto.'
+      );
+      setIsLoading(false);
+      return;
+    }
     try {
-      const response = await api.post(`/appointment/registrar-consulta`, { picture: "1", obs: observacao.obs });
+      //mandando a imagem para o back
+      const formData = new requestFormData();
+      formData.append("file", {
+        name: "foto-perfil",
+        type: "image/jpeg",
+        uri: fotoDoPe,
+      });
+
+      // formatando conteúdo do json no formData
+      formData.append('obs', observacao.obs);
+
+      const response = await api.post(`/appointment/registrar-consulta`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      setModalSolicitacaoComSucesso(true);
       console.log(response.data);
       console.log(response);
     } catch (error) {
@@ -73,7 +105,7 @@ export default function NovaConsulta({ navigation }) {
 
       if (!result.canceled) {
         //salvamos a imagem aqui
-        setUserPhoto(result.assets[0].uri);
+        setFotoDoPe(result.assets[0].uri);
       }
       setModalAdicionarFotoVisivel(false);
 
@@ -88,7 +120,7 @@ export default function NovaConsulta({ navigation }) {
   //função para remover a foto do perfil
   const removerImagem = async () => {
     try {
-      setUserPhoto(undefined);
+      setFotoDoPe(undefined);
     } catch (error) {
       console.log(error);
       setModalAdicionarFotoVisivel(false);
@@ -99,7 +131,7 @@ export default function NovaConsulta({ navigation }) {
     <SafeAreaView className='flex h-full w-full bg-branco'>
       <View className='flex h-full justify-between px-5'>
         <View className='flex space-y-4'>
-          <ButtonEnviarFoto texto='Adicionar foto do pé' foto={userPhoto} onPressComFoto={removerImagem} onPress={() => setModalAdicionarFotoVisivel(true)} />
+          <ButtonEnviarFoto texto='Adicionar foto do pé' foto={fotoDoPe} onPressComFoto={removerImagem} onPress={() => setModalAdicionarFotoVisivel(true)} />
 
           <Text className='text-[23px] font-semibold text-[#46555A]'>
             Observações
@@ -159,6 +191,11 @@ export default function NovaConsulta({ navigation }) {
       onCameraClick={() => uploadCamera("camera")}
       onGaleriaClick={() => uploadCamera("galeria")}
       onRemoverFotoClick={() => removerImagem()}
+      />
+      <ModalOk 
+      modalVisible={modalSolicitacaoComSucesso}
+      mensagem='Solicitação de consulta enviada com sucesso!'
+      onOkClick={() => fecharModalSolicitacaoComSucesso()}
       />
     </SafeAreaView>
   );
