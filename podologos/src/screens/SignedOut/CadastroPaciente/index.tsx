@@ -13,50 +13,18 @@ import AuthContext from '../../../context/AuthContext';
 import api from '../../../services/axios';
 import { useNavigation } from '@react-navigation/native';
 import { regex } from '../../../components/ReGex';
+import ModalAdicionarFoto from '../../../components/PopUps/ModalAdicionarFoto';
+import ButtonEnviarFoto from '../../../components/ButtonEnviarFoto';
 
 export default function CadastroPaciente() {
+  const requestFormData = global.FormData;
+  const [modalAdicionarFotoVisivel, setModalAdicionarFotoVisivel] = useState(false);
+  const [fotoUsuario, setFotoUsuario] = useState();
   const [isLoadingLogin, setIsLoadingLogin] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [image, setImage] = useState(null);
   const { signed, user, signIn } = useContext(AuthContext);
   const navigation = useNavigation();
-
-  const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-    console.log(result);
-    if (!result.canceled) {
-      setImage(result.assets[0].uri);
-    }
-  };
-
-  async function signUp(data: any) {
-    setIsLoadingLogin(true);
-    try {
-      //Toast.info("Aguarde...", "");
-      const response = await api.post('/patient/registrar-paciente', data);
-      Toast.success('Sucesso ao cadastrar', '');
-      const userCredentials = {
-        email: data.email,
-        password: data.password,
-      };
-      await signIn(userCredentials);
-      console.log('Após chamada de signIn');
-
-      return response.data;
-    } catch (err: any) {
-      Toast.error('Erro no cadastro', '');
-      console.log(err);
-      console.log(err.response.data);
-      console.log(err.response.status);
-    }
-    setIsLoadingLogin(false);
-  }
-
 
   const column = [
     {
@@ -87,21 +55,119 @@ export default function CadastroPaciente() {
     },
   ];
 
+  async function signUp(data: any) {
+    setIsLoadingLogin(true);
+
+    if (!fotoUsuario) {
+      Alert.alert(
+        'Erro',
+        'Envie alguma foto.'
+      );
+      setIsLoadingLogin(false);
+      return;
+    }
+
+    try {
+
+      //mandando a imagem para o back
+      const formData = new requestFormData();
+      formData.append("file", {
+        name: "foto-perfil",
+        type: "image/jpeg",
+        uri: fotoUsuario,
+      });
+
+      // adicionando todos os valores do formik no formData
+      Object.keys(data).forEach((key) => {
+        const value = data[key];
+
+        // adicionando no form data
+        formData.append(key, String(value));
+        
+      });
+
+      const response = await api.post('/patient/registrar-paciente', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      Toast.success('Sucesso ao cadastrar', '');
+      const userCredentials = {
+        email: data.email,
+        password: data.password,
+      };
+      await signIn(userCredentials);
+      console.log('Após chamada de signIn');
+
+      return response.data;
+    } catch (err: any) {
+      Toast.error('Erro no cadastro', '');
+      console.log(err);
+      console.log(err.response.data);
+      console.log(err.response.status);
+    }
+    setIsLoadingLogin(false);
+  }
+
+  //função de upload pela câmera
+    const uploadCamera = async (modo) => {
+      try {
+        let result = {};
+        if (modo === "galeria") {
+          await ImagePicker.requestCameraPermissionsAsync();
+          result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [1, 1],
+            quality: 1,
+          });
+        } else {
+          await ImagePicker.requestCameraPermissionsAsync();
+          result = await ImagePicker.launchCameraAsync({
+            cameraType: ImagePicker.CameraType.front,
+            allowsEditing: true,
+            aspect: [1, 1],
+            quality: 1,
+          });
+        }
+  
+        if (!result.canceled) {
+          //salvamos a imagem aqui
+          setFotoUsuario(result.assets[0].uri);
+        }
+        setModalAdicionarFotoVisivel(false);
+  
+        console.log("IMAGEM TIRADA COM SUCESSO E SALVA");
+        console.log(result);
+      } catch (error) {
+        console.log(error);
+        setModalAdicionarFotoVisivel(false);
+      }
+    };
+  
+    //função para remover a foto do perfil
+    const removerImagem = async () => {
+      try {
+        setFotoUsuario(undefined);
+      } catch (error) {
+        console.log(error);
+        setModalAdicionarFotoVisivel(false);
+      }
+    };
+
   return (
     <SafeAreaView className='flex h-full w-full flex-col items-center bg-branco'>
       <ScrollView className='w-full'>
-        <Button
-          className='mb-4 mt-6 w-[87%] self-center border-[1px] border-azul bg-branco'
-          text='text-azul'
-          placeholder='Adicionar foto de perfil'
-          onPress={pickImage}
-        >
-          <MaterialIcons name='add' size={20} color='#2087ED' />
-        </Button>
+        <View className='flex w-[87%] items-center self-center mb-4'>
+          <ButtonEnviarFoto 
+          texto='Adicionar foto de perfil' 
+          foto={fotoUsuario} 
+          onPressComFoto={removerImagem} 
+          onPress={() => setModalAdicionarFotoVisivel(true)} />
+        </View>
         <FormData.Root
           schema={CadastroSchema}
           initialValues={{
-            profile_picture: '1',
             first_name: '',
             last_name: '',
             email: '',
@@ -149,6 +215,15 @@ export default function CadastroPaciente() {
         </FormData.Root>
       </ScrollView>
       <ToastManager position='center' />
+      <ModalAdicionarFoto
+      mensagem='Adicionar foto de perfil'
+      modalVisible={modalAdicionarFotoVisivel}
+      onFecharModalClick={() => setModalAdicionarFotoVisivel(false)}
+      fotoApagavel={false}
+      onCameraClick={() => uploadCamera("camera")}
+      onGaleriaClick={() => uploadCamera("galeria")}
+      onRemoverFotoClick={() => removerImagem()}
+      />
     </SafeAreaView>
   );
 }
