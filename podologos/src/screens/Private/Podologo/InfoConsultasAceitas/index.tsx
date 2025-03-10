@@ -18,7 +18,7 @@ function InfoConsultasAceitas({route, navigation}) {
   const [requestError, setRequestError] = useState();
   const [requestErrorMarcarRealizada, setRequestErrorMarcarRealizada] = useState();
 
-  const data = dadosConsulta.lastUpdate ? new Date(dadosConsulta.lastUpdate).toLocaleDateString("pt-BR"): "Data desconhecida";
+  const data = dadosConsulta.date_accept ? new Date(dadosConsulta.date_accept).toLocaleDateString("pt-BR"): "Data desconhecida";
 
   async function onYesModal() {
     await marcarRealizadaConsulta();
@@ -81,10 +81,14 @@ function InfoConsultasAceitas({route, navigation}) {
     <SafeAreaView className='flex h-full w-full bg-branco'>
       <ScrollView className='flex space-y-4 px-5'>
         <Image
-          source={FotoPe}
+          source={ dadosConsulta.picture ? { uri: dadosConsulta.picture } : null }
           alt=''
-          className='self-center rounded-2xl'
-        ></Image>
+          className='self-center rounded-2xl w-full'
+          style={{
+            aspectRatio: 1, // Adjust this based on your image aspect ratio
+            resizeMode: 'contain', // Keeps the image within bounds
+          }}
+        />
         <Text className='text-[18px] font-semibold text-texto_cinza'>
           Informações do paciente
         </Text>
@@ -94,6 +98,7 @@ function InfoConsultasAceitas({route, navigation}) {
           cep={dadosConsulta.patient.cep}
           navigation={navigation}
           userId={dadosConsulta.patient.user_id}
+          image={dadosConsulta.patient.profile_picture}
         />
         <View className='w-[80%] self-center border-b-[1px] opacity-10'></View>
         <Text className='self-center text-[16px] text-azul'>

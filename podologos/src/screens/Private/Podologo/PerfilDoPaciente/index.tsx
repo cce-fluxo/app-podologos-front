@@ -130,15 +130,15 @@ function PerfilDoPaciente({route, navigation}) {
 
   return (
     <SafeAreaView className='flex w-full bg-branco'>
-      <ScrollView className='flex space-y-5 px-5'>
-        <View className='flex items-center justify-center pt-5'>
-          <Image className='' source={PerfilImage} />
+      <ScrollView className='flex space-y-5'>
+        <View className='flex items-center justify-center pt-5 px-5'>
+          <Image className='h-24 w-24 rounded-full' source={dadosPaciente.profile_picture ? { uri: dadosPaciente.profile_picture } : PerfilImage} />
           <View className='mt-3 flex flex-row items-center justify-center space-x-2 rounded-md bg-zinc-100 p-1'>
             <Entypo name='star' size={20} color='black' />
             <Text className='font-semibold'>{dadosPaciente.avg.rating}</Text>
           </View>
         </View>
-        <View className='flex space-y-6'>
+        <View className='flex space-y-6 px-5'>
           <ProfileInfo label='Nome' text={dadosPaciente.first_name} />
           <ProfileInfo label='Sobrenome' text={dadosPaciente.last_name} />
           <ProfileInfo
@@ -150,7 +150,7 @@ function PerfilDoPaciente({route, navigation}) {
         </View>
         <View className='w-[80%] self-center border-b-[1px] opacity-10' />
         {route.params.consultaConcluida &&
-        <View className='flex space-y-5'>
+        <View className='flex space-y-5 px-5'>
           <View className='flex w-[75%] flex-row justify-between self-center'>
             <TouchableOpacity onPress={() => novaNota(1)}>
               <Entypo name={notas[0]} size={30} color='black' />

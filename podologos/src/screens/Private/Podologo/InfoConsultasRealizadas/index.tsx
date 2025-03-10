@@ -14,7 +14,7 @@ function InfoConsultasRealizadas({route, navigation}) {
   const [dadosConsulta, setDadosConsulta] = useState({});
   const [requestError, setRequestError] = useState();
 
-  const data = dadosConsulta.lastUpdate ? new Date(dadosConsulta.lastUpdate).toLocaleDateString("pt-BR"): "Data desconhecida";
+  const data = dadosConsulta.date_finished ? new Date(dadosConsulta.date_finished).toLocaleDateString("pt-BR"): "Data desconhecida";
 
   const buscarDadosSolicitacao = async () => {
     setIsLoading(true);
@@ -53,10 +53,14 @@ function InfoConsultasRealizadas({route, navigation}) {
     <SafeAreaView className='flex h-full w-full bg-branco'>
       <ScrollView className='flex space-y-4 px-5 pt-6'>
         <Image
-          source={FotoPe}
+          source={ dadosConsulta.picture ? { uri: dadosConsulta.picture } : null }
           alt=''
-          className='self-center rounded-2xl'
-        ></Image>
+          className='self-center rounded-2xl w-full'
+          style={{
+            aspectRatio: 1, // Adjust this based on your image aspect ratio
+            resizeMode: 'contain', // Keeps the image within bounds
+          }}
+        />
         <Text className='text-[18px] font-semibold text-texto_cinza'>
           Informações do paciente
         </Text>
@@ -67,6 +71,7 @@ function InfoConsultasRealizadas({route, navigation}) {
           navigation={navigation}
           userId={dadosConsulta.patient.user_id}
           consultaConcluida
+          image={dadosConsulta.patient.profile_picture}
         />
         <View className='w-[80%] self-center border-b-[1px] opacity-10'></View>
         <Text className='self-center text-[16px] text-azul'>

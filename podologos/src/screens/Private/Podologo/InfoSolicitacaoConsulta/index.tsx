@@ -79,10 +79,14 @@ function InfoSolicitacaoConsulta({ route, navigation }: any) {
     <SafeAreaView className='flex h-full w-full bg-branco'>
       <ScrollView className='flex space-y-4 px-5 pt-5'>
         <Image
-          source={FotoPe}
+          source={ dadosSolicitacao.picture ? { uri: dadosSolicitacao.picture } : null }
           alt=''
-          className='self-center rounded-2xl'
-        ></Image>
+          className='self-center rounded-2xl w-full'
+          style={{
+            aspectRatio: 1, // Adjust this based on your image aspect ratio
+            resizeMode: 'contain', // Keeps the image within bounds
+          }}
+        />
         <Text className='text-[18px] font-semibold text-texto_cinza'>
           Informações do paciente
         </Text>
@@ -92,6 +96,7 @@ function InfoSolicitacaoConsulta({ route, navigation }: any) {
           cep={dadosSolicitacao.patient.cep} 
           navigation={navigation}
           userId={dadosSolicitacao.patient.user_id}
+          image={dadosSolicitacao.patient.profile_picture}
         />
         <View className='w-[80%] self-center border-b-[1px] opacity-10'></View>
         <Text className='text-[18px] font-semibold text-texto_cinza'>
