@@ -14,6 +14,9 @@ import { useRoute } from '@react-navigation/native';
 import { regex } from '../../../components/ReGex';
 import { Formik } from 'formik';
 import ModalOk from '../../../components/PopUps/ModalOk';
+import * as ImagePicker from 'expo-image-picker';
+import ModalAdicionarFoto from '../../../components/PopUps/ModalAdicionarFoto';
+import ButtonEnviarFoto from '../../../components/ButtonEnviarFoto';
 
 export type RouteParams = {
   institution?: string;
@@ -22,17 +25,20 @@ export type RouteParams = {
 };
 
 export default function CadastroPodologo({ navigation }: any) {
+  const requestFormData = global.FormData;
+  const [modalAdicionarFotoVisivel, setModalAdicionarFotoVisivel] = useState(false);
+  const [fotoUsuario, setFotoUsuario] = useState();
   const [isLoadingLogin, setIsLoadingLogin] = useState(false);
   const [visibilidadeCadastroComSucessoPopup, setVisibilidadeCadastroComSucessoPopup] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [infoFormacao, setInfoFormacao] = useState({
     institution: '',
     degree_year: '',
-    degree_type: ''
+    degree_type: '',
+    degree_photo: ''
   });
-  const route = useRoute();
-  const [formData, setFormData] = useState({
-    profile_picture: 'ss',
+
+  const initialValues = {
     first_name: '',
     last_name: '',
     email: '',
@@ -40,7 +46,7 @@ export default function CadastroPodologo({ navigation }: any) {
     cep: '',
     password: '',
     confirmarSenha: '',
-  });
+  };
 
   const navigateToFormacao = () => {
     navigation.navigate('FormacaoPodologo', {
@@ -55,10 +61,62 @@ export default function CadastroPodologo({ navigation }: any) {
 
   async function signUp(data: object) {
     setIsLoadingLogin(true);
+    if (!fotoUsuario) {
+      Alert.alert(
+        'Erro',
+        'Envie alguma foto de usuário.'
+      );
+      setIsLoadingLogin(false);
+      return;
+    }
+
+    if (!infoFormacao.degree_photo) {
+      Alert.alert(
+        'Erro',
+        'Envie alguma foto de diploma.'
+      );
+      setIsLoadingLogin(false);
+      return;
+    }
+
     try {
-      const infoPod = {...data, ...infoFormacao};
-      console.log(infoPod);
-      const response = await api.post('/doctor/register', infoPod);
+
+      //formatando a imagem para o back
+      const formData = new requestFormData();
+      formData.append("images", {
+        name: "fotoPerfil",
+        type: "image/jpeg",
+        uri: fotoUsuario,
+      });
+      formData.append("images", {
+        name: "fotoDiploma",
+        type: "image/jpeg",
+        uri: infoFormacao.degree_photo,
+      });
+
+      // adicionando todos os valores do formik no formData
+      Object.keys(data).forEach((key) => {
+        const value = data[key];
+        // adicionando no form data
+        formData.append(key, String(value));
+      });
+
+      const {degree_photo, ...restoInfoFormacao} = infoFormacao;
+      console.log(restoInfoFormacao);
+      // adicionando todos os valores de infoFormacao do formik no formData
+      Object.keys(restoInfoFormacao).forEach((key) => {
+        const value = restoInfoFormacao[key];
+        // adicionando no form data
+        formData.append(key, String(value));
+      });
+
+      // const infoPod = {...data, ...infoFormacao};
+      // console.log(infoPod);
+      const response = await api.post('/doctor/register', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
       Toast.success('Sucesso ao cadastrar');
       console.log(response.data);
       setVisibilidadeCadastroComSucessoPopup(true);
@@ -70,6 +128,52 @@ export default function CadastroPodologo({ navigation }: any) {
     }
     setIsLoadingLogin(false);
   }
+
+  //função de upload pela câmera
+  const uploadCamera = async (modo) => {
+    try {
+      let result = {};
+      if (modo === "galeria") {
+        await ImagePicker.requestCameraPermissionsAsync();
+        result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.Images,
+          allowsEditing: true,
+          aspect: [1, 1],
+          quality: 1,
+        });
+      } else {
+        await ImagePicker.requestCameraPermissionsAsync();
+        result = await ImagePicker.launchCameraAsync({
+          cameraType: ImagePicker.CameraType.front,
+          allowsEditing: true,
+          aspect: [1, 1],
+          quality: 1,
+        });
+      }
+
+      if (!result.canceled) {
+        //salvamos a imagem aqui
+        setFotoUsuario(result.assets[0].uri);
+      }
+      setModalAdicionarFotoVisivel(false);
+
+      console.log("IMAGEM TIRADA COM SUCESSO E SALVA");
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+      setModalAdicionarFotoVisivel(false);
+    }
+  };
+
+  //função para remover a foto do perfil
+  const removerImagem = async () => {
+    try {
+      setFotoUsuario(undefined);
+    } catch (error) {
+      console.log(error);
+      setModalAdicionarFotoVisivel(false);
+    }
+  };
 
   const inputsCadastro = [
     {
@@ -106,7 +210,7 @@ export default function CadastroPodologo({ navigation }: any) {
         />
         <FormData.Root
           schema={CadastroSchema}
-          initialValues={formData}
+          initialValues={initialValues}
           onSubmit={(values) => {
             if (!isChecked) {
               Alert.alert(
@@ -131,13 +235,15 @@ export default function CadastroPodologo({ navigation }: any) {
             columns={inputsCadastro}
             id='formQuestion'
           >
-            <Button
-              className='mb-4 mt-4 w-[87%] self-center border-[1px] border-azul bg-branco'
-              text='text-azul'
-              placeholder='Adicionar foto de perfil'
-            >
-              <MaterialIcons name='add' size={20} color='#2087ED' />
-            </Button>
+            <View className='flex w-[87%] items-center self-center mb-4 mt-4'>
+              <ButtonEnviarFoto 
+                texto='Adicionar foto de perfil' 
+                foto={fotoUsuario} 
+                onPressComFoto={removerImagem} 
+                onPress={() => setModalAdicionarFotoVisivel(true)}
+              />
+            </View>
+            
             <View className='flex w-[90%] flex-row items-center self-center'>
               <Checkbox
                 className='ml-4'
@@ -150,6 +256,15 @@ export default function CadastroPodologo({ navigation }: any) {
           </FormData.Form>
         </FormData.Root>
       </ScrollView>
+      <ModalAdicionarFoto
+        mensagem='Adicionar foto de perfil'
+        modalVisible={modalAdicionarFotoVisivel}
+        onFecharModalClick={() => setModalAdicionarFotoVisivel(false)}
+        fotoApagavel={false}
+        onCameraClick={() => uploadCamera("camera")}
+        onGaleriaClick={() => uploadCamera("galeria")}
+        onRemoverFotoClick={() => removerImagem()}
+      />
     </SafeAreaView>
   );
 }

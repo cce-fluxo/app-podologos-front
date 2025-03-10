@@ -18,7 +18,7 @@ export default function ButtonEnviarFoto ({ texto = 'Enviar imagem', foto, onPre
     if (foto) {
         return (
             <Button
-                className='mt-8 w-full self-center flex'
+                className='w-full self-center flex'
                 text='text-white'
                 placeholder='Foto'
                 onPress={onPressComFoto}
@@ -30,7 +30,7 @@ export default function ButtonEnviarFoto ({ texto = 'Enviar imagem', foto, onPre
   
     return (
         <Button
-            className='mt-8 w-full self-center border-[1px] border-azul bg-branco'
+            className='w-full self-center border-[1px] border-azul bg-branco'
             text='text-azul'
             placeholder={texto}
             onPress={onPress}

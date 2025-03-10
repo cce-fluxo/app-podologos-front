@@ -1,16 +1,25 @@
-import { SafeAreaView, Text, View } from 'react-native';
+import { Alert, SafeAreaView, Text, View } from 'react-native';
 import React, { useState } from 'react';
 import Input from '../../../components/Inputs';
 import { Button } from '../../../components/Button';
 import { Formik } from 'formik';
 import { RouteParams } from '../CadastroPodologo';
 import { Dropdown } from 'react-native-element-dropdown';
+import * as ImagePicker from 'expo-image-picker';
+import ModalAdicionarFoto from '../../../components/PopUps/ModalAdicionarFoto';
+import ButtonEnviarFoto from '../../../components/ButtonEnviarFoto';
 
 export default function FormacaoPodologo({ route, navigation }: any) {
   let formikRef = React.useRef(null);
-  const [formacao, setformacao] = useState('');
+  const [modalAdicionarFotoVisivel, setModalAdicionarFotoVisivel] = useState(false);
+  const [fotoDiploma, setFotoDiploma] = useState(route.params.infoFormacaoPodologo.degree_photo);
   const [formacaoValue, setFormacaoValue] = useState(route.params.infoFormacaoPodologo.degree_type);
   const [dropdownIsFocus, setDropdownIsFocus] = useState(false);
+
+  const tiposFormacao = [
+    { label: 'Superior', value: 'Superior' },
+    { label: 'Técnico', value: 'Tecnico' },
+  ];
 
   const handleSubmit = () => {
     if (formikRef.current) {
@@ -25,14 +34,62 @@ export default function FormacaoPodologo({ route, navigation }: any) {
     //   degree_year: values.degree_year,
     //   degree_type: values.degree_type,
     // });
-    route.params.onGoBack({...values, degree_type: formacaoValue});
+    if (!fotoDiploma) {
+      Alert.alert(
+        'Erro',
+        'Você precisa enviar uma foto do diploma.'
+      );
+      return;
+    }
+    route.params.onGoBack({...values, degree_type: formacaoValue, degree_photo: fotoDiploma});
     navigation.goBack();
   }
 
-  const tiposFormacao = [
-    { label: 'Superior', value: 'Superior' },
-    { label: 'Técnico', value: 'Tecnico' },
-  ];
+  //função de upload pela câmera
+  const uploadCamera = async (modo) => {
+    try {
+      let result = {};
+      if (modo === "galeria") {
+        await ImagePicker.requestCameraPermissionsAsync();
+        result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.Images,
+          allowsEditing: true,
+          aspect: [1, 1],
+          quality: 1,
+        });
+      } else {
+        await ImagePicker.requestCameraPermissionsAsync();
+        result = await ImagePicker.launchCameraAsync({
+          cameraType: ImagePicker.CameraType.front,
+          allowsEditing: true,
+          aspect: [1, 1],
+          quality: 1,
+        });
+      }
+
+      if (!result.canceled) {
+        //salvamos a imagem aqui
+        setFotoDiploma(result.assets[0].uri);
+      }
+      setModalAdicionarFotoVisivel(false);
+
+      console.log("IMAGEM TIRADA COM SUCESSO E SALVA");
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+      setModalAdicionarFotoVisivel(false);
+    }
+  };
+
+  //função para remover a foto do perfil
+  const removerImagem = async () => {
+    try {
+      setFotoDiploma(undefined);
+    } catch (error) {
+      console.log(error);
+      setModalAdicionarFotoVisivel(false);
+    }
+  };
 
   return (
     <SafeAreaView className='flex w-full flex-1 items-center bg-branco'>
@@ -115,11 +172,12 @@ export default function FormacaoPodologo({ route, navigation }: any) {
                     }}
                   />
                 </View>
-                <View className='w-full items-center'>
-                  <Button
-                    text='text-azul text-[16px]'
-                    className='items-center border-[1px] border-azul bg-white'
-                    placeholder='+ Adicionar diploma'
+                <View className='items-center w-[90%]'>
+                  <ButtonEnviarFoto 
+                    texto='Adicionar diploma' 
+                    foto={fotoDiploma} 
+                    onPressComFoto={removerImagem} 
+                    onPress={() => setModalAdicionarFotoVisivel(true)}
                   />
                 </View>
               </View>
@@ -133,6 +191,15 @@ export default function FormacaoPodologo({ route, navigation }: any) {
           onPress={handleSubmit}
         />
       </View>
+      <ModalAdicionarFoto
+        mensagem='Adicionar foto do diploma'
+        modalVisible={modalAdicionarFotoVisivel}
+        onFecharModalClick={() => setModalAdicionarFotoVisivel(false)}
+        fotoApagavel={false}
+        onCameraClick={() => uploadCamera("camera")}
+        onGaleriaClick={() => uploadCamera("galeria")}
+        onRemoverFotoClick={() => removerImagem()}
+      />
     </SafeAreaView>
   );
 }
