@@ -15,7 +15,6 @@ import { useNavigation } from '@react-navigation/native';
 import { regex } from '../../../components/ReGex';
 
 export default function CadastroPaciente() {
-  const [isLoadingLogin, setIsLoadingLogin] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [image, setImage] = useState(null);
   const { signed, user, signIn } = useContext(AuthContext);
@@ -31,11 +30,12 @@ export default function CadastroPaciente() {
     console.log(result);
     if (!result.canceled) {
       setImage(result.assets[0].uri);
+      console.log(result.assets[0].uri);
+      console.log(image);
     }
   };
 
   async function signUp(data: any) {
-    setIsLoadingLogin(true);
     try {
       //Toast.info("Aguarde...", "");
       const response = await api.post('/patient/registrar-paciente', data);
@@ -54,10 +54,7 @@ export default function CadastroPaciente() {
       console.log(err.response.data);
       console.log(err.response.status);
     }
-    setIsLoadingLogin(false);
   }
-
-
   const column = [
     {
       name: 'first_name',
@@ -78,77 +75,86 @@ export default function CadastroPaciente() {
       mascara: regex['CEP'],
       component: Input,
     },
-    { name: 'password', placeholder: 'Senha*', secureTextEntry: true, component: Input },
+    { name: 'password', placeholder: 'Senha*', component: Input },
     {
       name: 'confirmarSenha',
-      placeholder: 'Confirmar senha*', 
-      secureTextEntry: true,
+      placeholder: 'Confirmar senha*',
       component: Input,
     },
   ];
 
   return (
-    <SafeAreaView className='flex h-full w-full flex-col items-center bg-branco'>
-      <ScrollView className='w-full'>
-        <Button
-          className='mb-4 mt-6 w-[87%] self-center border-[1px] border-azul bg-branco'
-          text='text-azul'
-          placeholder='Adicionar foto de perfil'
-          onPress={pickImage}
-        >
-          <MaterialIcons name='add' size={20} color='#2087ED' />
-        </Button>
-        <FormData.Root
-          schema={CadastroSchema}
-          initialValues={{
-            profile_picture: '1',
-            first_name: '',
-            last_name: '',
-            email: '',
-            phone_number: '',
-            cep: '',
-            password: '',
-            confirmarSenha: '',
-          }}
-          onSubmit={(data) => {
-            {
-              if (!isChecked) {
-                Alert.alert(
-                  'Erro',
-                  'Você deve aceitar os Termos e Condições para continuar.'
-                );
-                return;
-              }
-              const { confirmarSenha, ...filteredData } = data;
-              signUp(filteredData);
-              console.log(filteredData);
-            }
-          }}
-        >
-          <FormData.Form
-            retornavel={true}
-            ButtonStyles={{
-              className: 'self-center mt-2 mb-10 w-[87%]',
-              placeholder: 'Criar conta',
-              disabled: isLoadingLogin,
-              loading: isLoadingLogin,
+    <>
+      <ToastManager position='top' />
+      <SafeAreaView className='flex h-full w-full flex-col items-center bg-branco'>
+        <ScrollView className='w-full'>
+          {image ? (
+            <Button
+              className='mb-4 mt-6 w-[87%] self-center'
+              placeholder='Foto'
+              onPress={() => setImage(null)}
+            >
+              <MaterialIcons name='close' size={20} color='#fbfbfb' />
+            </Button>
+          ) : (
+            <Button
+              className='mb-4 mt-6 w-[87%] self-center border-[1px] border-azul bg-branco'
+              text='text-azul'
+              placeholder='Adicionar foto de perfil'
+              onPress={pickImage}
+            >
+              <MaterialIcons name='add' size={20} color='#2087ED' />
+            </Button>
+          )}
+          <FormData.Root
+            schema={CadastroSchema}
+            initialValues={{
+              profile_picture: '1',
+              first_name: '',
+              last_name: '',
+              email: '',
+              phone_number: '',
+              cep: '',
+              password: '',
+              confirmarSenha: '',
             }}
-            columns={column}
-            id='formQuestion'
+            onSubmit={(data) => {
+              {
+                if (!isChecked) {
+                  Alert.alert(
+                    'Erro',
+                    'Você deve aceitar os Termos e Condições para continuar.'
+                  );
+                  return;
+                }
+                const { confirmarSenha, ...filteredData } = data;
+                signUp(filteredData);
+                console.log(filteredData);
+              }
+            }}
           >
-            <View className='mb-4 mt-4 flex w-[90%] flex-row items-center self-center'>
-              <Checkbox
-                className='ml-4'
-                value={isChecked}
-                onValueChange={setIsChecked}
-                color={isChecked ? '#00C86F' : undefined}
-              />
-              <TermosCondicoes />
-            </View>
-          </FormData.Form>
-        </FormData.Root>
-      </ScrollView>
-      <ToastManager position='center' />
-    </SafeAreaView>
+            <FormData.Form
+              retornavel={true}
+              ButtonStyles={{
+                className: 'self-center mt-2 mb-10 w-[87%]',
+                placeholder: 'Criar conta',
+              }}
+              columns={column}
+              id='formQuestion'
+            >
+              <View className='mb-4 mt-4 flex w-[90%] flex-row items-center self-center'>
+                <Checkbox
+                  className='ml-4'
+                  value={isChecked}
+                  onValueChange={setIsChecked}
+                  color={isChecked ? '#00C86F' : undefined}
+                />
+                <TermosCondicoes />
+              </View>
+            </FormData.Form>
+          </FormData.Root>
+        </ScrollView>
+      </SafeAreaView>
+    </>
   );
 }
